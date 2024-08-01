@@ -6,6 +6,12 @@ require_once '../../classes/Complaint.php';
 
 $database = new Database();
 $db = $database->getConnection();
+
+$complaintData = $complaint->read(18);
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
