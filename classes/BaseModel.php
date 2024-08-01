@@ -1,72 +1,58 @@
 <?php
-class BaseModel {
+class BaseModel
+{
     protected $conn;
     protected $table;
 
-    public function __construct($db, $table) {
+    public function __construct($db)
+    {
         $this->conn = $db;
-        $this->table = $table;
     }
 
-    public function register($data) {
-        $columns = implode(", ", array_keys($data));
-        $placeholders = ":" . implode(", :", array_keys($data));
-        $sql = "INSERT INTO " . $this->table . " ($columns) VALUES ($placeholders)";
-        $stmt = $this->conn->prepare($sql);
-
-        foreach ($data as $key => &$val) {
-            $stmt->bindParam(':' . $key, $val);
+    public function create($data)
+    {
+        $fields = implode(", ", array_keys($data));
+        $placeholders = implode(", ", array_fill(0, count($data), '?'));
+        $stmt = $this->conn->prepare("INSERT INTO $this->table ($fields) VALUES ($placeholders)");
+        
+        $types = str_repeat('s', count($data));
+        $values = array_values($data);
+        $stmt->bind_param($types, ...$values);
+        
+        if ($stmt->execute()) {
+            return $stmt->insert_id;
+        } else {
+            return false;
         }
-
-        return $stmt->execute();
     }
 
-    public function update($data, $conditions) {
-        $set = "";
-        foreach ($data as $key => $val) {
-            $set .= $key . " = :" . $key . ", ";
-        }
-        $set = rtrim($set, ", ");
-
-        $where = "";
-        foreach ($conditions as $key => $val) {
-            $where .= $key . " = :" . $key . " AND ";
-        }
-        $where = rtrim($where, " AND ");
-
-        $sql = "UPDATE " . $this->table . " SET $set WHERE $where";
-        $stmt = $this->conn->prepare($sql);
-
-        foreach ($data as $key => &$val) {
-            $stmt->bindParam(':' . $key, $val);
-        }
-        foreach ($conditions as $key => &$val) {
-            $stmt->bindParam(':' . $key, $val);
-        }
-
-        return $stmt->execute();
-    }
-
-    public function show($conditions = []) {
-        $sql = "SELECT * FROM " . $this->table;
-        if (!empty($conditions)) {
-            $where = " WHERE ";
-            foreach ($conditions as $key => $val) {
-                $where .= $key . " = :" . $key . " AND ";
-            }
-            $where = rtrim($where, " AND ");
-            $sql .= $where;
-        }
-        $stmt = $this->conn->prepare($sql);
-
-        if (!empty($conditions)) {
-            foreach ($conditions as $key => &$val) {
-                $stmt->bindParam(':' . $key, $val);
-            }
-        }
-
+    public function read($id)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM $this->table WHERE id = ?");
+        $stmt->bind_param('i', $id);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    public function update($id, $data)
+    {
+        $fields = implode(" = ?, ", array_keys($data)) . " = ?";
+        $stmt = $this->conn->prepare("UPDATE $this->table SET $fields WHERE id = ?");
+        
+        $types = str_repeat('s', count($data)) . 'i';
+        $values = array_values($data);
+        $values[] = $id;
+        $stmt->bind_param($types, ...$values);
+        
+        return $stmt->execute();
+    }
+
+    public function delete($id)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM $this->table WHERE id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
     }
 }
 ?>
