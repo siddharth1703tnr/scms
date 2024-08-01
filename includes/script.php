@@ -10,8 +10,6 @@
 <script src="<?php echo BASE_URL; ?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
 <script src="<?php echo BASE_URL; ?>assets/plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="<?php echo BASE_URL; ?>assets/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
 <script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/jquery.vmap.min.js"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
@@ -30,5 +28,3 @@
 <script src="<?php echo BASE_URL; ?>assets/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo BASE_URL; ?>assets/dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo BASE_URL; ?>assets/dist/js/pages/dashboard.js"></script>
