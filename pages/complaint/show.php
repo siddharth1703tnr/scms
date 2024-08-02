@@ -33,10 +33,29 @@ $complaints = $complaint->getAllComplaints();
         <?php require_once('../../includes/asidde-st.php') ?>
 
         <div class="content-wrapper">
+
+                            <!-- Content Header (Page header) -->
+                            <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1>Complaint Show</h1>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                        <li class="breadcrumb-item active">Complaint</li>
+                                        <li class="breadcrumb-item active">Show</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div><!-- /.container-fluid -->
+                    </section>
+
             <div class="container-fluid">
-                <div class="card card-warning card-outline mt-2">
+                <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto"><h3 class="card-title">User Managements</h3></div>
+                        <div class="mr-auto"><h3 class="card-title">Complainnt Show</h3></div>
                         <div class="ml-auto"><a href="<?php echo BASE_URL; ?>pages\complaint\register.php"><button type="button" class="btn btn-outline-success">Add User</button></a></div>
                     </div>
                     <!-- /.card-header -->
