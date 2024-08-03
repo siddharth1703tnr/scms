@@ -29,6 +29,20 @@ class Complaint extends BaseModel
             }
         }
         return $complaints;
-    }       
+    }
+
+    // Method to get active technicians
+    public function getTechnicians()
+    {
+        $query = "SELECT id, firstname, lastname FROM servicecenteruser WHERE roletype = 'Technician' AND isactive = 'Y'";
+        $result = $this->conn->query($query);
+        $technicians = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $technicians[] = $row;
+            }
+        }
+        return $technicians;
+    }
 }
 ?>
