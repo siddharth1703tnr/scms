@@ -78,9 +78,19 @@ $complaints = $complaint->getAllComplaints();
                                     <?php foreach ($complaints as $complaint) : ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($complaint['callnumber']); ?></td>
-                                            <td>
 
+                                            <td class="d-flex align-items-center">
+                                                <a class="btn btn-primary btn-sm mr-1" href="#">
+                                                    <i class="fas fa-folder"></i> View
+                                                </a>
+                                                <a class="btn btn-info btn-sm mr-1" href="#">
+                                                    <i class="fas fa-pencil-alt"></i> Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </a>
                                             </td>
+
                                             <td><?php echo htmlspecialchars($complaint['customername']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['customermobileno']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['customeraddress']); ?></td>

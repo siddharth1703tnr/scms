@@ -68,7 +68,7 @@ $technicians = $complaint->getTechnicians();
                             <div class="card-body">
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
-                                        <form action="../../controllers/process_complaint.php" method="POST" id="complaintForm">
+                                        <form action="../../controllers/complaint/process_complaint.php" method="POST" id="complaintForm">
                                             <div class="row row-gap-2">
                                                 <div class="col-md-6">
                                                     <label for="Cus_Name" class="form-label">Name</label>

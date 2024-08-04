@@ -1,7 +1,7 @@
 <?php
-require_once '../config/config.php';
-require_once '../classes/Database.php';
-require_once '../classes/Complaint.php';
+require_once '../../config/config.php';
+require_once '../../classes/Database.php';
+require_once '../../classes/Complaint.php';
 
 $database = new Database();
 $db = $database->getConnection();
