@@ -68,46 +68,64 @@ $technicians = $complaint->getTechnicians();
                             <div class="card-body">
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
-                                        <form action="" method="GET">
+                                        <form action="../../controllers/process_complaint.php" method="POST" id="complaintForm">
                                             <div class="row row-gap-2">
                                                 <div class="col-md-6">
                                                     <label for="Cus_Name" class="form-label">Name</label>
-                                                    <input type="text" class="form-control shadow-none" id="Cus_Name" required>
+                                                    <input type="text" class="form-control shadow-none" name="Cus_Name" id="Cus_Name" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Cus_Mobile_No" class="form-label">Phone</label>
-                                                    <input type="tel" class="form-control shadow-none" id="Cus_Mobile_No" required>
+                                                    <input type="tel" class="form-control shadow-none" name="Cus_Mobile_No" id="Cus_Mobile_No" required>
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="Cus_Address" class="form-label">Address</label>
-                                                    <input type="text" class="form-control shadow-none" id="Cus_Address" placeholder="1234 Main St" required>
+                                                    <input type="text" class="form-control shadow-none" name="Cus_Address" id="Cus_Address" placeholder="1234 Main St" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Cus_City" class="form-label">City</label>
-                                                    <input type="text" class="form-control shadow-none" id="Cus_City" required>
+                                                    <input type="text" class="form-control shadow-none" name="Cus_City" id="Cus_City" required>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="inputZip" class="form-label">Zip</label>
                                                     <input type="number" class="form-control shadow-none" id="inputZip">
                                                 </div>
-                                                 <!-- Call Type field -->
-                                                 <div class="col-md-4">
-                                                    <label for="Cus_calltype" class="form-label">Call Type</label>
-                                                    <select class="form-control shadow-none" id="Cus_calltype" name="Cus_calltype" required>
-                                                        <option value="">Select Call Type</option>
-                                                        <option value="fridge">Fridge</option>
-                                                        <option value="ac">AC</option>
-                                                        <option value="tv">TV</option>
-                                                        <option value="washing_machine">Washing Machine</option>
+                                                <div class="col-md-4">
+                                                    <label for="Cus_calltype" class="form-label">Call-Type</label>
+                                                    <select class="form-control shadow-none" name="Cus_calltype" id="Cus_calltype" required>
+                                                        <option value="Fridge">Fridge</option>
+                                                        <option value="AC">AC</option>
+                                                        <option value="TV">TV</option>
+                                                        <option value="Washing Machine">Washing Machine</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Cus_payment" class="form-label">Payment-Type</label>
-                                                    <input type="text" class="form-control shadow-none" id="Cus_payment">
+                                                    <input type="text" class="form-control shadow-none" name="Cus_payment" id="Cus_payment">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="Cus_calldate" class="form-label">CallDate</label>
-                                                    <input type="date" class="form-control shadow-none" id="Cus_calldate">
+                                                    <label for="Cus_calldate" class="form-label">Call Date</label>
+                                                    <input type="date" class="form-control shadow-none" name="Cus_calldate" id="Cus_calldate" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Cus_assigndate" class="form-label">Assign Date</label>
+                                                    <input type="date" class="form-control shadow-none" name="Cus_assigndate" id="Cus_assigndate">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Cus_completedate" class="form-label">Complete Date</label>
+                                                    <input type="date" class="form-control shadow-none" name="Cus_completedate" id="Cus_completedate">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Cus_callstatus" class="form-label">Call Status</label>
+                                                    <select class="form-control shadow-none" name="Cus_callstatus" id="Cus_callstatus" required>
+                                                        <option value="New">New</option>
+                                                        <option value="Assigned">Assigned</option>
+                                                        <option value="Part Pending">Part Pending</option>
+                                                        <option value="Pending">Pending</option>
+                                                        <option value="Appointment Given">Appointment Given</option>
+                                                        <option value="Closed">Closed</option>
+                                                        <option value="Cancelled">Cancelled</option>
+                                                    </select>
                                                 </div>
                                                 <!-- Technician Assigned field -->
                                                 <div class="col-md-6">
@@ -120,62 +138,31 @@ $technicians = $complaint->getTechnicians();
                                                             </option>
                                                         <?php endforeach; ?>
                                                     </select>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <label for="Cus_assigndate" class="form-label">CallAssignDate</label>
-                                                    <input type="date" class="form-control shadow-none" id="Cus_assigndate">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="Cus_completedate" class="form-label">Completedate</label>
-                                                    <input type="date" class="form-control shadow-none" id="Cus_completedate">
-                                                </div>
-                                                <!-- Call Status field -->
-                                                <div class="col-md-6">
-                                                    <label for="Cus_callstatus" class="form-label">Call Status</label>
-                                                    <select class="form-control shadow-none" id="Cus_callstatus" name="Cus_callstatus" required>
-                                                        <option value="">Select Call Status</option>
-                                                        <option value="new">New</option>
-                                                        <option value="assigned">Assigned</option>
-                                                        <option value="part_pending">Part Pending</option>
-                                                        <option value="pending">Pending</option>
-                                                        <option value="appointment_given">Appointment Given</option>
-                                                        <option value="closed">Closed</option>
-                                                        <option value="cancelled">Cancelled</option>
-                                                    </select>
-                                                    <div class="invalid-feedback" id="Cus_callstatus_error"></div>
-                                                </div>
+                                                    <div class="invalid-feedback" id="Cus_technicianassign_error"></div>
+                                                </div>  
                                                 <div class="col-md-4">
-                                                    <label for="Cus_callststus" class="form-label">Total Amount</label>
-                                                    <input type="number" class="form-control shadow-none" id="Cus_callststus">
+                                                    <label for="Cus_totalamount" class="form-label">Total Amount</label>
+                                                    <input type="number" class="form-control shadow-none" name="Cus_totalamount" id="Cus_totalamount">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="Cus_disamount" class="form-label">Discount Amount</label>
-                                                    <input type="number" class="form-control shadow-none" id="Cus_disamount">
+                                                    <input type="number" class="form-control shadow-none" name="Cus_disamount" id="Cus_disamount">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="Cus_finalamount" class="form-label">Final Amount</label>
-                                                    <input type="number" class="form-control shadow-none" id="Cus_finalamount">
+                                                    <input type="number" class="form-control shadow-none" name="Cus_finalamount" id="Cus_finalamount">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Cus_cusprob" class="form-label">Customer Problem</label>
-                                                    <input type="text" class="form-control shadow-none" id="Cus_cusprob">
+                                                    <input type="text" class="form-control shadow-none" name="Cus_cusprob" id="Cus_cusprob">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Cus_callresolution" class="form-label">Customer Resolution</label>
-                                                    <input type="text" class="form-control shadow-none" id="Cus_callresolution">
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                        <label class="form-check-label" for="gridCheck">
-                                                            Check me out
-                                                        </label>
-                                                    </div>
+                                                    <input type="text" class="form-control shadow-none" name="Cus_callresolution" id="Cus_callresolution">
                                                 </div>
                                                 <div class="col-12 d-flex justify-content-end mt-2">
-                                                    <div class="mr-2"><button type="reset" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Re Set</button></div>
-                                                    <div><button type="submit" class="btn btn-primary shadow-none">Register</button></div>
+                                                    <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
+                                                    <button type="submit" class="btn btn-primary shadow-none">Register</button>
                                                 </div>
                                             </div>
                                         </form>
