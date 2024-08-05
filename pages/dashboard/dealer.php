@@ -30,8 +30,8 @@ $db = $database->getConnection();
         <?php require_once('../../includes/navbar.php') ?>
         <?php require_once('../../includes/asidde-st.php') ?>
 
-        <div class="content-wrapper">
-            <div class="container-fluid">
+        <div class="wrapper">
+            <div class="container-wrapper">
                 <h1>this is C:\xampp\htdocs\SCMS\pages\dashboard\dealer.php </h1>
             </div><!-- /.container-fluid -->
         </div>

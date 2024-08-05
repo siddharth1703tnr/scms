@@ -8,14 +8,8 @@ $db = $database->getConnection();
 $complaint = new Complaint($db);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $callnumber = date('Ymd') . mt_rand(1000, 9999);
-    $createdate = date('Y-m-d H:i:s');
-    $modifieddate = date('Y-m-d H:i:s');
-    $createdBy = 1;
-    $modifiedBy = 2;
-
     $data = [
-        'callnumber' => $callnumber,
+        'id' => $_POST['complaint_id'],
         'customername' => $_POST['Cus_Name'],
         'customermobileno' => $_POST['Cus_Mobile_No'],
         'customeraddress' => $_POST['Cus_Address'],
@@ -30,17 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'totalamount' => $_POST['Cus_totalamount'],
         'discountamount' => $_POST['Cus_disamount'],
         'finalamount' => $_POST['Cus_finalamount'],
-        'createdate' => $createdate,
-        'createby' => $createdBy,
-        'modifiedby' => $modifiedBy,
-        'modifieddate' => $modifieddate,
         'customerproblem' => $_POST['Cus_cusprob'],
         'callresolution' => $_POST['Cus_callresolution']
     ];
 
-    if ($complaint->create($data)) {
-        echo "New complaint registered successfully.";
+    if ($complaint->updateComplaint($data)) {
+        header("Location: " . BASE_URL . "pages/complaint/show.php");
     } else {
-        echo "Error: Could not register complaint.";
+        header("Location: " . BASE_URL . "public/index.php");
     }
 }

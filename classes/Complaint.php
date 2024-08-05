@@ -20,6 +20,17 @@ class Complaint extends BaseModel
         return $complaints;
     }
 
+
+    public function getComplaintById($id)
+    {
+        $query = "SELECT * FROM $this->table WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
     // Method to get active technicians
     public function getTechnicians()
     {
@@ -64,8 +75,8 @@ class Complaint extends BaseModel
             $data['discountamount'],
             $data['finalamount'],
             $createdate,
-            'admin',  // Static value for createby
-            'admin',  // Static value for modifiedby
+            '1',  // Static value for createby
+            '2',  // Static value for modifiedby
             $modifieddate,
             $data['customerproblem'],
             $data['callresolution']
@@ -78,14 +89,58 @@ class Complaint extends BaseModel
         }
     }
 
-    public function getComplaintById($id)
+
+    public function updateComplaint($data)
     {
-        $query = "SELECT * FROM $this->table WHERE id = ?";
+        $modifieddate = date("Y-m-d H:i:s");
+        $digit = 5;
+
+        $query = "UPDATE " . $this->table . " SET 
+            customername = ?, 
+            customermobileno = ?, 
+            customeraddress = ?, 
+            customercity = ?, 
+            calltype = ?, 
+            paymenttype = ?, 
+            calldate = ?, 
+            callassigndate = ?, 
+            technicianassigned = ?, 
+            callcompletedate = ?, 
+            callstatus = ?, 
+            totalamount = ?, 
+            discountamount = ?, 
+            finalamount = ?, 
+            modifiedby = ?, 
+            modifieddate = ?, 
+            customerproblem = ?, 
+            callresolution = ?
+            WHERE id = ?";
+
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
+
+        $stmt->bind_param(
+            "sssssssssssssssssss",
+            $data['customername'],
+            $data['customermobileno'],
+            $data['customeraddress'],
+            $data['customercity'],
+            $data['calltype'],
+            $data['paymenttype'],
+            $data['calldate'],
+            $data['callassigndate'],
+            $data['technicianassigned'],
+            $data['callcompletedate'],
+            $data['callstatus'],
+            $data['totalamount'],
+            $data['discountamount'],
+            $data['finalamount'],
+            $digit, // Static value for modifiedby
+            $modifieddate,
+            $data['customerproblem'],
+            $data['callresolution'],
+            $data['id'] // id to specify which record to update
+        );
+
+        return $stmt->execute();
     }
 }
-?>

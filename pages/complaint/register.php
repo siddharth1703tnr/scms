@@ -86,10 +86,6 @@ $technicians = $complaint->getTechnicians();
                                                     <label for="Cus_City" class="form-label">City</label>
                                                     <input type="text" class="form-control shadow-none" name="Cus_City" id="Cus_City" required>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <label for="inputZip" class="form-label">Zip</label>
-                                                    <input type="number" class="form-control shadow-none" id="inputZip">
-                                                </div>
                                                 <div class="col-md-4">
                                                     <label for="Cus_calltype" class="form-label">Call-Type</label>
                                                     <select class="form-control shadow-none" name="Cus_calltype" id="Cus_calltype" required>
@@ -132,14 +128,14 @@ $technicians = $complaint->getTechnicians();
                                                     <label for="Cus_technicianassign" class="form-label">Technician Assigned</label>
                                                     <select class="form-control shadow-none" id="Cus_technicianassign" name="Cus_technicianassign" required>
                                                         <option value="">Select Technician</option>
-                                                        <?php foreach ($technicians as $technician): ?>
+                                                        <?php foreach ($technicians as $technician) : ?>
                                                             <option value="<?php echo $technician['id']; ?>">
                                                                 <?php echo $technician['firstname'] . ' ' . $technician['lastname']; ?>
                                                             </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                     <div class="invalid-feedback" id="Cus_technicianassign_error"></div>
-                                                </div>  
+                                                </div>
                                                 <div class="col-md-4">
                                                     <label for="Cus_totalamount" class="form-label">Total Amount</label>
                                                     <input type="number" class="form-control shadow-none" name="Cus_totalamount" id="Cus_totalamount">

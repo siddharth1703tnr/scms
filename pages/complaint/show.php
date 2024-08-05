@@ -66,7 +66,7 @@ $complaints = $complaint->getAllComplaints();
                             <thead>
                                 <tr>
                                     <th>Call Number</th>
-                                    <th></th>
+                                    <th>Actions</th>
                                     <th>Customer Name</th>
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
@@ -85,9 +85,9 @@ $complaints = $complaint->getAllComplaints();
                                                 <button class="btn btn-primary btn-sm mr-1 view-btn" data-id="<?php echo $complaint['id']; ?>">
                                                     <i class="fas fa-folder"></i> View
                                                 </button>
-                                                <a class="btn btn-info btn-sm mr-1" href="#">
+                                                <button class="btn btn-info btn-sm edit-btn" data-id="<?php echo $complaint['id']; ?>">
                                                     <i class="fas fa-pencil-alt"></i> Edit
-                                                </a>    
+                                                </button>
                                             </td>
 
 
@@ -107,7 +107,7 @@ $complaints = $complaint->getAllComplaints();
                             <tfoot>
                                 <tr>
                                     <th>Call Number</th>
-                                    <th></th>
+                                    <th>Actions</th>
                                     <th>Customer Name</th>
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
@@ -191,6 +191,28 @@ $complaints = $complaint->getAllComplaints();
                         $('#viewModal').modal('show');
                     }
                 });
+            });
+        });
+
+        $(document).ready(function() {
+            $(document).on('click', '.view-btn', function() {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '<?php echo BASE_URL; ?>controllers/complaint/get_complaint_details.php',
+                    method: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        $('.modal-body').html(response);
+                        $('#viewModal').modal('show');
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit-btn', function() {
+                var id = $(this).data('id');
+                window.location.href = '<?php echo BASE_URL; ?>pages/complaint/update.php?id=' + id;
             });
         });
     </script>

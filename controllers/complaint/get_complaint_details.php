@@ -37,4 +37,3 @@ if (isset($_GET['id'])) {
 } else {
     echo "<p>Invalid request.</p>";
 }
-?>

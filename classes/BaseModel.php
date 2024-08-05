@@ -14,11 +14,11 @@ class BaseModel
         $fields = implode(", ", array_keys($data));
         $placeholders = implode(", ", array_fill(0, count($data), '?'));
         $stmt = $this->conn->prepare("INSERT INTO $this->table ($fields) VALUES ($placeholders)");
-        
+
         $types = str_repeat('s', count($data));
         $values = array_values($data);
         $stmt->bind_param($types, ...$values);
-        
+
         if ($stmt->execute()) {
             return $stmt->insert_id;
         } else {
@@ -39,12 +39,12 @@ class BaseModel
     {
         $fields = implode(" = ?, ", array_keys($data)) . " = ?";
         $stmt = $this->conn->prepare("UPDATE $this->table SET $fields WHERE id = ?");
-        
+
         $types = str_repeat('s', count($data)) . 'i';
         $values = array_values($data);
         $values[] = $id;
         $stmt->bind_param($types, ...$values);
-        
+
         return $stmt->execute();
     }
 
@@ -55,6 +55,3 @@ class BaseModel
         return $stmt->execute();
     }
 }
-
-
-?>
