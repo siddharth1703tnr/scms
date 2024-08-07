@@ -58,7 +58,7 @@ $complaints = $complaint->getAllComplaints();
                         <div class="mr-auto">
                             <h3 class="card-title">Complainnt Show</h3>
                         </div>
-                        <div class="ml-auto"><a href="<?php echo BASE_URL; ?>pages\complaint\register.php"><button type="button" class="btn btn-outline-success">Add User</button></a></div>
+                        <div class="ml-auto"><a href="<?php echo BASE_URL; ?>pages\complaint\register.php"><button type="button" class="btn btn-outline-success">Register Complaint</button></a></div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

@@ -8,25 +8,29 @@ $db = $database->getConnection();
 $complaint = new Complaint($db);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $data = [
-        'id' => $_POST['complaint_id'],
-        'customername' => $_POST['Cus_Name'],
-        'customermobileno' => $_POST['Cus_Mobile_No'],
-        'customeraddress' => $_POST['Cus_Address'],
-        'customercity' => $_POST['Cus_City'],
-        'calltype' => $_POST['Cus_calltype'],
-        'paymenttype' => $_POST['Cus_payment'],
-        'calldate' => $_POST['Cus_calldate'],
-        'callassigndate' => $_POST['Cus_assigndate'],
-        'technicianassigned' => $_POST['Cus_technicianassign'],
-        'callcompletedate' => $_POST['Cus_completedate'],
-        'callstatus' => $_POST['Cus_callstatus'],
-        'totalamount' => $_POST['Cus_totalamount'],
-        'discountamount' => $_POST['Cus_disamount'],
-        'finalamount' => $_POST['Cus_finalamount'],
-        'customerproblem' => $_POST['Cus_cusprob'],
-        'callresolution' => $_POST['Cus_callresolution']
-    ];
+
+    $status = $_POST['Cus_callstatus'];
+    $user = 2;
+    $modifieddate = date("Y-m-d H:i:s");
+    $currentdate = date("Y-m-d H:i:s");
+
+    if($status == "New") {
+
+        $data = [
+            'id' => $_POST['complaint_id'],
+            'customername' => $_POST['Cus_Name'],
+            'customermobileno' => $_POST['Cus_Mobile_No'],
+            'customeraddress' => $_POST['Cus_Address'],
+            'customercity' => $_POST['Cus_City'],
+            'calltype' => $_POST['Cus_calltype'],
+            'calldate' => $_POST['Cus_calldate'],
+            'callassigndate' => $_POST['Cus_assigndate'],
+            'technicianassigned' => $_POST['Cus_technicianassign'],
+            'callstatus' => $_POST['Cus_callstatus'],
+            'customerproblem' => $_POST['Cus_cusprob']
+        ];
+    }
+   
 
     if ($complaint->updateComplaint($data)) {
         header("Location: " . BASE_URL . "pages/complaint/show.php");

@@ -45,49 +45,13 @@ class Complaint extends BaseModel
         return $technicians;
     }
 
-    public function addComplaint($data)
+    // Method to register a new complaint
+    public function registerComplaint($data)
     {
-        $createdate = date("Y-m-d H:i:s");
-        $modifieddate = date("Y-m-d H:i:s");
-        $callnumber = date("Ymd") . $data['id'];
-
-        $query = "INSERT INTO " . $this->table . "
-        (callnumber, customername, customermobileno, customeraddress, customercity, calltype, paymenttype, calldate, callassigndate, technicianassigned, callcompletedate, callstatus, totalamount, discountamount, finalamount, createdate, createby, modifiedby, modifieddate, customerproblem, callresolution)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $stmt = $this->conn->prepare($query);
-
-        $stmt->bind_param(
-            "sssssssssssssssssssss", // Corrected parameter types
-            $callnumber,
-            $data['customername'],
-            $data['customermobileno'],
-            $data['customeraddress'],
-            $data['customercity'],
-            $data['calltype'],
-            $data['paymenttype'],
-            $data['calldate'],
-            $data['callassigndate'],
-            $data['technicianassigned'],
-            $data['callcompletedate'],
-            $data['callstatus'],
-            $data['totalamount'],
-            $data['discountamount'],
-            $data['finalamount'],
-            $createdate,
-            '1',  // Static value for createby
-            '2',  // Static value for modifiedby
-            $modifieddate,
-            $data['customerproblem'],
-            $data['callresolution']
-        );
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->create($data);
     }
+
+    
 
 
     public function updateComplaint($data)
@@ -131,9 +95,9 @@ class Complaint extends BaseModel
             $data['technicianassigned'],
             $data['callcompletedate'],
             $data['callstatus'],
-            $data['totalamount'],
-            $data['discountamount'],
-            $data['finalamount'],
+            $data['totalamount'] == "" ? 0000 : $data['discountamount'],
+            $data['discountamount'] == "" ? 0000 : $data['discountamount'],
+            $data['finalamount'] == "" ? 0000 : $data['discountamount'],
             $digit, // Static value for modifiedby
             $modifieddate,
             $data['customerproblem'],

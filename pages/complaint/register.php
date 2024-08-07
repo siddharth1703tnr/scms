@@ -2,11 +2,7 @@
 require_once '../../config/config.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/BaseModel.php';
-require_once '../../classes/Customer.php';
 require_once '../../classes/Complaint.php';
-require_once '../../classes/Technician.php';
-require_once '../../classes/Dealer.php';
-require_once '../../classes/ServiceCall.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -95,67 +91,19 @@ $technicians = $complaint->getTechnicians();
                                                         <option value="Washing Machine">Washing Machine</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="Cus_payment" class="form-label">Payment-Type</label>
-                                                    <input type="text" class="form-control shadow-none" name="Cus_payment" id="Cus_payment">
-                                                </div>
+                                               
                                                 <div class="col-md-6">
                                                     <label for="Cus_calldate" class="form-label">Call Date</label>
                                                     <input type="date" class="form-control shadow-none" name="Cus_calldate" id="Cus_calldate" required>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="Cus_assigndate" class="form-label">Assign Date</label>
-                                                    <input type="date" class="form-control shadow-none" name="Cus_assigndate" id="Cus_assigndate">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="Cus_completedate" class="form-label">Complete Date</label>
-                                                    <input type="date" class="form-control shadow-none" name="Cus_completedate" id="Cus_completedate">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="Cus_callstatus" class="form-label">Call Status</label>
-                                                    <select class="form-control shadow-none" name="Cus_callstatus" id="Cus_callstatus" required>
-                                                        <option value="New">New</option>
-                                                        <option value="Assigned">Assigned</option>
-                                                        <option value="Part Pending">Part Pending</option>
-                                                        <option value="Pending">Pending</option>
-                                                        <option value="Appointment Given">Appointment Given</option>
-                                                        <option value="Closed">Closed</option>
-                                                        <option value="Cancelled">Cancelled</option>
-                                                    </select>
-                                                </div>
-                                                <!-- Technician Assigned field -->
-                                                <div class="col-md-6">
-                                                    <label for="Cus_technicianassign" class="form-label">Technician Assigned</label>
-                                                    <select class="form-control shadow-none" id="Cus_technicianassign" name="Cus_technicianassign" required>
-                                                        <option value="">Select Technician</option>
-                                                        <?php foreach ($technicians as $technician) : ?>
-                                                            <option value="<?php echo $technician['id']; ?>">
-                                                                <?php echo $technician['firstname'] . ' ' . $technician['lastname']; ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <div class="invalid-feedback" id="Cus_technicianassign_error"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label for="Cus_totalamount" class="form-label">Total Amount</label>
-                                                    <input type="number" class="form-control shadow-none" name="Cus_totalamount" id="Cus_totalamount">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label for="Cus_disamount" class="form-label">Discount Amount</label>
-                                                    <input type="number" class="form-control shadow-none" name="Cus_disamount" id="Cus_disamount">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label for="Cus_finalamount" class="form-label">Final Amount</label>
-                                                    <input type="number" class="form-control shadow-none" name="Cus_finalamount" id="Cus_finalamount">
-                                                </div>
+                                                
+                                                
+                                               
                                                 <div class="col-md-6">
                                                     <label for="Cus_cusprob" class="form-label">Customer Problem</label>
                                                     <input type="text" class="form-control shadow-none" name="Cus_cusprob" id="Cus_cusprob">
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="Cus_callresolution" class="form-label">Customer Resolution</label>
-                                                    <input type="text" class="form-control shadow-none" name="Cus_callresolution" id="Cus_callresolution">
-                                                </div>
+                                                
                                                 <div class="col-12 d-flex justify-content-end mt-2">
                                                     <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
                                                     <button type="submit" class="btn btn-primary shadow-none">Register</button>
