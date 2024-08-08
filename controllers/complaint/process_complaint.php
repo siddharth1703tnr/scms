@@ -2,6 +2,8 @@
 require_once '../../config/config.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/Complaint.php';
+date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
+
 
 $database = new Database();
 $db = $database->getConnection();
@@ -28,8 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     if ($complaint->registerComplaint($data)) {
+        setSessionMessage('success', 'Registration Success', 'success', 'Complaint registered successfully');
         header("Location: " . BASE_URL . "pages/complaint/show.php");
     } else {
-        echo "Error: Could not register complaint.";
+        setSessionMessage('danger', 'Registration Failed', 'Error', 'Failed to register complaint');
+        header("Location: " . BASE_URL . "pages/complaint/show.php");
     }
+    exit;
+    
 }
+?>

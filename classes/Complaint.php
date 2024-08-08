@@ -50,4 +50,25 @@ class Complaint extends BaseModel
     {
         return $this->create($data);
     }
+
+    // Method to assign a complaint to a technician
+    public function assignComplaint($id, $data)
+    {
+        return $this->update($id, $data);
+    }
+
+    // Method to close a complaint
+    public function closeComplaint($id, $data)
+    {
+        return $this->update($id, $data);
+    }
+
+    // Method to cancel a complaint
+    public function cancelComplaint($id, $data)
+    {
+        return $this->update($id, $data);
+    }
+
+
+    
 }

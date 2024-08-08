@@ -2,6 +2,8 @@
 require_once '../../config/config.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/Complaint.php';
+date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
+
 
 $database = new Database();
 $db = $database->getConnection();
@@ -30,8 +32,13 @@ switch ($action) {
             'modifieddate' => date('Y-m-d H:i:s'),
             'customerproblem' => $_POST['Cus_cusprob']
         ];
-        
-        $complaint->update($id, $data);
+        if ($complaint->assignComplaint($id, $data)) {
+            setSessionMessage('success', 'Assigned', 'success', 'Complaint assigned successfully');
+            header('Location: ' . BASE_URL . 'pages/complaint/show.php');
+        } else {
+            setSessionMessage('danger', 'Assignment Failed', 'Error', 'Failed to assign complaint');
+            header('Location: ' . BASE_URL . 'pages/complaint/show.php');
+        }
         break;
     
     case 'close':
@@ -55,7 +62,14 @@ switch ($action) {
             'callresolution' => $_POST['Cus_callresolution']
         ];
 
-        $complaint->update($id, $data);
+        if ($complaint->closeComplaint($id, $data)) {
+            setSessionMessage('success', 'Closure', 'Success', 'Complaint closed successfully');
+            header('Location: ' . BASE_URL . 'pages/complaint/show.php');
+        } else {
+            setSessionMessage('danger', 'Closure Failed', 'Error', 'Failed to close complaint');
+            header('Location: ' . BASE_URL . 'pages/complaint/update.php?id=' . $id);
+        }
+        
         break;
     
     case 'cancel':
@@ -78,11 +92,18 @@ switch ($action) {
             'callresolution' => $_POST['Cus_callresolution']
         ];
 
-        $complaint->update($id, $data);
+        if ($complaint->cancelComplaint($id, $data)) {
+            setSessionMessage('success', 'Cancellation', 'Success', 'Complaint cancelled successfully');
+            header('Location: ' . BASE_URL . 'pages/complaint/show.php');
+        } else {
+            setSessionMessage('danger', 'Cancellation Failed', 'Error', 'Failed to cancel complaint');
+            header('Location: ' . BASE_URL . 'pages/complaint/show.php');
+        }
         break;
     
     default:
-        // Invalid action
+    $_SESSION['error'] = 'Invalid action';
+    header('Location: ../../views/complaint/show.php');
         break;
 }
 
