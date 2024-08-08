@@ -31,9 +31,7 @@ $db = $database->getConnection();
         <?php require_once('../includes/asidde-st.php') ?>
 
         <div class="content-wrapper">
-            <div class="container-fluid">
                 <h1>this is index.php</h1>
-            </div><!-- /.container-fluid -->
         </div>
 
         <?php require_once('../includes/footer.php') ?>
