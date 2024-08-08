@@ -11,6 +11,15 @@ $db = $database->getConnection();
 $complaint = new Complaint($db);
 $complaints = $complaint->getAllComplaints();
 
+$toastData = '';
+if (isset($_SESSION['message'])) {
+    $toastData = $_SESSION['message'];
+    unset($_SESSION['message']);
+} elseif (isset($_SESSION['error'])) {
+    $toastData = $_SESSION['error'];
+    unset($_SESSION['error']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,8 +66,8 @@ $complaints = $complaint->getAllComplaints();
                     <div class="card-header d-flex justify-content-between">
                         <div class="mr-auto">
                             <h3 class="card-title">Complainnt Show</h3>
-                        </div> 
-                        <div class="ml-auto"><a href="<?php echo BASE_URL; ?>pages\complaint\register.php"><button type="button" class="btn btn-outline-success">Register Complaint</button></a></div>
+                        </div>
+                        <div class="ml-auto"><a href="<?php echo BASE_URL; ?>pages/complaint/register.php"><button type="button" class="btn btn-outline-success">Register Complaint</button></a></div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -71,7 +80,6 @@ $complaints = $complaint->getAllComplaints();
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
                                     <th>Call Type</th>
-                                    <th>Call Status</th>
 
                                 </tr>
                             </thead>
@@ -79,7 +87,17 @@ $complaints = $complaint->getAllComplaints();
                                 <?php if ($complaints) : ?>
                                     <?php foreach ($complaints as $complaint) : ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($complaint['callnumber']); ?></td>
+                                            <td><?php echo htmlspecialchars($complaint['callnumber']); ?>   
+                                                    <span class="badge badge-pill badge-<?php echo 
+                                                    ($complaint['callstatus'] == 'New') ? 'success' : 
+                                                    (($complaint['callstatus'] == 'Assigned')
+                                                    ? 'warning' : (($complaint['callstatus'] == 'Close')
+                                                    ? 'info' : (($complaint['callstatus'] == 'Cancelled')
+                                                    ? 'secondary' : '')))
+                                                    ?>">
+                                                        <?php echo htmlspecialchars($complaint['callstatus']); ?>
+                                                    </span>
+                                            </td>
 
                                             <td class="d-flex justify-content-center">
                                                 <button class="btn btn-primary btn-sm mr-1 view-btn" data-id="<?php echo $complaint['id']; ?>">
@@ -95,7 +113,6 @@ $complaints = $complaint->getAllComplaints();
                                             <td><?php echo htmlspecialchars($complaint['customermobileno']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['customeraddress']); ?></td>
                                             <td><?php echo htmlspecialchars($complaint['calltype']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['callstatus']); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else : ?>
@@ -112,7 +129,6 @@ $complaints = $complaint->getAllComplaints();
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
                                     <th>Call Type</th>
-                                    <th>Call Status</th>
                                 </tr>
                             </tfoot>
                             <!-- Modal -->
@@ -216,6 +232,9 @@ $complaints = $complaint->getAllComplaints();
             });
         });
     </script>
+    <?php displaySessionMessage(5000); // 10000 milliseconds = 10 seconds 
+    ?>
+
 </body>
 
 </html>

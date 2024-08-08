@@ -57,21 +57,27 @@ $action = null;
                         <form action="../../controllers/complaint/update_process.php" method="POST" id="complaintForm">
                             <input type="hidden" name="complaint_id" value="<?php echo $currentComplaint['id']; ?>">
                             <div>
+                            <div class="section-0">
+                                    <div class="row row-gap-2">
+                                        <h2><?php echo htmlspecialchars($currentComplaint['callnumber']); ?></h2> <p><span class="badge badge-pill badge-<?php echo 
+                                                    ($currentComplaint['callstatus'] == 'New') ? 'success' : 
+                                                    (($currentComplaint['callstatus'] == 'Assigned')
+                                                    ? 'warning' : (($currentComplaint['callstatus'] == 'Close')
+                                                    ? 'info' : (($currentComplaint['callstatus'] == 'Cancelled')
+                                                    ? 'secondary' : '')))
+                                                    ?>">
+                                                        <?php echo htmlspecialchars($currentComplaint['callstatus']); ?>
+                                                    </span></p>
+                                        <div class="progress progress-xxs m-1 col-md-12">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="section-1">
                                     <div class="row row-gap-2">
-                                        <div class="col-md-12">
-                                            <label for="Cus_callstatus" class="form-label">Call Status</label>
-                                            <select class="form-control shadow-none" name="Cus_callstatus" id="Cus_callstatus">
-                                                <option value="New" <?php echo ($currentComplaint['callstatus'] == 'New') ? 'selected' : ''; ?>>New</option>
-                                                <option value="Assigned" <?php echo ($currentComplaint['callstatus'] == 'Assigned') ? 'selected' : ''; ?>>Assigned</option>
-                                                <option value="Part Pending" <?php echo ($currentComplaint['callstatus'] == 'Part Pending') ? 'selected' : ''; ?>>Part Pending</option>
-                                                <option value="Pending" <?php echo ($currentComplaint['callstatus'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
-                                                <option value="Appointment Given" <?php echo ($currentComplaint['callstatus'] == 'Appointment Given') ? 'selected' : ''; ?>>Appointment Given</option>
-                                                <option value="Closed" <?php echo ($currentComplaint['callstatus'] == 'Closed') ? 'selected' : ''; ?>>Closed</option>
-                                                <option value="Cancelled" <?php echo ($currentComplaint['callstatus'] == 'Cancelled') ? 'selected' : ''; ?>>Cancelled</option>
-                                            </select>
-                                        </div>
+                                        
                                         <div class="col-md-6">
                                             <label for="Cus_Name" class="form-label">Name</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_Name" id="Cus_Name" value="<?php echo htmlspecialchars($currentComplaint['customername']); ?>" required>
@@ -99,7 +105,7 @@ $action = null;
                                         </div>
                                         <div class="col-md-4">
                                             <label for="Cus_calldate" class="form-label">Call Date</label>
-                                            <input type="date" class="form-control shadow-none" name="Cus_calldate" id="Cus_calldate" value="<?php echo htmlspecialchars($currentComplaint['calldate']); ?>" required>
+                                            <input type="date" class="form-control shadow-none" name="Cus_calldate" id="Cus_calldate" value="<?php echo htmlspecialchars(date('Y-m-d', strtotime($currentComplaint['calldate']))); ?>" required>
                                         </div>
 
                                         <input type="hidden" name="action" value="New">
