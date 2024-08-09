@@ -11,14 +11,7 @@ $db = $database->getConnection();
 $complaint = new Complaint($db);
 $complaints = $complaint->getAllComplaints();
 
-$toastData = '';
-if (isset($_SESSION['message'])) {
-    $toastData = $_SESSION['message'];
-    unset($_SESSION['message']);
-} elseif (isset($_SESSION['error'])) {
-    $toastData = $_SESSION['error'];
-    unset($_SESSION['error']);
-}
+
 
 ?>
 <!DOCTYPE html>
