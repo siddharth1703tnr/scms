@@ -57,17 +57,16 @@ $action = null;
                         <form action="../../controllers/complaint/update_process.php" method="POST" id="complaintForm">
                             <input type="hidden" name="complaint_id" value="<?php echo $currentComplaint['id']; ?>">
                             <div>
-                            <div class="section-0">
+                                <div class="section-0">
                                     <div class="row row-gap-2">
-                                        <h2><?php echo htmlspecialchars($currentComplaint['callnumber']); ?></h2> <p><span class="badge badge-pill badge-<?php echo 
-                                                    ($currentComplaint['callstatus'] == 'New') ? 'success' : 
-                                                    (($currentComplaint['callstatus'] == 'Assigned')
-                                                    ? 'warning' : (($currentComplaint['callstatus'] == 'Close')
-                                                    ? 'info' : (($currentComplaint['callstatus'] == 'Cancelled')
-                                                    ? 'secondary' : '')))
-                                                    ?>">
-                                                        <?php echo htmlspecialchars($currentComplaint['callstatus']); ?>
-                                                    </span></p>
+                                        <h2><?php echo htmlspecialchars($currentComplaint['callnumber']); ?></h2>
+                                        <p><span class="badge badge-pill badge-<?php echo ($currentComplaint['callstatus'] == 'New') ? 'success' : (($currentComplaint['callstatus'] == 'Assigned')
+                                                                                    ? 'warning' : (($currentComplaint['callstatus'] == 'Close')
+                                                                                        ? 'info' : (($currentComplaint['callstatus'] == 'Cancelled')
+                                                                                            ? 'secondary' : '')))
+                                                                                ?>">
+                                                <?php echo htmlspecialchars($currentComplaint['callstatus']); ?>
+                                            </span></p>
                                         <div class="progress progress-xxs m-1 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
@@ -77,7 +76,7 @@ $action = null;
 
                                 <div class="section-1">
                                     <div class="row row-gap-2">
-                                        
+
                                         <div class="col-md-6">
                                             <label for="Cus_Name" class="form-label">Name</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_Name" id="Cus_Name" value="<?php echo htmlspecialchars($currentComplaint['customername']); ?>" required>
@@ -143,26 +142,27 @@ $action = null;
                                 </div>
                                 <div class="section-3">
                                     <div class="row row-gap-2">
-                                        <div class="form-group">
-                                            <label for="action">Action:</label>
-                                            <div>
-                                                <input type="radio" id="close" name="action" value="close">
-                                                <label for="close">Close</label>
+                                        <div class="col-md-2 pt-4">
+                                            <label for="action">Action: </label>
+                                            <div class="form-check form-check-inline ml-1">
+                                                <input class="form-check-input" type="radio" id="close" name="action" value="close">
+                                                <label class="form-check-label" for="close">Close</label>
                                             </div>
-                                            <div>
-                                                <input type="radio" id="cancel" name="action" value="cancel">
-                                                <label for="cancel">Cancel</label>
+                                            <div class="form-check form-check-inline ml-1">
+                                                <input class="form-check-input" type="radio" id="cancel" name="action" value="cancel">
+                                                <label class="form-check-label" for="cancel">Cancel</label>
                                             </div>
                                         </div>
+
                                         <div class="col-md-3">
                                             <label for="Cus_payment" class="form-label">Payment-Type</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_payment" id="Cus_payment" value="<?php echo htmlspecialchars($currentComplaint['paymenttype']); ?>">
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label for="Cus_totalamount" class="form-label">Total Amount</label>
                                             <input type="number" class="form-control shadow-none" name="Cus_totalamount" id="Cus_totalamount" value="<?php echo htmlspecialchars($currentComplaint['totalamount']); ?>">
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label for="Cus_disamount" class="form-label">Discount Amount</label>
                                             <input type="number" class="form-control shadow-none" name="Cus_disamount" id="Cus_disamount" value="<?php echo htmlspecialchars($currentComplaint['discountamount']); ?>">
                                         </div>
