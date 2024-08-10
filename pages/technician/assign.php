@@ -11,6 +11,7 @@ require_once '../../classes/ServiceCall.php';
 $database = new Database();
 $db = $database->getConnection();
 
+
 // You can now use your models here
 ?>
 <!DOCTYPE html>
