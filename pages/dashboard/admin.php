@@ -8,8 +8,6 @@ $database = new Database();
 $db = $database->getConnection();
 // You can now use your models here
 
-$complaint = new Complaint($db);
-$complaints = $complaint->getAllComplaints();
 
 ?>
 <!DOCTYPE html>

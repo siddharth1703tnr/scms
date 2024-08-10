@@ -80,16 +80,14 @@ $complaints = $complaint->getAllComplaints();
                                 <?php if ($complaints) : ?>
                                     <?php foreach ($complaints as $complaint) : ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($complaint['callnumber']); ?>   
-                                                    <span class="badge badge-pill badge-<?php echo 
-                                                    ($complaint['callstatus'] == 'New') ? 'success' : 
-                                                    (($complaint['callstatus'] == 'Assigned')
-                                                    ? 'warning' : (($complaint['callstatus'] == 'Close')
-                                                    ? 'info' : (($complaint['callstatus'] == 'Cancelled')
-                                                    ? 'secondary' : '')))
-                                                    ?>">
-                                                        <?php echo htmlspecialchars($complaint['callstatus']); ?>
-                                                    </span>
+                                            <td><?php echo htmlspecialchars($complaint['callnumber']); ?>
+                                                <span class="badge badge-pill badge-<?php echo ($complaint['callstatus'] == 'New') ? 'success' : (($complaint['callstatus'] == 'Assigned')
+                                                                                        ? 'warning' : (($complaint['callstatus'] == 'Close')
+                                                                                            ? 'info' : (($complaint['callstatus'] == 'Cancelled')
+                                                                                                ? 'secondary' : '')))
+                                                                                    ?>">
+                                                    <?php echo htmlspecialchars($complaint['callstatus']); ?>
+                                                </span>
                                             </td>
 
                                             <td class="d-flex justify-content-center">
@@ -179,27 +177,6 @@ $complaints = $complaint->getAllComplaints();
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
-            });
-        });
-    </script>
-
-
-
-    <script>
-        $(document).ready(function() {
-            $('#example2').on('click', '.view-btn', function() {
-                var id = $(this).data('id');
-                $.ajax({
-                    url: '<?php echo BASE_URL; ?>controllers/complaint/get_complaint_details.php',
-                    method: 'GET',
-                    data: {
-                        id: id
-                    },
-                    success: function(response) {
-                        $('.modal-body').html(response);
-                        $('#viewModal').modal('show');
-                    }
-                });
             });
         });
 
