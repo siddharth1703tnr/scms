@@ -1,9 +1,9 @@
 <?php
 require_once 'BaseModel.php';
 
-class Dealer extends BaseModel
+class DealerUser extends BaseModel
 {
-    protected $table = "distributor";
+    protected $table = "distributoruser";
 
     // Method to register a new complaint
 
@@ -26,10 +26,10 @@ class Dealer extends BaseModel
         return $this->create($data);
     }
 
-    // public function registerDealerUser($data)
-    // {
-    //     return $this->create($data);
-    // }
+     public function registerDealerUser($data)
+     {
+         return $this->create($data);
+     }
 
 
     public function getDealerById($id)
