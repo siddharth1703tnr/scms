@@ -1,13 +1,14 @@
 <?php
-require_once '../../config/config.php';
-require_once '../../classes/Database.php';
-require_once '../../classes/Dealer_Credentials.php';
+require_once '../../../config/config.php';
+require_once '../../../classes/Database.php';
+require_once '../../../classes/Dealer.php';
+require_once '../../../classes/Dealer_Credentials.php';
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
 
 
 $database = new Database();
 $db = $database->getConnection();
-$dealerUser = new DealerUSer($db);
+$dealerUser = new Dealer_Credentials($db);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // DU_username, DU_password, DU_fname, DU_lname, DU_mobile, DU_role
@@ -26,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'createdate' => $createdate
     ];
 
-    if ($dealerUser->registerDealerUser($data)) {
+    if ($dealerUser->registerDealerUserCredentials($data)) {
         setSessionMessage('success', 'Registration Success', 'success', 'Complaint registered successfully');
         header("Location: " . BASE_URL . "pages/dealer/show.php");
     } else {

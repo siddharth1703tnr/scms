@@ -162,7 +162,7 @@ $dealers = $dealer->getAllDealer()
 
             $(document).on('click', '.credentials-btn', function() {
                 var id = $(this).data('id');
-                window.location.href = '<?php echo BASE_URL; ?>pages/dealer/credentials.php?id=' + id;
+                window.location.href = '<?php echo BASE_URL; ?>pages/dealer/dealer_credentials/credentials.php?id=' + id;
             });
             $(document).on('click', '.edit-btn', function() {
                 var id = $(this).data('id');

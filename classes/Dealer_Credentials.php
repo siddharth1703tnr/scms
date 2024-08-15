@@ -1,13 +1,13 @@
 <?php
 require_once 'BaseModel.php';
 
-class DealerUser extends BaseModel
+class Dealer_Credentials extends BaseModel
 {
     protected $table = "distributoruser";
 
     // Method to register a new complaint
 
-    public function getAllDealer()
+    public function getAllDealerCredentials()
     {
         $query = "SELECT * FROM $this->table";
         $result = $this->conn->query($query);
@@ -21,18 +21,18 @@ class DealerUser extends BaseModel
     }
 
 
-    public function registerDealer($data)
+    public function registerDealerCredentials($data)
     {
         return $this->create($data);
     }
 
-     public function registerDealerUser($data)
+     public function registerDealerUserCredentials($data)
      {
          return $this->create($data);
      }
 
 
-    public function getDealerById($id)
+    public function getDealerCredentialsById($id)
     {
         $query = "SELECT * FROM $this->table WHERE id = ?";
         $stmt = $this->conn->prepare($query);
@@ -44,7 +44,7 @@ class DealerUser extends BaseModel
 
 
 
-    public function updateDealerById($id, $data)
+    public function updateDealerCredentialsById($id, $data)
     {
         return $this->update($id, $data);
     }
