@@ -102,11 +102,26 @@ $currentTechnician = $technician->getTechnicianById($technicianId);
                                                     <label for="Technician_city" class="form-label">city</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_city" id="Technician_city" value="<?php echo htmlspecialchars($currentTechnician['city']); ?>" required>
                                                 </div>
+                                                <div class="col-md-6">
+                                                <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="dealerStatus">Dealer Status</label>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="dealerStatus" name="isactive" value="Y"
+                                                        <?php echo ($currentTechnician['isactive'] == 'Y') ? 'checked' : ''; ?>>
+                                                    <label class="custom-control-label" for="dealerStatus">
+                                                        <?php echo ($currentTechnician['isactive'] == 'Y') ? 'Active' : 'Inactive'; ?>
+                                                    </label>
+                                                </div>  
+                                            </div>
+
+                                        </div>
+                                                </div>
                                                 
                                                
                                                 
                                                 
-                                                <div class="col-12 d-flex justify-content-end mt-2">
+                                                <div class="col-6 d-flex justify-content-end mt-2">
                                                     <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
                                                     <button type="submit" class="btn btn-primary shadow-none">Register</button>
                                                 </div>

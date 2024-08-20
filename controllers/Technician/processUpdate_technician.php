@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $modifydate = date('Y-m-d H:i:s');
     $isActive = 'Y';
     $id = $_POST['technicianId'];
+    $isActive = isset($_POST['isactive']) && $_POST['isactive'] == 'Y' ? 'Y' : 'N';
 
    // <!-- id, username, password, primarymobileno, secondmobileno, firstname, lastname, address, city, roletype, isactive, createdate, modifydate, lastlogindate -->
 
