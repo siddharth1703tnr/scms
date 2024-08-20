@@ -140,6 +140,22 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
+              <a href="<?php echo BASE_URL; ?>pages/technician/show_techinician.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>show</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?php echo BASE_URL; ?>pages/technician/register_techinician.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>register</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
               <a href="<?php echo BASE_URL; ?>pages/technician/assign.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>assign</p>
