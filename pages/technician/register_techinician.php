@@ -57,6 +57,7 @@ $db = $database->getConnection();
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                         <i class="fas fa-minus"></i>
                                     </button>
+                                    
                                 </div>
                             </div>
                             <div class="card-body">

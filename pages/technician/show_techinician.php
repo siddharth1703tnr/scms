@@ -57,14 +57,22 @@ $technicians = $technician->getAllTechnicians();
                     <div class="card-header d-flex justify-content-between">
                         <div class="mr-auto">
                             <h3 class="card-title">Complainnt Show</h3>
-                        </div> 
-                        <div class="ml-auto"><a href="<?php echo BASE_URL; ?>pages/technician/register_techinician.php"><button type="button" class="btn btn-outline-success">Register Complaint</button></a></div>
+                        </div>
+                        <div class="ml-auto">
+                            <!-- <a href="<?php //echo BASE_URL; ?>pages/technician/register_techinician.php">
+                                <button type="button" class="btn btn-outline-success">Register Complaint</button>
+                            </a> -->
+                            <!-- Button to open the modal -->
+                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerTechnicianModal">
+                                Register Technician
+                            </button>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-striped table-hover">
                             <thead>
-                            <!-- id`, `username`, `primarymobileno`, `secondmobileno`, `firstname`, `lastname`, `address`, `city`, `isactive` -->
+                                <!-- id`, `username`, `primarymobileno`, `secondmobileno`, `firstname`, `lastname`, `address`, `city`, `isactive` -->
                                 <tr>
                                     <th>username</th>
                                     <th>Action</th>
@@ -74,7 +82,6 @@ $technicians = $technician->getAllTechnicians();
                                     <th>secondmobileno</th>
                                     <th>address</th>
                                     <th>city</th>
-                                    <th>isactive</th>
 
                                 </tr>
                             </thead>
@@ -82,7 +89,7 @@ $technicians = $technician->getAllTechnicians();
                                 <?php if ($technicians) : ?>
                                     <?php foreach ($technicians as $technician) : ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($technician['username']); ?></td>
+                                            <td><?php echo htmlspecialchars($technician['username']); ?> <span class="badge badge-pill badge-<?php echo ($technician['isactive'] == 'Y') ? 'success' : 'danger' ?> ml-1 p-1"> </span></td>
                                             <td class="d-flex justify-content-center">
                                                 <button class="btn btn-primary btn-sm mr-1 view-btn" data-id="<?php echo $technician['id']; ?>">
                                                     <i class="fas fa-folder"></i> View
@@ -97,7 +104,6 @@ $technicians = $technician->getAllTechnicians();
                                             <td><?php echo htmlspecialchars($technician['secondmobileno']); ?></td>
                                             <td><?php echo htmlspecialchars($technician['address']); ?></td>
                                             <td><?php echo htmlspecialchars($technician['city']); ?></td>
-                                            <td><?php echo htmlspecialchars($technician['isactive']); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else : ?>
@@ -108,15 +114,14 @@ $technicians = $technician->getAllTechnicians();
                             </tbody>
                             <tfoot>
                                 <tr>
-                                <th>username</th>
-                                <th>Action</th>
+                                    <th>username</th>
+                                    <th>Action</th>
                                     <th>firstname</th>
                                     <th>lastname</th>
                                     <th>primarymobileno</th>
                                     <th>secondmobileno</th>
                                     <th>address</th>
                                     <th>city</th>
-                                    <th>isactive</th>
                                 </tr>
                             </tfoot>
                             <!-- Modal -->
@@ -142,6 +147,68 @@ $technicians = $technician->getAllTechnicians();
                     </div>
                     <!-- /.card-body -->
                 </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="registerTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="registerTechnicianModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="registerTechnicianModalLabel">Register Technician</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="registerTechnicianForm">
+                                    <div class="row row-gap-2">
+                                        <div class="col-md-6">
+                                            <label for="Technician_username" class="form-label">username</label>
+                                            <input type="text" class="form-control shadow-none" name="Technician_username" id="Technician_username" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Technician_password" class="form-label">password</label>
+                                            <input type="tel" class="form-control shadow-none" name="Technician_password" id="Technician_password" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Technician_pnumber" class="form-label">primarymobileno</label>
+                                            <input type="text" class="form-control shadow-none" name="Technician_pnumber" id="Technician_pnumber" placeholder="1234 Main St" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Technician_snumber" class="form-label">secondmobileno</label>
+                                            <input type="text" class="form-control shadow-none" name="Technician_snumber" id="Technician_snumber" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Technician_fname" class="form-label">firstname</label>
+                                            <input type="text" class="form-control shadow-none" name="Technician_fname" id="Technician_fname" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Technician_lname" class="form-label">lastname</label>
+                                            <input type="tel" class="form-control shadow-none" name="Technician_lname" id="Technician_lname" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Technician_address" class="form-label">address</label>
+                                            <input type="text" class="form-control shadow-none" name="Technician_address" id="Technician_address" placeholder="1234 Main St" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Technician_city" class="form-label">city</label>
+                                            <input type="text" class="form-control shadow-none" name="Technician_city" id="Technician_city" required>
+                                        </div>
+
+
+
+
+                                        <div class="col-12 d-flex justify-content-end mt-2">
+                                            <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
+                                            <button type="submit" class="btn btn-primary shadow-none">Register</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div><!-- /.container-fluid -->
         </div>
 
@@ -217,6 +284,29 @@ $technicians = $technician->getAllTechnicians();
             $(document).on('click', '.edit-btn', function() {
                 var id = $(this).data('id');
                 window.location.href = '<?php echo BASE_URL; ?>pages/technician/update_techinician.php?id=' + id;
+            });
+        });
+
+
+        $(document).ready(function() {
+            $("#registerTechnicianForm").on("submit", function(event) {
+                event.preventDefault(); // Prevent the form from submitting the default way
+
+                $.ajax({
+                    url: '../../controllers/Technician/process_technician.php', // URL to your PHP handler
+                    type: 'POST',
+                    data: $(this).serialize(), // Serialize form data
+                    success: function(response) {
+                        // Handle success (e.g., show a success message or update the table)
+                        $('#registerTechnicianModal').modal('hide'); // Hide the modal
+                        alert('Technician registered successfully!');
+                        // Optionally, update the table or page with new data
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        alert('Error: ' + xhr.responseText);
+                    }
+                });
             });
         });
     </script>
