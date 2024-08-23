@@ -147,3 +147,37 @@ $currentTechnician = $technician->getTechnicianById($technicianId);
 </body>
 
 </html>
+
+
+<form id="editForm">
+                        <input type="hidden" id="technicianId" name="id">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="primaryMobile">Primary Mobile</label>
+                            <input type="text" class="form-control" id="primaryMobile" name="primarymobileno">
+                        </div>
+                        <div class="form-group">
+                            <label for="secondaryMobile">Secondary Mobile</label>
+                            <input type="text" class="form-control" id="secondaryMobile" name="secondmobileno">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstname">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastname">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" name="city">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form> 

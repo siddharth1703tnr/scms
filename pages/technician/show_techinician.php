@@ -7,10 +7,6 @@ require_once '../../classes/Technician.php';
 $database = new Database();
 $db = $database->getConnection();
 // You can now use your models here
-
-$technician = new Technician($db);
-$technicians = $technician->getAllTechnicians();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,37 +27,31 @@ $technicians = $technician->getAllTechnicians();
         <?php require_once('../../includes/preloder.php') ?>
         <?php require_once('../../includes/navbar.php') ?>
         <?php require_once('../../includes/asidde-st.php') ?>
-
         <div class="content-wrapper">
-
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Complaint Show</h1>
+                            <h1>Techion Managment</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Complaint</li>
+                                <li class="breadcrumb-item active">Technician</li>
                                 <li class="breadcrumb-item active">Show</li>
                             </ol>
                         </div>
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
-
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
                         <div class="mr-auto">
-                            <h3 class="card-title">Complainnt Show</h3>
+                            <h3 class="card-title">Technician Show</h3>
                         </div>
                         <div class="ml-auto">
-                            <!-- <a href="<?php //echo BASE_URL; ?>pages/technician/register_techinician.php">
-                                <button type="button" class="btn btn-outline-success">Register Complaint</button>
-                            </a> -->
                             <!-- Button to open the modal -->
                             <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerTechnicianModal">
                                 Register Technician
@@ -74,144 +64,160 @@ $technicians = $technician->getAllTechnicians();
                             <thead>
                                 <!-- id`, `username`, `primarymobileno`, `secondmobileno`, `firstname`, `lastname`, `address`, `city`, `isactive` -->
                                 <tr>
-                                    <th>username</th>
-                                    <th>Action</th>
-                                    <th>firstname</th>
-                                    <th>lastname</th>
-                                    <th>primarymobileno</th>
-                                    <th>secondmobileno</th>
-                                    <th>address</th>
-                                    <th>city</th>
-
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Primary Mobile No</th>
+                                    <th>Second Mobile No</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if ($technicians) : ?>
-                                    <?php foreach ($technicians as $technician) : ?>
-                                        <tr>
-                                            <td><?php echo htmlspecialchars($technician['username']); ?> <span class="badge badge-pill badge-<?php echo ($technician['isactive'] == 'Y') ? 'success' : 'danger' ?> ml-1 p-1"> </span></td>
-                                            <td class="d-flex justify-content-center">
-                                                <button class="btn btn-primary btn-sm mr-1 view-btn" data-id="<?php echo $technician['id']; ?>">
-                                                    <i class="fas fa-folder"></i> View
-                                                </button>
-                                                <button class="btn btn-info btn-sm edit-btn" data-id="<?php echo $technician['id']; ?>">
-                                                    <i class="fas fa-pencil-alt"></i> Edit
-                                                </button>
-                                            </td>
-                                            <td><?php echo htmlspecialchars($technician['firstname']); ?></td>
-                                            <td><?php echo htmlspecialchars($technician['lastname']); ?></td>
-                                            <td><?php echo htmlspecialchars($technician['primarymobileno']); ?></td>
-                                            <td><?php echo htmlspecialchars($technician['secondmobileno']); ?></td>
-                                            <td><?php echo htmlspecialchars($technician['address']); ?></td>
-                                            <td><?php echo htmlspecialchars($technician['city']); ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php else : ?>
-                                    <tr>
-                                        <td colspan="6">No technicians found.</td>
-                                    </tr>
-                                <?php endif; ?>
+                                <!-- Table rows will be inserted here via AJAX -->
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>username</th>
-                                    <th>Action</th>
-                                    <th>firstname</th>
-                                    <th>lastname</th>
-                                    <th>primarymobileno</th>
-                                    <th>secondmobileno</th>
-                                    <th>address</th>
-                                    <th>city</th>
-                                </tr>
-                            </tfoot>
-                            <!-- Modal -->
-                            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="viewModalLabel">Complaint Details</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Complaint details will be loaded here -->
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </table>
                     </div>
                     <!-- /.card-body -->
                 </div>
+                <!-- Update Modal -->
+                <div class="modal fade" id="updateTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="updateTechnicianModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                        <form id="editForm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="updateTechnicianModalLabel">Update Technician</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card card-primary card-outline mt-2">
+                                        <div class="card-body">
+                                            <div class="row row-gap-2">
+                                                <input type="hidden" id="technicianId" name="technicianId">
+                                                <div class="col-md-6">
+                                                    <label for="Technician_username" class="form-label">username</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_username" id="Technician_username" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_password" class="form-label">password</label>
+                                                    <input type="tel" class="form-control shadow-none" name="Technician_password" id="Technician_password" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_pnumber" class="form-label">primarymobileno</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_pnumber" id="Technician_pnumber" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_snumber" class="form-label">secondmobileno</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_snumber" id="Technician_snumber" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_fname" class="form-label">firstname</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_fname" id="Technician_fname" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_lname" class="form-label">lastname</label>
+                                                    <input type="tel" class="form-control shadow-none" name="Technician_lname" id="Technician_lname" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_address" class="form-label">address</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_address" id="Technician_address" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_city" class="form-label">city</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_city" id="Technician_city" required>
+                                                </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="registerTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="registerTechnicianModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="registerTechnicianModalLabel">Register Technician</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="dealerStatus">Technician Status</label>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="dealerStatus" name="isactive" value="Y">
+                                                            <label class="custom-control-label" for="dealerStatus" id="statusLabel">Inactive</label>
+                                                        </div>
+                                                    </div>
 
-                                <form id="registerTechnicianForm">
-                                    <div class="row row-gap-2">
-                                        <div class="col-md-6">
-                                            <label for="Technician_username" class="form-label">username</label>
-                                            <input type="text" class="form-control shadow-none" name="Technician_username" id="Technician_username" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Technician_password" class="form-label">password</label>
-                                            <input type="tel" class="form-control shadow-none" name="Technician_password" id="Technician_password" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Technician_pnumber" class="form-label">primarymobileno</label>
-                                            <input type="text" class="form-control shadow-none" name="Technician_pnumber" id="Technician_pnumber" placeholder="1234 Main St" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Technician_snumber" class="form-label">secondmobileno</label>
-                                            <input type="text" class="form-control shadow-none" name="Technician_snumber" id="Technician_snumber" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Technician_fname" class="form-label">firstname</label>
-                                            <input type="text" class="form-control shadow-none" name="Technician_fname" id="Technician_fname" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Technician_lname" class="form-label">lastname</label>
-                                            <input type="tel" class="form-control shadow-none" name="Technician_lname" id="Technician_lname" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Technician_address" class="form-label">address</label>
-                                            <input type="text" class="form-control shadow-none" name="Technician_address" id="Technician_address" placeholder="1234 Main St" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Technician_city" class="form-label">city</label>
-                                            <input type="text" class="form-control shadow-none" name="Technician_city" id="Technician_city" required>
-                                        </div>
-
-
-
-
-                                        <div class="col-12 d-flex justify-content-end mt-2">
-                                            <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
-                                            <button type="submit" class="btn btn-primary shadow-none">Register</button>
-                                        </div>
+                                                </div>
+                                                <!-- <div class="col-6 d-flex justify-content-end mt-2">
+                                                <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
+                                                <button type="submit" class="btn btn-primary shadow-none">Register</button>
+                                            </div> -->
+                                            </div>
+                                        </div><!-- /.card-body -->
                                     </div>
-                                </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- <button type="button" class="btn btn-secondary shadow-none mr-2" id="updateReset">Reset</button> -->
+                                    <button type="submit" class="btn btn-primary shadow-none">Register</button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-
+                <!-- Register(Insert) Modal -->
+                <div class="modal fade" id="registerTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="registerTechnicianModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <form id="registerTechnicianForm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="registerTechnicianModalLabel">Register New Technician</h5>
+                                    <button type="reset" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card card-primary card-outline mt-2">
+                                        <div class="card-body">
+                                            <div class="row row-gap-2">
+                                                <div class="col-md-6">
+                                                    <label for="Technician_username" class="form-label">UserName</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_username" id="Technician_username" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_password" class="form-label">Password</label>
+                                                    <input type="password" class="form-control shadow-none" name="Technician_password" id="Technician_password" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_pnumber" class="form-label">Primary MobileNo</label>
+                                                    <input type="tel" class="form-control shadow-none" name="Technician_pnumber" id="Technician_pnumber" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_snumber" class="form-label">Second MobileNo</label>
+                                                    <input type="tel" class="form-control shadow-none" name="Technician_snumber" id="Technician_snumber" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_fname" class="form-label">First Name</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_fname" id="Technician_fname" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_lname" class="form-label">Last Name</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_lname" id="Technician_lname" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_address" class="form-label">Address</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_address" id="Technician_address" placeholder="1234 Main St" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Technician_city" class="form-label">City</label>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_city" id="Technician_city" required>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.card-body -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
+                                    <button type="submit" class="btn btn-primary shadow-none">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div><!-- /.container-fluid -->
         </div>
-
         <?php require_once('../../includes/footer.php') ?>
         <?php require_once('../../includes/asidde-end.php') ?>
     </div>
@@ -230,10 +236,12 @@ $technicians = $technician->getAllTechnicians();
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <!-- Page specific script -->
+    
     <script>
-        $(function() {
-            $('#example2').DataTable({
+        $(document).ready(function() {
+
+
+            var table = $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
@@ -241,70 +249,139 @@ $technicians = $technician->getAllTechnicians();
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
-            });
-        });
-    </script>
 
+                "ajax": {
+                    "url": "ajax/fetchTechnicians.php",
+                    "dataSrc": ''
 
-
-    <script>
-        $(document).ready(function() {
-            $('#example2').on('click', '.view-btn', function() {
-                var id = $(this).data('id');
-                $.ajax({
-                    url: '<?php echo BASE_URL; ?>controllers/complaint/get_complaint_details.php',
-                    method: 'GET',
-                    data: {
-                        id: id
+                },
+                "columns": [{
+                        "data": "id"
                     },
+                    {
+                        "data": "username"
+                    },
+                    {
+                        "data": "firstname"
+                    },
+                    {
+                        "data": "lastname"
+                    },
+                    {
+                        "data": "primarymobileno"
+                    },
+                    {
+                        "data": "secondmobileno"
+                    },
+                    {
+                        "data": "address"
+                    },
+                    {
+                        "data": "city"
+                    },
+                    {
+                        "data": null,
+                        "render": function(data, type, row) {
+                            return `<button class="btn btn-warning btn-sm btn-edit" data-id="${row.id}">Edit</button>
+                                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${row.id}">Delete</button>`;
+                        }
+                    }
+                ]
+            });
+
+
+            $(document).ready(function() {
+                $("#registerTechnicianForm").on("submit", function(event) {
+                    event.preventDefault(); // Prevent the form from submitting the default way
+
+                    $.ajax({
+                        url: '../../controllers/Technician/process_technician.php', // URL to your PHP handler
+                        type: 'POST',
+                        data: $(this).serialize(), // Serialize form data
+                        success: function(response) {
+                            // Reload the table data
+                            table.ajax.reload();
+                            // Handle success (e.g., show a success message or update the table)
+                            $('#registerTechnicianForm')[0].reset(); // Clear the form when the modal is shown
+                            $('#registerTechnicianModal').modal('hide'); // Hide the modal
+
+                            alert('Technician registered successfully!');
+                            // Optionally, update the table or page with new data
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error
+                            alert('Error: ' + xhr.responseText);
+                        }
+                    });
+                });
+            });
+
+            // Handle Edit button click
+            $('#example2').on('click', '.btn-edit', function() {
+                var technicianId = $(this).data('id');
+
+                // Fetch technician data by ID
+                $.ajax({
+                    url: 'ajax/featchTechionById.php', // Adjust the path to your file
+                    method: 'POST',
+                    data: {
+                        action: 'getById',
+                        id: technicianId
+                    },
+                    dataType: 'json',
                     success: function(response) {
-                        $('.modal-body').html(response);
-                        $('#viewModal').modal('show');
+                        console.log('Modal Data:', response); // Debugging output
+
+                        // Populate the form fields
+                        $('#technicianId').val(response.id);
+                        $('#Technician_password').val(response.password);
+                        $('#Technician_username').val(response.username);
+                        $('#Technician_pnumber').val(response.primarymobileno);
+                        $('#Technician_snumber').val(response.secondmobileno);
+                        $('#Technician_fname').val(response.firstname);
+                        $('#Technician_lname').val(response.lastname);
+                        $('#Technician_address').val(response.address);
+                        $('#Technician_city').val(response.city);
+
+                        // Handle Technician Status
+                        if (response.isactive === 'Y') {
+                            $('#dealerStatus').prop('checked', true);
+                            $('#statusLabel').text('Active');
+                        } else {
+                            $('#dealerStatus').prop('checked', false);
+                            $('#statusLabel').text('Inactive');
+                        }
+
+                        // Show the modal
+                        $('#updateTechnicianModal').modal('show');
                     }
                 });
             });
-        });
 
-        $(document).ready(function() {
-            $(document).on('click', '.view-btn', function() {
-                var id = $(this).data('id');
-                $.ajax({
-                    url: '<?php echo BASE_URL; ?>controllers/complaint/get_complaint_details.php',
-                    method: 'GET',
-                    data: {
-                        id: id
-                    },
-                    success: function(response) {
-                        $('.modal-body').html(response);
-                        $('#viewModal').modal('show');
-                    }
-                });
+            // Update label based on switch state
+            $('#dealerStatus').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#statusLabel').text('Active');
+                    $(this).val('Y');
+                } else {
+                    $('#statusLabel').text('Inactive');
+                    $(this).val('N');
+                }
             });
 
-            $(document).on('click', '.edit-btn', function() {
-                var id = $(this).data('id');
-                window.location.href = '<?php echo BASE_URL; ?>pages/technician/update_techinician.php?id=' + id;
-            });
-        });
-
-
-        $(document).ready(function() {
-            $("#registerTechnicianForm").on("submit", function(event) {
-                event.preventDefault(); // Prevent the form from submitting the default way
+            // Handle form submission for editing
+            $('#editForm').on('submit', function(e) {
+                e.preventDefault();
 
                 $.ajax({
-                    url: '../../controllers/Technician/process_technician.php', // URL to your PHP handler
-                    type: 'POST',
-                    data: $(this).serialize(), // Serialize form data
+                    url: '../../controllers/Technician/processUpdate_technician.php', // Adjust the path to your file
+                    method: 'POST',
+                    data: $(this).serialize(),
                     success: function(response) {
-                        // Handle success (e.g., show a success message or update the table)
-                        $('#registerTechnicianModal').modal('hide'); // Hide the modal
-                        alert('Technician registered successfully!');
-                        // Optionally, update the table or page with new data
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle error
-                        alert('Error: ' + xhr.responseText);
+                        // Close the modal
+                        $('#updateTechnicianModal').modal('hide');
+                        // Reload the table data
+                        table.ajax.reload();
                     }
                 });
             });
