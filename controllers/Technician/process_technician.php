@@ -57,7 +57,7 @@ try {
         // Data array
         $data = [
             'username' => $username,
-            'password' => $password, // Hash the password
+            'password' => $password,
             'primarymobileno' => $primarymobileno,
             'secondmobileno' => $secondmobileno,
             'firstname' => $firstname,

@@ -43,8 +43,8 @@ try {
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Technician</li>
+                                <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>pages/dashboard/admin.php">Home</a></li>
+                                <li class="breadcrumb-item active"><a href="<?php echo BASE_URL; ?>pages/technician/show_techinician.php">Technician</a></li>
                                 <li class="breadcrumb-item active">Show</li>
                             </ol>
                         </div>
