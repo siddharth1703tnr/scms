@@ -10,23 +10,23 @@ $technician = new Technician($db);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Handle the actual update process (assuming all validation checks have passed)
-    if (isset($_POST['technicianId']) && isset($_POST['Technician_pnumber'])) {
+    if (isset($_POST['technicianId']) && isset($_POST['primaryMobile'])) {
         $modifydate = date('Y-m-d H:i:s');
         $isActive = 'Y';
         $id = $_POST['technicianId'];
-        $isActive = isset($_POST['isactive']) && $_POST['isactive'] == 'Y' ? 'Y' : 'N';
+        $isActive = isset($_POST['isActive']) && $_POST['isActive'] == 'Y' ? 'Y' : 'N';
 
         // <!-- id, username, password, primarymobileno, secondmobileno, firstname, lastname, address, city, roletype, isactive, createdate, modifydate, lastlogindate -->
 
         $data = [
             // 'username' => $_POST['Technician_username'], 
             // 'password' => $_POST['Technician_password'], 
-            'primarymobileno' => $_POST['Technician_pnumber'],
-            'secondmobileno' => $_POST['Technician_snumber'],
-            'firstname' => $_POST['Technician_fname'],
-            'lastname' => $_POST['Technician_lname'],
-            'address' => $_POST['Technician_address'],
-            'city' => $_POST['Technician_city'],
+            'primarymobileno' => $_POST['primaryMobile'],
+            'secondmobileno' => $_POST['secondaryMobile'],
+            'firstname' => $_POST['firstName'],
+            'lastname' => $_POST['lastName'],
+            'address' => $_POST['address'],
+            'city' => $_POST['city'],
             'isactive' => $isActive,
             'modifydate' => $modifydate
 

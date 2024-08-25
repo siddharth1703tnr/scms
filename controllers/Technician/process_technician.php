@@ -15,7 +15,7 @@ try {
 
         if (isset($_POST['username_check'])) {
             // Username check logic
-            $Technician_username = trim($_POST['Reg_Technician_username']);
+            $Technician_username = trim($_POST['registerTechnicianUsername']);
 
             // Prepare the SQL statement
             $query = "SELECT COUNT(*) AS count FROM `servicecenteruser` WHERE username = ?";
@@ -36,14 +36,14 @@ try {
         }
 
         // Sanitize and validate input data
-        $username = htmlspecialchars(strip_tags($_POST['Technician_username']));
-        $password = htmlspecialchars(strip_tags($_POST['Technician_password']));
-        $primarymobileno = htmlspecialchars(strip_tags($_POST['Technician_pnumber']));
-        $secondmobileno = htmlspecialchars(strip_tags($_POST['Technician_snumber']));
-        $firstname = htmlspecialchars(strip_tags($_POST['Technician_fname']));
-        $lastname = htmlspecialchars(strip_tags($_POST['Technician_lname']));
-        $address = htmlspecialchars(strip_tags($_POST['Technician_address']));
-        $city = htmlspecialchars(strip_tags($_POST['Technician_city']));
+        $username = htmlspecialchars(strip_tags($_POST['username']));
+        $password = htmlspecialchars(strip_tags($_POST['password']));
+        $primarymobileno = htmlspecialchars(strip_tags($_POST['primaryMobile']));
+        $secondmobileno = htmlspecialchars(strip_tags($_POST['secondaryMobile']));
+        $firstname = htmlspecialchars(strip_tags($_POST['firstName']));
+        $lastname = htmlspecialchars(strip_tags($_POST['lastName']));
+        $address = htmlspecialchars(strip_tags($_POST['address']));
+        $city = htmlspecialchars(strip_tags($_POST['city']));
 
         // Validate required fields
         if (empty($username) || empty($password) || empty($primarymobileno) || empty($firstname) || empty($lastname) || empty($address) || empty($city)) {
