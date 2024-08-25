@@ -68,11 +68,11 @@ $complaints = $complaint->getAllComplaints();
                             <thead>
                                 <tr>
                                     <th>Call Number</th>
-                                    <th>Actions</th>
                                     <th>Customer Name</th>
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
                                     <th>Call Type</th>
+                                    <th>Actions</th>
 
                                 </tr>
                             </thead>
@@ -90,6 +90,10 @@ $complaints = $complaint->getAllComplaints();
                                                 </span>
                                             </td>
 
+                                            <td><?php echo htmlspecialchars($complaint['customername']); ?></td>
+                                            <td><?php echo htmlspecialchars($complaint['customermobileno']); ?></td>
+                                            <td><?php echo htmlspecialchars($complaint['customeraddress']); ?></td>
+                                            <td><?php echo htmlspecialchars($complaint['calltype']); ?></td>
                                             <td class="d-flex justify-content-center">
                                                 <button class="btn btn-primary btn-sm mr-1 view-btn" data-id="<?php echo $complaint['id']; ?>">
                                                     <i class="fas fa-folder"></i> View
@@ -98,12 +102,6 @@ $complaints = $complaint->getAllComplaints();
                                                     <i class="fas fa-pencil-alt"></i> Edit
                                                 </button>
                                             </td>
-
-
-                                            <td><?php echo htmlspecialchars($complaint['customername']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['customermobileno']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['customeraddress']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['calltype']); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else : ?>
@@ -115,11 +113,11 @@ $complaints = $complaint->getAllComplaints();
                             <tfoot>
                                 <tr>
                                     <th>Call Number</th>
-                                    <th>Actions</th>
                                     <th>Customer Name</th>
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
                                     <th>Call Type</th>
+                                    <th>Actions</th>
                                 </tr>
                             </tfoot>
                             <!-- Modal -->
