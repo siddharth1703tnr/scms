@@ -8,12 +8,10 @@ header('Content-Type: application/json'); // Ensure the response is JSON formatt
 $database = new Database();
 $db = $database->getConnection();
 $technician = new Technician($db);
-
 $response = ['status' => 'error', 'message' => 'Unknown error']; // Default response
 
 try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
 
         if (isset($_POST['username_check'])) {
             // Username check logic
@@ -28,19 +26,14 @@ try {
             $stmt->fetch();
             $stmt->close();
 
-
             if ($count > 0) {
                 echo json_encode(['exists' => true]);
             } else {
                 echo json_encode(['exists' => false]);
             }
 
-
             exit; // Stop further execution
-
         }
-
-
 
         // Sanitize and validate input data
         $username = htmlspecialchars(strip_tags($_POST['Technician_username']));
@@ -78,7 +71,8 @@ try {
 
         // Attempt to register the technician
         if ($technician->registerTechnician($data)) {
-            $response = ['status' => 'success', 'message' => 'Technician registered successfully.'];
+            //$response = ['status' => 'success', 'message' => 'Technician registered successfully.'];
+            $response = ['status' => 'success', 'class' => 'bg-success', 'title' => 'Added', 'subtitle' => 'Success', 'body' => 'Technician Added successfully'];
         } else {
             throw new Exception("Failed to register technician.");
         }

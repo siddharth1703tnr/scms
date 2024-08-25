@@ -60,7 +60,7 @@ $db = $database->getConnection();
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example2" class="table table-bordered table-striped table-hover">
+                        <table id="technicianTable" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <!-- id`, `username`, `primarymobileno`, `secondmobileno`, `firstname`, `lastname`, `address`, `city`, `isactive` -->
                                 <tr>
@@ -155,7 +155,7 @@ $db = $database->getConnection();
                                 </div>
                                 <div class="modal-footer">
                                     <!-- <button type="button" class="btn btn-secondary shadow-none mr-2" id="updateReset">Reset</button> -->
-                                    <button type="submit" class="btn btn-primary shadow-none">Register</button>
+                                    <button type="submit" class="btn btn-primary shadow-none">Update</button>
                                 </div>
                             </div>
                         </form>
@@ -253,9 +253,10 @@ $db = $database->getConnection();
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
     <script>
-        $(document).ready(function() {
 
-            var table = $('#example2').DataTable({
+        // Handle To Retriv Data Fromm Techion Table To Populate In Table
+        $(document).ready(function() {
+            var table = $('#technicianTable').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
@@ -264,7 +265,7 @@ $db = $database->getConnection();
                 "autoWidth": true,
                 "responsive": true,
                 "ajax": {
-                    "url": "ajax/fetchTechnicians.php",
+                    "url": '../../controllers/Technician/ajax/fetchTechnicians.php',
                     "method": "POST", // Ensure you're using POST method to send the action parameter
                     "data": {
                         action: 'getAllData' // Pass the action parameter
@@ -306,8 +307,10 @@ $db = $database->getConnection();
 
                 ]
             });
+        });
 
-
+        // Handle Registration Operations
+        $(document).ready(function() {
             // Function to check username uniqueness
             function checkUsername(callback) {
                 var Reg_Technician_username = $("#Reg_Technician_username").val();
@@ -360,12 +363,23 @@ $db = $database->getConnection();
                             type: 'POST',
                             data: form.serialize(), // Serialize form data
                             success: function(response) {
+
+                                if (response.status.trim() == 'success') {
+                                    $(document).Toasts('create', {
+                                        class: response.class,
+                                        title: response.title,
+                                        subtitle: response.subtitle,
+                                        body: response.body,
+                                        delay: 5000,
+                                        autohide: true
+                                    });
+                                }
                                 // Handle success
                                 table.ajax.reload(); // Reload the table data
                                 resetForm(); // Reset the form and clear validation classes
                                 $('#registerTechnicianModal').modal('hide'); // Hide the modal
 
-                                alert('Technician registered successfully!');
+                                //alert('Technician registered successfully!');
                             },
                             error: function(xhr, status, error) {
                                 // Handle error
@@ -396,110 +410,123 @@ $db = $database->getConnection();
                 form.find(".is-invalid").removeClass("is-invalid"); // Remove is-invalid classes
                 form.find(".invalid-feedback").text(""); // Clear validation messages
             }
+        });
 
-            $(document).ready(function() {
-                // Handle edit button click to load technician data
-                $('#example2').on('click', '.btn-edit', function() {
-                    var technicianId = $(this).data('id');
+        // Handle Update Operations
+        $(document).ready(function() {
+            // Handle edit button click to load technician data
+            $('#technicianTable').on('click', '.btn-edit', function() {
+                var technicianId = $(this).data('id');
 
-                    // Fetch technician data by ID
+                // Fetch technician data by ID
+                $.ajax({
+                    url: '../../controllers/Technician/ajax/fetchTechnicians.php', // Adjust the path to your file
+                    method: 'POST',
+                    data: {
+                        action: 'getById',
+                        id: technicianId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Modal Data:', response); // Debugging output
+
+                        // Populate the form fields
+                        $('#technicianId').val(response.id);
+                        $('#Technician_password').val(response.password);
+                        $('#Technician_username').val(response.username);
+                        $('#Technician_pnumber').val(response.primarymobileno);
+                        $('#Technician_snumber').val(response.secondmobileno);
+                        $('#Technician_fname').val(response.firstname);
+                        $('#Technician_lname').val(response.lastname);
+                        $('#Technician_address').val(response.address);
+                        $('#Technician_city').val(response.city);
+
+                        // Handle Technician Status
+                        if (response.isactive === 'Y') {
+                            $('#dealerStatus').prop('checked', true);
+                            $('#statusLabel').text('Active');
+                        } else {
+                            $('#dealerStatus').prop('checked', false);
+                            $('#statusLabel').text('Inactive');
+                        }
+
+                        // Show the modal
+                        $('#updateTechnicianModal').modal('show');
+                    }
+                });
+            });
+
+            // Update label based on switch state
+            $('#dealerStatus').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#statusLabel').text('Active');
+                    $(this).val('Y');
+                } else {
+                    $('#statusLabel').text('Inactive');
+                    $(this).val('N');
+                }
+            });
+
+            // Handle form submission with validation
+            $('#editForm').on('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                var form = $(this);
+
+                // Add Bootstrap validation classes
+                form.addClass('was-validated');
+
+                // If the form is valid, proceed with AJAX submission
+                if (form[0].checkValidity() === true) {
                     $.ajax({
-                        url: 'ajax/fetchTechnicians.php', // Adjust the path to your file
+                        url: '../../controllers/Technician/processUpdate_technician.php', // Adjust the path to your file
                         method: 'POST',
-                        data: {
-                            action: 'getById',
-                            id: technicianId
-                        },
+                        data: form.serialize(),
                         dataType: 'json',
                         success: function(response) {
-                            console.log('Modal Data:', response); // Debugging output
-
-                            // Populate the form fields
-                            $('#technicianId').val(response.id);
-                            $('#Technician_password').val(response.password);
-                            $('#Technician_username').val(response.username);
-                            $('#Technician_pnumber').val(response.primarymobileno);
-                            $('#Technician_snumber').val(response.secondmobileno);
-                            $('#Technician_fname').val(response.firstname);
-                            $('#Technician_lname').val(response.lastname);
-                            $('#Technician_address').val(response.address);
-                            $('#Technician_city').val(response.city);
-
-                            // Handle Technician Status
-                            if (response.isactive === 'Y') {
-                                $('#dealerStatus').prop('checked', true);
-                                $('#statusLabel').text('Active');
-                            } else {
-                                $('#dealerStatus').prop('checked', false);
-                                $('#statusLabel').text('Inactive');
+                            if (response.status.trim() == 'success') {
+                                $(document).Toasts('create', {
+                                    class: response.class,
+                                    title: response.title,
+                                    subtitle: response.subtitle,
+                                    body: response.body,
+                                    delay: 5000,
+                                    autohide: true
+                                });
                             }
 
-                            // Show the modal
-                            $('#updateTechnicianModal').modal('show');
+                            // Close the modal
+                            $('#updateTechnicianModal').modal('hide');
+                            // Reload the table data
+                            table.ajax.reload();
+                            // Clear the form and validation
+                            resetForm();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
                         }
                     });
-                });
-
-                // Update label based on switch state
-                $('#dealerStatus').change(function() {
-                    if ($(this).is(':checked')) {
-                        $('#statusLabel').text('Active');
-                        $(this).val('Y');
-                    } else {
-                        $('#statusLabel').text('Inactive');
-                        $(this).val('N');
-                    }
-                });
-
-                // Handle form submission with validation
-                $('#editForm').on('submit', function(e) {
-                    e.preventDefault(); // Prevent the default form submission
-                    var form = $(this);
-
-                    // Add Bootstrap validation classes
-                    form.addClass('was-validated');
-
-                    // If the form is valid, proceed with AJAX submission
-                    if (form[0].checkValidity() === true) {
-                        $.ajax({
-                            url: '../../controllers/Technician/processUpdate_technician.php', // Adjust the path to your file
-                            method: 'POST',
-                            data: form.serialize(),
-                            success: function(response) {
-                                // Close the modal
-                                $('#updateTechnicianModal').modal('hide');
-                                // Reload the table data
-                                table.ajax.reload();
-                                // Clear the form and validation
-                                resetForm();
-                            },
-                            error: function(xhr, status, error) {
-                                console.error(xhr.responseText);
-                            }
-                        });
-                    } else {
-                        e.stopPropagation(); // Stop form submission if invalid
-                    }
-                });
-
-                // Reset form and validation when the modal is hidden
-                $('#updateTechnicianModal').on('hidden.bs.modal', function() {
-                    resetForm();
-                });
-
-                // Function to reset form and clear validation
-                function resetForm() {
-                    var form = $('#editForm');
-                    form[0].reset(); // Reset the form fields
-                    form.removeClass('was-validated'); // Remove validation classes
-                    form.find('.is-invalid').removeClass('is-invalid'); // Remove is-invalid classes
-                    form.find('.invalid-feedback').text(''); // Clear validation messages
+                } else {
+                    e.stopPropagation(); // Stop form submission if invalid
                 }
+            });
 
-                // Handle reset button click (if you have one)
-                $('#resetButton').on('click', function() {
-                    resetForm();
-                });
+            // Reset form and validation when the modal is hidden
+            $('#updateTechnicianModal').on('hidden.bs.modal', function() {
+                resetForm();
+            });
+
+            // Function to reset form and clear validation
+            function resetForm() {
+                var form = $('#editForm');
+                form[0].reset(); // Reset the form fields
+                form.removeClass('was-validated'); // Remove validation classes
+                form.find('.is-invalid').removeClass('is-invalid'); // Remove is-invalid classes
+                form.find('.invalid-feedback').text(''); // Clear validation messages
+            }
+
+            // Handle reset button click (if you have one)
+            $('#resetButton').on('click', function() {
+                resetForm();
             });
         });
     </script>

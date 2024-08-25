@@ -9,8 +9,6 @@ $technician = new Technician($db);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-
     // Handle the actual update process (assuming all validation checks have passed)
     if (isset($_POST['technicianId']) && isset($_POST['Technician_pnumber'])) {
         $modifydate = date('Y-m-d H:i:s');
@@ -35,8 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         if ($technician->updateTechnician($id, $data)) {
-            header("Location: " . BASE_URL . "pages/complaint/show.php");
+            echo json_encode([ 'status' => 'success','class' => 'bg-success', 'title' => 'Update', 'subtitle' => 'Success', 'body' => 'Technician updated successfully']);
+            //header("Location: " . BASE_URL . "pages/complaint/show.php");
         } else {
+            echo json_encode([ 'status' => 'success','class' => 'bg-danger', 'title' => 'Update Erroe', 'subtitle' => 'Error', 'body' => 'Technician updated Not Done']);
             echo "Error: Could not register complaint.";
         }
     }
