@@ -64,15 +64,14 @@ $db = $database->getConnection();
                             <thead>
                                 <!-- id`, `username`, `primarymobileno`, `secondmobileno`, `firstname`, `lastname`, `address`, `city`, `isactive` -->
                                 <tr>
-                                    <th>ID</th>
                                     <th>Username</th>
+                                    <th>ACTION</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Primary Mobile No</th>
                                     <th>Second Mobile No</th>
                                     <th>Address</th>
                                     <th>City</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,7 +84,7 @@ $db = $database->getConnection();
                 <!-- Update Modal -->
                 <div class="modal fade" id="updateTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="updateTechnicianModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-                        <form id="editForm">
+                        <form id="editForm" novalidate>
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="updateTechnicianModalLabel">Update Technician</h5>
@@ -98,37 +97,45 @@ $db = $database->getConnection();
                                         <div class="card-body">
                                             <div class="row row-gap-2">
                                                 <input type="hidden" id="technicianId" name="technicianId">
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <label for="Technician_username" class="form-label">username</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_username" id="Technician_username" required>
+                                                    <div class="invalid-feedback">Please enter a username.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_password" class="form-label">password</label>
                                                     <input type="tel" class="form-control shadow-none" name="Technician_password" id="Technician_password" required>
-                                                </div>
+                                                    <div class="invalid-feedback">Please enter a Password.</div>
+                                                </div> -->
                                                 <div class="col-md-6">
                                                     <label for="Technician_pnumber" class="form-label">primarymobileno</label>
-                                                    <input type="text" class="form-control shadow-none" name="Technician_pnumber" id="Technician_pnumber" required>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_pnumber" id="Technician_pnumber" pattern="[0-9]{10}" required>
+                                                    <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_snumber" class="form-label">secondmobileno</label>
-                                                    <input type="text" class="form-control shadow-none" name="Technician_snumber" id="Technician_snumber" required>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_snumber" id="Technician_snumber" pattern="[0-9]{10}" required>
+                                                    <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_fname" class="form-label">firstname</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_fname" id="Technician_fname" required>
+                                                    <div class="invalid-feedback">Please enter a First Name.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_lname" class="form-label">lastname</label>
                                                     <input type="tel" class="form-control shadow-none" name="Technician_lname" id="Technician_lname" required>
+                                                    <div class="invalid-feedback">Please enter a Last Name.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_address" class="form-label">address</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_address" id="Technician_address" required>
+                                                    <div class="invalid-feedback">Please enter a address.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_city" class="form-label">city</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_city" id="Technician_city" required>
+                                                    <div class="invalid-feedback">Please enter a city.</div>
                                                 </div>
 
                                                 <div class="col-md-6">
@@ -141,10 +148,7 @@ $db = $database->getConnection();
                                                     </div>
 
                                                 </div>
-                                                <!-- <div class="col-6 d-flex justify-content-end mt-2">
-                                                <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
-                                                <button type="submit" class="btn btn-primary shadow-none">Register</button>
-                                            </div> -->
+
                                             </div>
                                         </div><!-- /.card-body -->
                                     </div>
@@ -160,7 +164,7 @@ $db = $database->getConnection();
                 <!-- Register(Insert) Modal -->
                 <div class="modal fade" id="registerTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="registerTechnicianModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
-                        <form id="registerTechnicianForm">
+                        <form id="registerTechnicianForm" novalidate>
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="registerTechnicianModalLabel">Register New Technician</h5>
@@ -174,48 +178,59 @@ $db = $database->getConnection();
                                             <div class="row row-gap-2">
                                                 <div class="col-md-6">
                                                     <label for="Technician_username" class="form-label">UserName</label>
-                                                    <input type="text" class="form-control shadow-none" name="Technician_username" id="Technician_username" required>
+                                                    <input type="text" class="form-control shadow-none" name="Technician_username" id="Reg_Technician_username" required>
+                                                    <div class="invalid-feedback">Please enter a username.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_password" class="form-label">Password</label>
                                                     <input type="password" class="form-control shadow-none" name="Technician_password" id="Technician_password" required>
+                                                    <div class="invalid-feedback">Please enter a Password.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_pnumber" class="form-label">Primary MobileNo</label>
-                                                    <input type="tel" class="form-control shadow-none" name="Technician_pnumber" id="Technician_pnumber" required>
+                                                    <input type="tel" class="form-control shadow-none" name="Technician_pnumber" id="Technician_pnumber" pattern="[0-9]{10}" required>
+                                                    <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_snumber" class="form-label">Second MobileNo</label>
-                                                    <input type="tel" class="form-control shadow-none" name="Technician_snumber" id="Technician_snumber" required>
+                                                    <input type="tel" class="form-control shadow-none" name="Technician_snumber" id="Technician_snumber" pattern="[0-9]{10}" required>
+                                                    <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_fname" class="form-label">First Name</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_fname" id="Technician_fname" required>
+                                                    <div class="invalid-feedback">Please enter a First Name.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_lname" class="form-label">Last Name</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_lname" id="Technician_lname" required>
+                                                    <div class="invalid-feedback">Please enter a Last Name.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_address" class="form-label">Address</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_address" id="Technician_address" placeholder="1234 Main St" required>
+                                                    <div class="invalid-feedback">Please enter a Address.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="Technician_city" class="form-label">City</label>
                                                     <input type="text" class="form-control shadow-none" name="Technician_city" id="Technician_city" required>
+                                                    <div class="invalid-feedback">Please enter a City.</div>
                                                 </div>
                                             </div>
                                         </div><!-- /.card-body -->
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="reset" class="btn btn-secondary shadow-none mr-2">Reset</button>
+                                    <button type="reset" class="btn btn-secondary shadow-none mr-2" id="resetButton">Reset</button>
                                     <button type="submit" class="btn btn-primary shadow-none">Register</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+
+
+
             </div><!-- /.container-fluid -->
         </div>
         <?php require_once('../../includes/footer.php') ?>
@@ -236,10 +251,9 @@ $db = $database->getConnection();
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
-
 
             var table = $('#example2').DataTable({
                 "paging": true,
@@ -249,17 +263,27 @@ $db = $database->getConnection();
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
-
                 "ajax": {
                     "url": "ajax/fetchTechnicians.php",
+                    "method": "POST", // Ensure you're using POST method to send the action parameter
+                    "data": {
+                        action: 'getAllData' // Pass the action parameter
+                    },
                     "dataSrc": ''
-
                 },
                 "columns": [{
-                        "data": "id"
+                        "data": "username",
+                        "render": function(data, type, row) {
+                            var statusDot = '<span class="badge badge-pill badge-' + (row.isactive == 'Y' ? 'success' : 'danger') + ' ml-1 p-1"> </span>';
+                            return data + statusDot;
+                        }
                     },
                     {
-                        "data": "username"
+                        "data": null,
+                        "render": function(data, type, row) {
+                            return `<button class="btn btn-warning btn-sm btn-edit" data-id="${row.id}">Edit</button>
+                                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${row.id}">Delete</button>`;
+                        }
                     },
                     {
                         "data": "firstname"
@@ -279,110 +303,202 @@ $db = $database->getConnection();
                     {
                         "data": "city"
                     },
-                    {
-                        "data": null,
-                        "render": function(data, type, row) {
-                            return `<button class="btn btn-warning btn-sm btn-edit" data-id="${row.id}">Edit</button>
-                                    <button class="btn btn-danger btn-sm deleteBtn" data-id="${row.id}">Delete</button>`;
-                        }
-                    }
+
                 ]
             });
 
 
-            $(document).ready(function() {
-                $("#registerTechnicianForm").on("submit", function(event) {
-                    event.preventDefault(); // Prevent the form from submitting the default way
+            // Function to check username uniqueness
+            function checkUsername(callback) {
+                var Reg_Technician_username = $("#Reg_Technician_username").val();
 
+                if (Reg_Technician_username.length > 0) {
                     $.ajax({
-                        url: '../../controllers/Technician/process_technician.php', // URL to your PHP handler
+                        url: '../../controllers/Technician/process_technician.php',
                         type: 'POST',
-                        data: $(this).serialize(), // Serialize form data
+                        data: {
+                            Reg_Technician_username: Reg_Technician_username,
+                            username_check: true // Add this to differentiate from registration
+                        },
                         success: function(response) {
-                            // Reload the table data
-                            table.ajax.reload();
-                            // Handle success (e.g., show a success message or update the table)
-                            $('#registerTechnicianForm')[0].reset(); // Clear the form when the modal is shown
-                            $('#registerTechnicianModal').modal('hide'); // Hide the modal
-
-                            alert('Technician registered successfully!');
-                            // Optionally, update the table or page with new data
+                            if (response.exists) {
+                                $("#Reg_Technician_username").addClass("is-invalid");
+                                $("#Reg_Technician_username").siblings(".invalid-feedback").text("This username is already taken.");
+                                callback(false); // Username is taken, don't submit the form
+                            } else {
+                                $("#Reg_Technician_username").removeClass("is-invalid");
+                                $("#Reg_Technician_username").siblings(".invalid-feedback").text("");
+                                callback(true); // Username is unique, proceed with form submission
+                            }
                         },
                         error: function(xhr, status, error) {
-                            // Handle error
+                            console.log('Full Response:', xhr.responseText);
                             alert('Error: ' + xhr.responseText);
+                            callback(false); // Handle error by preventing form submission
+                        }
+                    });
+                } else {
+                    $("#Reg_Technician_username").removeClass("is-invalid");
+                    $("#Reg_Technician_username").siblings(".invalid-feedback").text("");
+                    callback(true); // No username entered, proceed with form submission
+                }
+            }
+
+            // Handle form submission
+            $("#registerTechnicianForm").on("submit", function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                var form = $(this);
+                form.addClass('was-validated'); // Add Bootstrap validation classes
+
+                // Check username uniqueness before submitting the form
+                checkUsername(function(isUnique) {
+                    if (isUnique && form[0].checkValidity() === true) {
+                        // If the username is unique and the form is valid, submit via AJAX
+                        $.ajax({
+                            url: '../../controllers/Technician/process_technician.php', // URL to your PHP handler
+                            type: 'POST',
+                            data: form.serialize(), // Serialize form data
+                            success: function(response) {
+                                // Handle success
+                                table.ajax.reload(); // Reload the table data
+                                resetForm(); // Reset the form and clear validation classes
+                                $('#registerTechnicianModal').modal('hide'); // Hide the modal
+
+                                alert('Technician registered successfully!');
+                            },
+                            error: function(xhr, status, error) {
+                                // Handle error
+                                alert('Error: ' + xhr.responseText);
+                            }
+                        });
+                    } else {
+                        event.stopPropagation(); // Stop the form from submitting if invalid
+                    }
+                });
+            });
+
+            // Check username on input
+            $("#Reg_Technician_username").on("input", function() {
+                checkUsername(function() {});
+            });
+
+            // Handle reset button click
+            $("#resetButton").on("click", function() {
+                resetForm();
+            });
+
+            // Function to reset form and clear validation
+            function resetForm() {
+                var form = $("#registerTechnicianForm");
+                form[0].reset(); // Reset the form
+                form.removeClass('was-validated'); // Remove validation classes
+                form.find(".is-invalid").removeClass("is-invalid"); // Remove is-invalid classes
+                form.find(".invalid-feedback").text(""); // Clear validation messages
+            }
+
+            $(document).ready(function() {
+                // Handle edit button click to load technician data
+                $('#example2').on('click', '.btn-edit', function() {
+                    var technicianId = $(this).data('id');
+
+                    // Fetch technician data by ID
+                    $.ajax({
+                        url: 'ajax/fetchTechnicians.php', // Adjust the path to your file
+                        method: 'POST',
+                        data: {
+                            action: 'getById',
+                            id: technicianId
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log('Modal Data:', response); // Debugging output
+
+                            // Populate the form fields
+                            $('#technicianId').val(response.id);
+                            $('#Technician_password').val(response.password);
+                            $('#Technician_username').val(response.username);
+                            $('#Technician_pnumber').val(response.primarymobileno);
+                            $('#Technician_snumber').val(response.secondmobileno);
+                            $('#Technician_fname').val(response.firstname);
+                            $('#Technician_lname').val(response.lastname);
+                            $('#Technician_address').val(response.address);
+                            $('#Technician_city').val(response.city);
+
+                            // Handle Technician Status
+                            if (response.isactive === 'Y') {
+                                $('#dealerStatus').prop('checked', true);
+                                $('#statusLabel').text('Active');
+                            } else {
+                                $('#dealerStatus').prop('checked', false);
+                                $('#statusLabel').text('Inactive');
+                            }
+
+                            // Show the modal
+                            $('#updateTechnicianModal').modal('show');
                         }
                     });
                 });
-            });
 
-            // Handle Edit button click
-            $('#example2').on('click', '.btn-edit', function() {
-                var technicianId = $(this).data('id');
-
-                // Fetch technician data by ID
-                $.ajax({
-                    url: 'ajax/featchTechionById.php', // Adjust the path to your file
-                    method: 'POST',
-                    data: {
-                        action: 'getById',
-                        id: technicianId
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        console.log('Modal Data:', response); // Debugging output
-
-                        // Populate the form fields
-                        $('#technicianId').val(response.id);
-                        $('#Technician_password').val(response.password);
-                        $('#Technician_username').val(response.username);
-                        $('#Technician_pnumber').val(response.primarymobileno);
-                        $('#Technician_snumber').val(response.secondmobileno);
-                        $('#Technician_fname').val(response.firstname);
-                        $('#Technician_lname').val(response.lastname);
-                        $('#Technician_address').val(response.address);
-                        $('#Technician_city').val(response.city);
-
-                        // Handle Technician Status
-                        if (response.isactive === 'Y') {
-                            $('#dealerStatus').prop('checked', true);
-                            $('#statusLabel').text('Active');
-                        } else {
-                            $('#dealerStatus').prop('checked', false);
-                            $('#statusLabel').text('Inactive');
-                        }
-
-                        // Show the modal
-                        $('#updateTechnicianModal').modal('show');
+                // Update label based on switch state
+                $('#dealerStatus').change(function() {
+                    if ($(this).is(':checked')) {
+                        $('#statusLabel').text('Active');
+                        $(this).val('Y');
+                    } else {
+                        $('#statusLabel').text('Inactive');
+                        $(this).val('N');
                     }
                 });
-            });
 
-            // Update label based on switch state
-            $('#dealerStatus').change(function() {
-                if ($(this).is(':checked')) {
-                    $('#statusLabel').text('Active');
-                    $(this).val('Y');
-                } else {
-                    $('#statusLabel').text('Inactive');
-                    $(this).val('N');
-                }
-            });
+                // Handle form submission with validation
+                $('#editForm').on('submit', function(e) {
+                    e.preventDefault(); // Prevent the default form submission
+                    var form = $(this);
 
-            // Handle form submission for editing
-            $('#editForm').on('submit', function(e) {
-                e.preventDefault();
+                    // Add Bootstrap validation classes
+                    form.addClass('was-validated');
 
-                $.ajax({
-                    url: '../../controllers/Technician/processUpdate_technician.php', // Adjust the path to your file
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        // Close the modal
-                        $('#updateTechnicianModal').modal('hide');
-                        // Reload the table data
-                        table.ajax.reload();
+                    // If the form is valid, proceed with AJAX submission
+                    if (form[0].checkValidity() === true) {
+                        $.ajax({
+                            url: '../../controllers/Technician/processUpdate_technician.php', // Adjust the path to your file
+                            method: 'POST',
+                            data: form.serialize(),
+                            success: function(response) {
+                                // Close the modal
+                                $('#updateTechnicianModal').modal('hide');
+                                // Reload the table data
+                                table.ajax.reload();
+                                // Clear the form and validation
+                                resetForm();
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    } else {
+                        e.stopPropagation(); // Stop form submission if invalid
                     }
+                });
+
+                // Reset form and validation when the modal is hidden
+                $('#updateTechnicianModal').on('hidden.bs.modal', function() {
+                    resetForm();
+                });
+
+                // Function to reset form and clear validation
+                function resetForm() {
+                    var form = $('#editForm');
+                    form[0].reset(); // Reset the form fields
+                    form.removeClass('was-validated'); // Remove validation classes
+                    form.find('.is-invalid').removeClass('is-invalid'); // Remove is-invalid classes
+                    form.find('.invalid-feedback').text(''); // Clear validation messages
+                }
+
+                // Handle reset button click (if you have one)
+                $('#resetButton').on('click', function() {
+                    resetForm();
                 });
             });
         });

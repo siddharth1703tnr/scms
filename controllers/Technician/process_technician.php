@@ -13,6 +13,35 @@ $response = ['status' => 'error', 'message' => 'Unknown error']; // Default resp
 
 try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+        if (isset($_POST['username_check'])) {
+            // Username check logic
+            $Technician_username = trim($_POST['Reg_Technician_username']);
+
+            // Prepare the SQL statement
+            $query = "SELECT COUNT(*) AS count FROM `servicecenteruser` WHERE username = ?";
+            $stmt = $db->prepare($query); // $conn is your mysqli connection
+            $stmt->bind_param('s', $Technician_username);
+            $stmt->execute();
+            $stmt->bind_result($count);
+            $stmt->fetch();
+            $stmt->close();
+
+
+            if ($count > 0) {
+                echo json_encode(['exists' => true]);
+            } else {
+                echo json_encode(['exists' => false]);
+            }
+
+
+            exit; // Stop further execution
+
+        }
+
+
+
         // Sanitize and validate input data
         $username = htmlspecialchars(strip_tags($_POST['Technician_username']));
         $password = htmlspecialchars(strip_tags($_POST['Technician_password']));
@@ -22,7 +51,7 @@ try {
         $lastname = htmlspecialchars(strip_tags($_POST['Technician_lname']));
         $address = htmlspecialchars(strip_tags($_POST['Technician_address']));
         $city = htmlspecialchars(strip_tags($_POST['Technician_city']));
-        
+
         // Validate required fields
         if (empty($username) || empty($password) || empty($primarymobileno) || empty($firstname) || empty($lastname) || empty($address) || empty($city)) {
             throw new Exception("All fields are required.");
@@ -61,4 +90,3 @@ try {
 }
 
 echo json_encode($response); // Return the response as JSON
-?>

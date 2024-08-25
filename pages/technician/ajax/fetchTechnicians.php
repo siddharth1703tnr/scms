@@ -13,21 +13,14 @@ $action = isset($_POST['action']) ? $_POST['action'] : '';
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 
 
-if($action == 'getById') {
-    $techionData = $technician->getTechnicianById($id);
+if ($action == 'getById') {
+    $techionDataById = $technician->getTechnicianById($id);
+    echo json_encode($techionDataById);
+    exit;
+}
+
+if ($action == 'getAllData') {
+    $techionData = $technician->getAllTechnicians();
     echo json_encode($techionData);
+    exit;
 }
-
-
-$sql = "SELECT `id`, `username`, `firstname`, `lastname`, `primarymobileno`, `secondmobileno`,`address`, `city` FROM `servicecenteruser` WHERE `roletype` = 'Technician' ";
-$result = $db->query($sql);
-
-$data = array();
-while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
-}
-header('Content-Type: application/json');
-echo json_encode($data);
-exit;
-
-?>
