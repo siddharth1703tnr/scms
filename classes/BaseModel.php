@@ -22,7 +22,7 @@ class BaseModel
         if ($stmt->execute()) {
             return $stmt->insert_id;
         } else {
-            return false;
+            return false;                   
         }
     }
 
