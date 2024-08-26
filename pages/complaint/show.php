@@ -91,6 +91,132 @@ $db = $database->getConnection();
                         </table>
                     </div>
                     <!-- /.card-body -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="complaintModel" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="viewModalLabel">Complaint Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Value</th>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Call Number:</strong></td>
+                                            <td>
+                                                <p id="callnumber"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Customer Name:</strong></td>
+                                            <td>
+                                                <p id="customername"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Customer Mobile No:</strong></td>
+                                            <td>
+                                                <p id="customermobileno"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Customer Address:</strong></td>
+                                            <td>
+                                                <p id="customeraddress"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Customer City:</strong></td>
+                                            <td>
+                                                <p id="customercity"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Call Type:</strong></td>
+                                            <td>
+                                                <p id="calltype"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Payment Type:</strong></td>
+                                            <td>
+                                                <p id="paymenttype"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Call Date:</strong></td>
+                                            <td>
+                                                <p id="calldate"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Call Assign Date:</strong></td>
+                                            <td>
+                                                <p id="callassigndate"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Technician Assigned:</strong></td>
+                                            <td>
+                                                <p id="technicianassigned"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Call Complete Date:</strong></td>
+                                            <td>
+                                                <p id="callcompletedate"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Call Status:</strong></td>
+                                            <td>
+                                                <p id="callstatus"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Amount:</strong></td>
+                                            <td>
+                                                <p id="totalamount"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Discount Amount:</strong></td>
+                                            <td>
+                                                <p id="discountamount"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Final Amount:</strong></td>
+                                            <td>
+                                                <p id="finalamount"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Customer Problem:</strong></td>
+                                            <td>
+                                                <p id="customerproblem"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Call Resolution:</strong></td>
+                                            <td>
+                                                <p id="callresolution"></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div><!-- /.container-fluid -->
         </div>
@@ -121,7 +247,7 @@ $db = $database->getConnection();
                 "processing": true, // Show a processing indicator
                 "serverSide": true, // Server-side processing for pagination, sorting, and searching
                 "ajax": {
-                    "url": "../../controllers/complaint/ajax/fetchCoplaints.php", // URL of the PHP file handling the AJAX request
+                    "url": "../../controllers/complaint/ajax/fetchComplaint.php", // URL of the PHP file handling the AJAX request
                     "type": "POST", // Type of HTTP request
                     "data": {
                         "action": "getAllComplaintData" // Action to be performed (fetch data)
@@ -190,7 +316,10 @@ $db = $database->getConnection();
                         "data": null, // Action buttons (Edit)
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>`;
+                            return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>
+                                    <button class="btn btn-primary btn-sm btn-view" data-id="${row.id}" title="view" ><i class="fas fa-external-link-alt"></i></button>
+                            
+                                    `;
                         }
                     }
                 ],
@@ -210,6 +339,50 @@ $db = $database->getConnection();
                 },
                 // "dom": 'lBfrtip',  // Include the length menu and buttons
             });
+
+            // View Complaint
+            $('#complaintTable').on('click', '.btn-view', function() {
+                var complaintId = $(this).data('id');
+                $.ajax({
+                    url: '../../controllers/complaint/ajax/fetchComplaint.php',
+                    method: 'POST',
+                    data: {
+                        action: 'getComplaintById',
+                        id: complaintId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        // Populate the form fields with fetched data
+                        $('#callnumber').text(response.callnumber);
+                        $('#customername').text(response.customername);
+                        $('#customermobileno').text(response.customermobileno);
+                        $('#customeraddress').text(response.customeraddress);
+                        $('#customercity').text(response.customercity);
+                        $('#calltype').text(response.calltype);
+                        $('#paymenttype').text(response.paymenttype);
+                        $('#calldate').text(response.calldate);
+                        $('#callassigndate').text(response.callassigndate);
+                        $('#technicianassigned').text(response.technicianassigned);
+                        $('#callcompletedate').text(response.callcompletedate);
+                        $('#callstatus').text(response.callstatus);
+                        $('#totalamount').text(response.totalamount);
+                        $('#discountamount').text(response.discountamount);
+                        $('#finalamount').text(response.finalamount);
+                        $('#customerproblem').text(response.customerproblem);
+                        $('#callresolution').text(response.callresolution);
+
+                        // Show the modal
+                        $('#complaintModel').modal('show');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            
+
+
         });
     </script>
 
