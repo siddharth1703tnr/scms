@@ -5,6 +5,51 @@ class Technician extends BaseModel
 {
     protected $table = "servicecenteruser";
 
+        // Get total number of records (for pagination)
+        public function getTotalRecords()
+        {
+            $query = "SELECT COUNT(*) AS total FROM $this->table WHERE `roletype` = 'Technician'";
+            $result = $this->conn->query($query);
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        }
+    
+        // Get the number of filtered records (for search functionality)
+        public function getFilteredRecords($searchValue)
+        {
+            $searchValue = "%$searchValue%";
+            $query = "SELECT COUNT(*) AS total FROM $this->table 
+                      WHERE `roletype` = 'Technician' 
+                      AND (`username` LIKE ? OR `firstname` LIKE ? OR `lastname` LIKE ? OR `primarymobileno` LIKE ? OR `secondmobileno` LIKE ?)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("sssss", $searchValue, $searchValue, $searchValue, $searchValue, $searchValue);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        }
+    
+        // Get paginated records based on start, length, search value, and sorting
+        public function getPaginatedTechnicians($start, $length, $searchValue, $orderColumn = 'id', $orderDir = 'asc')
+        {
+            $searchValue = "%$searchValue%";
+            $query = "SELECT `id`, `username`, `primarymobileno`, `secondmobileno`, `firstname`, `lastname`, `address`, `city`, `isactive`
+                      FROM $this->table 
+                      WHERE `roletype` = 'Technician' 
+                      AND (`username` LIKE ? OR `firstname` LIKE ? OR `lastname` LIKE ? OR `primarymobileno` LIKE ? OR `secondmobileno` LIKE ?)
+                      ORDER BY $orderColumn $orderDir
+                      LIMIT ?, ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("sssssii", $searchValue, $searchValue, $searchValue, $searchValue, $searchValue, $start, $length);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $technicians = [];
+            while ($row = $result->fetch_assoc()) {
+                $technicians[] = $row;
+            }
+            return $technicians;
+        }
+
     // Fetch all technicians with limited details
     public function getAllTechnicians()
     {
