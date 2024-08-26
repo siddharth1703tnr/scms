@@ -54,7 +54,7 @@ $db = $database->getConnection();
                         <div class="mr-auto">
                             <h3 class="card-title">Complainnt Show</h3>
                         </div>
-                        <div class="ml-auto"><a href="<?php echo BASE_URL; ?>pages/complaint/register.php"><button type="button" class="btn btn-outline-success">Register Complaint</button></a></div>
+                        <div class="ml-auto"><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerComplaintModal">Register Complaint</button></div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -91,9 +91,10 @@ $db = $database->getConnection();
                         </table>
                     </div>
                     <!-- /.card-body -->
-                    <!-- Modal -->
+
+                    <!-- complaint View Model -->
                     <div class="modal fade" id="complaintModel" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="viewModalLabel">Complaint Details</h5>
@@ -217,6 +218,75 @@ $db = $database->getConnection();
                             </div>
                         </div>
                     </div>
+
+                    <!-- complaint Register Model -->
+                    <div class="modal fade" id="registerComplaintModal" tabindex="-1" role="dialog" aria-labelledby="registerComplaintModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                            <form id="registerComplaintForm" novalidate>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title" id="registerComplaintModalLabel">Register New Complaint</h2>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card card-success card-outline mt-2">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="customerName" class="form-label">Customer Name</label>
+                                                        <input type="text" class="form-control shadow-none" name="customerName" id="customerName" required>
+                                                        <div class="invalid-feedback">Please enter a customer name.</div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="customerPhoneNumber" class="form-label">Customer Phone Number</label>
+                                                        <input type="tel" class="form-control shadow-none" name="customerPhoneNumber" id="customerPhoneNumber" autocomplete="off" pattern="[0-9]{10}" required>
+                                                        <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="customerAddress" class="form-label">Customer Address</label>
+                                                        <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" required>
+                                                        <div class="invalid-feedback">Please enter a customer address.</div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="customerCity" class="form-label">Customer City</label>
+                                                        <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" required>
+                                                        <div class="invalid-feedback">Please enter a customer city.</div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="complaintType" class="form-label">Complaint Type</label>
+                                                        <select class="form-control shadow-none" name="complaintType" id="complaintType" required>
+                                                            <option value="Fridge">Fridge</option>
+                                                            <option value="AC">AC</option>
+                                                            <option value="TV">TV</option>
+                                                            <option value="Washing Machine">Washing Machine</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="complaintDate" class="form-label">Complaint Date</label>
+                                                        <input type="date" class="form-control shadow-none" name="complaintDate" id="complaintDate" required>
+                                                        <div class="invalid-feedback">Please select a complaint date.</div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="complaintDescription" class="form-label">Complaint Description</label>
+                                                        <textarea class="form-control shadow-none" name="complaintDescription" id="complaintDescription" required></textarea>
+                                                        <div class="invalid-feedback">Please select a complaint Description.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="reset" class="btn btn-secondary shadow-none mr-2" id="resetButton">Reset</button>
+                                        <button type="submit" class="btn btn-primary shadow-none">Register Complaint</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
                 </div>
             </div><!-- /.container-fluid -->
         </div>
@@ -262,7 +332,11 @@ $db = $database->getConnection();
                     }
                 },
                 "columns": [{
-                        "data": "callnumber"
+                        "data": "callnumber",
+                        "render": function(data, type, row) {
+                            var statusDot = '<span class="badge badge-pill badge-' + ((row.callstatus == 'New') ? 'danger' : ((row.callstatus == 'Assigned') ? 'warning' : ((row.callstatus == 'Close') ? 'success' : ((row.callstatus == 'Cancelled') ? 'dark' : '')))) + ' ml-1 p-1"> </span>';
+                            return data + statusDot; // Show username with a status dot
+                        }
                     }, // First name
                     {
                         "data": "customername"
@@ -291,16 +365,16 @@ $db = $database->getConnection();
                             // Determine the badge class based on the callstatus value
                             switch (data) {
                                 case 'New':
-                                    badgeClass = 'success';
+                                    badgeClass = 'danger';
                                     break;
                                 case 'Assigned':
                                     badgeClass = 'warning';
                                     break;
                                 case 'Close':
-                                    badgeClass = 'info';
+                                    badgeClass = 'success';
                                     break;
                                 case 'Cancelled':
-                                    badgeClass = 'secondary';
+                                    badgeClass = 'dark';
                                     break;
                                 default:
                                     badgeClass = '';
@@ -327,7 +401,7 @@ $db = $database->getConnection();
                 "pageLength": 10, // Default number of rows per page
                 "lengthChange": true, // Allow the user to change the number of rows displayed
                 "lengthMenu": [5, 10, 25, 50, 100], // Options for the rows-per-page dropdown
-                "autoWidth": false, // Disable automatic column width calculation
+                "autoWidth": true, // Disable automatic column width calculation
                 "order": [
                     [0, 'asc']
                 ], // Default sorting: ascending by ID
@@ -380,7 +454,68 @@ $db = $database->getConnection();
                 });
             });
 
-            
+
+            // Function to handle AJAX form submission with validation
+            function submitForm(form, url, successCallback) {
+                form.addClass('was-validated');
+
+                if (form[0].checkValidity() === true) {
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: form.serialize(),
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status.trim() === 'success') {
+                                $(document).Toasts('create', {
+                                    class: response.class,
+                                    title: response.title,
+                                    subtitle: response.subtitle,
+                                    body: response.body,
+                                    delay: 5000,
+                                    autohide: true
+                                });
+                                successCallback();
+                            } else {
+                                alert(response.message); // Handle response message
+                            }
+
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            }
+
+            // Registration Form Submission
+            $("#registerComplaintForm").on("submit", function(event) {
+                event.preventDefault();
+                var form = $(this);
+
+                submitForm(form, '../../controllers/complaint/process_complaint.php', function() {
+                    table.ajax.reload();
+                    resetForm(form);
+                    $('#registerComplaintModal').modal('hide');
+                });
+            });
+
+
+
+            // Handle Reset Button Click (Optional)
+            $("#resetButton").on("click", function() {
+                resetForm($('#registerComplaintForm'));
+            });
+
+            // Function to handle form reset and clear validation
+            function resetForm(form) {
+                form[0].reset();
+                form.removeClass('was-validated');
+                form.find('.is-invalid').removeClass('is-invalid');
+                //form.find('.invalid-feedback').text('');
+            }
+
+
 
 
         });
