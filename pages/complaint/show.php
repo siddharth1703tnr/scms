@@ -6,12 +6,6 @@ require_once '../../classes/Complaint.php';
 
 $database = new Database();
 $db = $database->getConnection();
-// You can now use your models here
-
-$complaint = new Complaint($db);
-$complaints = $complaint->getAllComplaints();
-
-
 
 ?>
 <!DOCTYPE html>
@@ -64,83 +58,36 @@ $complaints = $complaint->getAllComplaints();
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example2" class="table table-bordered table-striped table-hover">
+                        <table id="complaintTable" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>Call Number</th>
-                                    <th>Actions</th>
                                     <th>Customer Name</th>
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
+                                    <th>Customer Problem</th>
                                     <th>Call Type</th>
+                                    <th>Call Status</th>
+                                    <th>Actions</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if ($complaints) : ?>
-                                    <?php foreach ($complaints as $complaint) : ?>
-                                        <tr>
-                                            <td><?php echo htmlspecialchars($complaint['callnumber']); ?>
-                                                <span class="badge badge-pill badge-<?php echo ($complaint['callstatus'] == 'New') ? 'success' : (($complaint['callstatus'] == 'Assigned')
-                                                                                        ? 'warning' : (($complaint['callstatus'] == 'Close')
-                                                                                            ? 'info' : (($complaint['callstatus'] == 'Cancelled')
-                                                                                                ? 'secondary' : '')))
-                                                                                    ?>">
-                                                    <?php echo htmlspecialchars($complaint['callstatus']); ?>
-                                                </span>
-                                            </td>
 
-                                            <td class="d-flex justify-content-center">
-                                                <button class="btn btn-primary btn-sm mr-1 view-btn" data-id="<?php echo $complaint['id']; ?>">
-                                                    <i class="fas fa-folder"></i> View
-                                                </button>
-                                                <button class="btn btn-info btn-sm edit-btn" data-id="<?php echo $complaint['id']; ?>">
-                                                    <i class="fas fa-pencil-alt"></i> Edit
-                                                </button>
-                                            </td>
-
-
-                                            <td><?php echo htmlspecialchars($complaint['customername']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['customermobileno']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['customeraddress']); ?></td>
-                                            <td><?php echo htmlspecialchars($complaint['calltype']); ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php else : ?>
-                                    <tr>
-                                        <td colspan="6">No complaints found.</td>
-                                    </tr>
-                                <?php endif; ?>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Call Number</th>
-                                    <th>Actions</th>
                                     <th>Customer Name</th>
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
+                                    <th>Customer Problem</th>
                                     <th>Call Type</th>
+                                    <th>Call Status</th>
+                                    <th>Actions</th>
+
                                 </tr>
                             </tfoot>
-                            <!-- Modal -->
-                            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="viewModalLabel">Complaint Details</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Complaint details will be loaded here -->
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -166,44 +113,105 @@ $complaints = $complaint->getAllComplaints();
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
     <!-- Page specific script -->
     <script>
-        $(function() {
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                "responsive": true,
-            });
-        });
-
         $(document).ready(function() {
-            $(document).on('click', '.view-btn', function() {
-                var id = $(this).data('id');
-                $.ajax({
-                    url: '<?php echo BASE_URL; ?>controllers/complaint/get_complaint_details.php',
-                    method: 'GET',
-                    data: {
-                        id: id
+            var table = $('#complaintTable').DataTable({
+                "processing": true, // Show a processing indicator
+                "serverSide": true, // Server-side processing for pagination, sorting, and searching
+                "ajax": {
+                    "url": "../../controllers/complaint/ajax/fetchCoplaints.php", // URL of the PHP file handling the AJAX request
+                    "type": "POST", // Type of HTTP request
+                    "data": {
+                        "action": "getAllComplaintData" // Action to be performed (fetch data)
                     },
-                    success: function(response) {
-                        $('.modal-body').html(response);
-                        $('#viewModal').modal('show');
+                    "dataSrc": function(json) {
+                        if (json.error) {
+                            alert(json.error); // Alert the user if there's an error
+                            return []; // Return an empty array if there's an error
+                        } else {
+                            return json.data; // Otherwise, return the data
+                        }
                     }
-                });
-            });
+                },
+                "columns": [{
+                        "data": "callnumber"
+                    }, // First name
+                    {
+                        "data": "customername"
+                    }, // Last name
+                    {
+                        "data": "customermobileno"
+                    }, // Primary mobile number
+                    {
+                        "data": "customeraddress",
+                        "orderable": false // Disable sorting for the address column
+                    }, // Secondary mobile number
+                    {
+                        "data": "customerproblem",
+                        "orderable": false // Disable sorting for the address column
+                    }, // Secondary mobile number
+                    {
+                        "data": "calltype", // Address
+                        "orderable": false // Disable sorting for the address column
+                    },
+                    {
+                        "data": "callstatus",
+                        "orderable": false, // Disable sorting for the address column
+                        "render": function(data, type, row) {
+                            var badgeClass;
 
-            $(document).on('click', '.edit-btn', function() {
-                var id = $(this).data('id');
-                window.location.href = '<?php echo BASE_URL; ?>pages/complaint/update.php?id=' + id;
+                            // Determine the badge class based on the callstatus value
+                            switch (data) {
+                                case 'New':
+                                    badgeClass = 'success';
+                                    break;
+                                case 'Assigned':
+                                    badgeClass = 'warning';
+                                    break;
+                                case 'Close':
+                                    badgeClass = 'info';
+                                    break;
+                                case 'Cancelled':
+                                    badgeClass = 'secondary';
+                                    break;
+                                default:
+                                    badgeClass = '';
+                                    break;
+                            }
+
+                            // Create the badge HTML
+                            var statusBadge = '<span class="badge badge-pill badge-' + badgeClass + '">' + data + '</span>';
+                            return statusBadge;
+                        }
+                    },
+                    {
+                        "data": null, // Action buttons (Edit)
+                        "orderable": false, // Disable sorting for this column
+                        "render": function(data, type, row) {
+                            return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>`;
+                        }
+                    }
+                ],
+                "responsive": true, // Make the table responsive
+                "pageLength": 10, // Default number of rows per page
+                "lengthChange": true, // Allow the user to change the number of rows displayed
+                "lengthMenu": [5, 10, 25, 50, 100], // Options for the rows-per-page dropdown
+                "autoWidth": false, // Disable automatic column width calculation
+                "order": [
+                    [0, 'asc']
+                ], // Default sorting: ascending by ID
+                "language": {
+                    "paginate": {
+                        "previous": "<i class='fas fa-angle-left'></i>", // Customize the "previous" pagination button
+                        "next": "<i class='fas fa-angle-right'></i>" // Customize the "next" pagination button
+                    }
+                },
+                // "dom": 'lBfrtip',  // Include the length menu and buttons
             });
         });
     </script>
-    <?php displaySessionMessage(5000); // 10000 milliseconds = 10 seconds 
-    ?>
 
 </body>
 
