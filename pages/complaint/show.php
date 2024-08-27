@@ -58,6 +58,7 @@ $db = $database->getConnection();
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        <!-- DataTables -->
                         <table id="complaintTable" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
@@ -89,6 +90,7 @@ $db = $database->getConnection();
                                 </tr>
                             </tfoot>
                         </table>
+                        <!-- /.DataTables -->
                     </div>
                     <!-- /.card-body -->
 
@@ -454,6 +456,13 @@ $db = $database->getConnection();
                 });
             });
 
+            // Edit Complaint
+            $('#complaintTable').on('click', '.btn-edit', function() {
+                var complaintId = $(this).data('id');
+                // Redirect to the update page with the complaint ID as a query parameter
+                window.location.href = '../../pages/complaint/update.php?id=' + complaintId;
+            });
+
 
             // Function to handle AJAX form submission with validation
             function submitForm(form, url, successCallback) {
@@ -501,7 +510,6 @@ $db = $database->getConnection();
             });
 
 
-
             // Handle Reset Button Click (Optional)
             $("#resetButton").on("click", function() {
                 resetForm($('#registerComplaintForm'));
@@ -514,9 +522,6 @@ $db = $database->getConnection();
                 form.find('.is-invalid').removeClass('is-invalid');
                 //form.find('.invalid-feedback').text('');
             }
-
-
-
 
         });
     </script>
