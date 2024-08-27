@@ -7,6 +7,49 @@ class Dealer extends BaseModel
 
     // Method to register a new complaint
 
+            // Get total number of records (for pagination)
+            public function getTotalRecords()
+            {
+                $query = "SELECT COUNT(*) AS total FROM $this->table";
+                $result = $this->conn->query($query);
+                $row = $result->fetch_assoc();
+                return $row['total'];
+            }
+        
+            // Get the number of filtered records (for search functionality)
+            public function getFilteredRecords($searchValue)
+            {
+                $searchValue = "%$searchValue%";
+                $query = "SELECT COUNT(*) AS total FROM $this->table 
+                          WHERE `name` LIKE ? OR `primarymobileno` LIKE ? OR `secondmobileno` LIKE ? OR `emailaddress` LIKE ?";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bind_param("ssss", $searchValue, $searchValue, $searchValue, $searchValue);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                return $row['total'];
+            }
+        
+            // Get paginated records based on start, length, search value, and sorting
+            public function getPaginatedDealers($start, $length, $searchValue, $orderColumn = 'id', $orderDir = 'asc')
+            {
+                $searchValue = "%$searchValue%";
+                $query = "SELECT `id`, `name`, `isactive`, `primarymobileno`, `secondmobileno`, `emailaddress`, `address`, `city`
+                          FROM $this->table 
+                          WHERE `name` LIKE ? OR `primarymobileno` LIKE ? OR `secondmobileno` LIKE ? OR `emailaddress` LIKE ?
+                          ORDER BY $orderColumn $orderDir
+                          LIMIT ?, ?";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bind_param("ssssii", $searchValue, $searchValue, $searchValue, $searchValue, $start, $length);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $dealers = [];
+                while ($row = $result->fetch_assoc()) {
+                    $dealers[] = $row;
+                }
+                return $dealers;
+            }
+
     public function getAllDealer()
     {
         $query = "SELECT * FROM $this->table";
