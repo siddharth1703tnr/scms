@@ -3,40 +3,65 @@ require_once '../../config/config.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/Complaint.php';
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
-
+header('Content-Type: application/json'); // Ensure the response is JSON formatted
 
 $database = new Database();
 $db = $database->getConnection();
 $complaint = new Complaint($db);
+$response = ['status' => 'error', 'message' => 'Unknown error']; // Default response
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $callnumber = date('Ymd') . mt_rand(1000, 9999);
-    $createdate = date('Y-m-d H:i:s');
-    $createdBy = 1;
-    $callstatus = "New";
+try {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $data = [
-        'callnumber' => $callnumber,
-        'customername' => $_POST['Cus_Name'],
-        'customermobileno' => $_POST['Cus_Mobile_No'],
-        'customeraddress' => $_POST['Cus_Address'],
-        'customercity' => $_POST['Cus_City'],
-        'calltype' => $_POST['Cus_calltype'],
-        'calldate' => $_POST['Cus_calldate'],
-        'callstatus' => $callstatus,
-        'createdate' => $createdate,
-        'createby' => $createdBy,
-        'customerproblem' => $_POST['Cus_cusprob']
-    ];
+        $callnumber = date('YmdHis') . mt_rand(10, 99);
+        $createdate = date('Y-m-d H:i:s');
+        $createdBy = 1;
+        $callstatus = "New";
 
-    if ($complaint->registerComplaint($data)) {
-        setSessionMessage('success', 'Registration Success', 'success', 'Complaint registered successfully');
-        header("Location: " . BASE_URL . "pages/complaint/show.php");
+        // Sanitize and validate input data
+        $customername = htmlspecialchars(strip_tags($_POST['customerName']));
+        $customermobileno = htmlspecialchars(strip_tags($_POST['customerPhoneNumber']));
+        $customeraddress = htmlspecialchars(strip_tags($_POST['customerAddress']));
+        $customercity = htmlspecialchars(strip_tags($_POST['customerCity']));
+        $calltype = htmlspecialchars(strip_tags($_POST['complaintType']));
+        $calldate = htmlspecialchars(strip_tags($_POST['complaintDate']));
+        $customerproblem = htmlspecialchars(strip_tags($_POST['complaintDescription']));
+
+        // Validate required fields
+        if (empty($customername) || empty($customermobileno) || empty($customeraddress) || empty($customercity) || empty($calltype) || empty($calldate) || empty($customerproblem)) {
+            throw new Exception("All fields are required.");
+        }
+
+        $createdate = date('Y-m-d H:i:s');
+        $isActive = 'Y';
+        $roleType = 'Technician';
+
+        // Data array
+        $data = [
+            'callnumber' => $callnumber,
+            'customername' => $customername,
+            'customermobileno' => $customermobileno,
+            'customeraddress' => $customeraddress,
+            'customercity' => $customercity,
+            'calltype' => $calltype,
+            'calldate' => $calldate,
+            'callstatus' => $callstatus,
+            'createdate' => $createdate,
+            'createby' => $createdBy,
+            'customerproblem' => $customerproblem
+        ];
+
+        // Attempt to register the complaint
+        if ($complaint->registerComplaint($data)) {
+            $response = ['status' => 'success', 'class' => 'bg-success', 'title' => 'Added', 'subtitle' => 'Success', 'body' => 'Complaint Added successfully'];
+        } else {
+            throw new Exception("Failed to register Complaint.");
+        }
     } else {
-        setSessionMessage('danger', 'Registration Failed', 'Error', 'Failed to register complaint');
-        header("Location: " . BASE_URL . "pages/complaint/show.php");
+        throw new Exception("Invalid request method.");
     }
-    exit;
-    
+} catch (Exception $e) {
+    $response['message'] = $e->getMessage(); // Capture and return any error message
 }
-?>
+
+echo json_encode($response); // Return the response as JSON
