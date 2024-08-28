@@ -454,9 +454,14 @@ $db = $database->getConnection();
             $("#resetButton").on("click", function() {
                 resetForm($('#registerDealerForm'));
             });
+
+            $(document).on('click', '.credentials-btn', function() {
+                var id = $(this).data('id');
+                window.location.href = '<?php echo BASE_URL; ?>pages/dealer/dealer_credentials/credentials.php?id=' + id;
+            });
         });
     </script>
 
 </body>
 
-</html>
+</html> 
