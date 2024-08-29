@@ -32,7 +32,7 @@ class Customer extends BaseModel
     public function getPaginatedCustomers($start, $length, $searchValue, $orderColumn = 'id', $orderDir = 'asc')
     {
         $searchValue = "%$searchValue%";
-        $query = "SELECT `CustomerId`, `CustomerName`, `CustomerAddress`, `CustomerCity`, `MobileNumber`, `WhatsAppNumber`, `LastMessageSendDate`, `IsActive`
+        $query = "SELECT `id`, `CustomerName`, `CustomerAddress`, `CustomerCity`, `MobileNumber`, `WhatsAppNumber`, `LastMessageSendDate`, `IsActive`
                       FROM $this->table 
                       WHERE `CustomerName` LIKE ? OR `MobileNumber` LIKE ? OR `WhatsAppNumber` LIKE ?
                       ORDER BY $orderColumn $orderDir
@@ -75,7 +75,7 @@ class Customer extends BaseModel
     // Fetch a single customer by ID
     public function getCustomerById($id)
     {
-        $query = "SELECT * FROM $this->table WHERE id = ?";
+        $query = "SELECT * FROM $this->table WHERE `id` = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
