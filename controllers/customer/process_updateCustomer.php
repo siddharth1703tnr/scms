@@ -34,7 +34,7 @@ try {
         }
 
         $ModifiedDate = date('Y-m-d H:i:s');
-        $ModifiedBy = '1';
+        $ModifiedBy = $_SESSION['user_id'];
         $isActive = 'Y';
 
         // Data array

@@ -28,7 +28,7 @@ switch ($action) {
             'technicianassigned' => $_POST['Cus_technicianassign'],
             'callassigndate' => date('Y-m-d H:i:s'),
             'callstatus' => 'Assigned',
-            'modifiedby' => 2, //$_SESSION['user_id']
+            'modifiedby' => $_SESSION['user_id'], //$_SESSION['user_id']
             'modifieddate' => date('Y-m-d H:i:s'),
             'customerproblem' => $_POST['Cus_cusprob']
         ];

@@ -49,6 +49,8 @@ $db = $database->getConnection();
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
+            <div>
+            </div>
         </div>
 
         <?php require_once('../../includes/footer.php') ?>

@@ -28,3 +28,27 @@
 <script src="<?php echo BASE_URL; ?>assets/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo BASE_URL; ?>assets/dist/js/demo.js"></script>
+
+
+<script>
+    function checkSessionTimeout() {
+        $.ajax({
+            url: '<?php echo BASE_URL; ?>config/config.php?check_timeout=1',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                console.log('AJAX Response:', response); // Debugging: Log the response
+                if (response.timeout) {
+                    alert('Your session has timed out due to inactivity. Please log in again.');
+                    window.location.href = '<?php echo BASE_URL; ?>public/login.php';
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('AJAX Error:', textStatus, errorThrown);
+            }
+        });
+    }
+
+    // Check session timeout every 30 seconds (30000 ms) for testing
+    setInterval(checkSessionTimeout, 1000*60*10);
+</script>

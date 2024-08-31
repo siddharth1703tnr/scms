@@ -73,7 +73,14 @@ class Complaint extends BaseModel
 
     public function getComplaintById($id)
     {
-        $query = "SELECT * FROM $this->table WHERE id = ?";
+        // SQL query to get the complaint and technician details
+    $query = "
+    SELECT sc.*, 
+           CONCAT(su.firstname, ' ', su.lastname) AS technician_name
+    FROM $this->table sc
+    LEFT JOIN servicecenteruser su ON sc.technicianassigned = su.id
+    WHERE sc.id = ?
+";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();

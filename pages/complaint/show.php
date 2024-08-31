@@ -1,11 +1,5 @@
 <?php
 require_once '../../config/config.php';
-require_once '../../classes/Database.php';
-require_once '../../classes/BaseModel.php';
-require_once '../../classes/Complaint.php';
-
-$database = new Database();
-$db = $database->getConnection();
 
 ?>
 <!DOCTYPE html>
@@ -35,7 +29,7 @@ $db = $database->getConnection();
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Complaint Show</h1>
+                            <h1><strong>Complaint Managment <i class="fas fa-tools"></i></i></strong></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -51,10 +45,10 @@ $db = $database->getConnection();
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto">
-                            <h3 class="card-title">Complainnt Show</h3>
+                        <div class="mr-auto mt-auto mb-auto">
+                            <h1 class="card-title"><b>Complaint View</b></h1>
                         </div>
-                        <div class="ml-auto"><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerComplaintModal">Register Complaint</button></div>
+                        <div class="ml-auto"><button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerComplaintModal"><b>Register Complaint</b></button></div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -99,7 +93,7 @@ $db = $database->getConnection();
                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="viewModalLabel">Complaint Details</h5>
+                                    <h5 class="modal-title" id="viewModalLabel"><b>Complaint Details <sup><i class="fas fa-expand-alt"></i></sup></b></h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -179,7 +173,7 @@ $db = $database->getConnection();
                                         <tr>
                                             <td><strong>Call Status:</strong></td>
                                             <td>
-                                                <p id="callstatus"></p>
+                                                <p class="text-danger" id="callstatus"></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -227,12 +221,13 @@ $db = $database->getConnection();
                             <form id="registerComplaintForm" novalidate>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title" id="registerComplaintModalLabel">Register New Complaint</h2>
+                                        <h2 class="modal-title" id="registerComplaintModalLabel"><b>Register New Complaint <sup><i class="far fa-sticky-note"></i></sup></b></h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
+
                                         <div class="card card-success card-outline mt-2">
                                             <div class="card-body">
                                                 <div class="row">
@@ -281,7 +276,7 @@ $db = $database->getConnection();
                                     </div>
                                     <div class="modal-footer">
                                         <button type="reset" class="btn btn-secondary shadow-none mr-2" id="resetButton">Reset</button>
-                                        <button type="submit" class="btn btn-primary shadow-none">Register Complaint</button>
+                                        <button type="submit" class="btn btn-primary shadow-none">Register</button>
                                     </div>
                                 </div>
                             </form>
@@ -336,7 +331,7 @@ $db = $database->getConnection();
                 "columns": [{
                         "data": "callnumber",
                         "render": function(data, type, row) {
-                            var statusDot = '<span class="badge badge-pill badge-' + ((row.callstatus == 'New') ? 'danger' : ((row.callstatus == 'Assigned') ? 'warning' : ((row.callstatus == 'Close') ? 'success' : ((row.callstatus == 'Cancelled') ? 'dark' : '')))) + ' ml-1 p-1"> </span>';
+                            var statusDot = '   <span class="badge badge-pill badge-' + ((row.callstatus == 'New') ? 'danger' : ((row.callstatus == 'Assigned') ? 'warning' : ((row.callstatus == 'Close') ? 'success' : ((row.callstatus == 'Cancelled') ? 'dark' : '')))) + ' ml-1 p-1"> </span>';
                             return data + statusDot; // Show username with a status dot
                         }
                     }, // First name
@@ -384,7 +379,7 @@ $db = $database->getConnection();
                             }
 
                             // Create the badge HTML
-                            var statusBadge = '<span class="badge badge-pill badge-' + badgeClass + '">' + data + '</span>';
+                            var statusBadge = '<span class="badge badge-' + badgeClass + '">' + data + '</span>';
                             return statusBadge;
                         }
                     },
@@ -392,10 +387,24 @@ $db = $database->getConnection();
                         "data": null, // Action buttons (Edit)
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-primary btn-sm btn-view" data-id="${row.id}" title="view" ><i class="fas fa-external-link-alt"></i></button>
-                            
-                                    `;
+                            return `<div class="d-flex flex-row justify-content-around">
+  <button
+    class="btn btn-outline-warning btn-edit"
+    data-id="${row.id}"
+    title="Edit"
+  >
+    <i class="fas fa-pencil-alt"></i>
+  </button>
+  <button
+    class="btn btn-outline-primary btn-view"
+    data-id="${row.id}"
+    title="view"
+  >
+    <i class="far fa-eye"></i>
+  </button>
+</div>
+
+`;
                         }
                     }
                 ],
@@ -438,7 +447,7 @@ $db = $database->getConnection();
                         $('#paymenttype').text(response.paymenttype);
                         $('#calldate').text(response.calldate);
                         $('#callassigndate').text(response.callassigndate);
-                        $('#technicianassigned').text(response.technicianassigned);
+                        $('#technicianassigned').text(response.technician_name);
                         $('#callcompletedate').text(response.callcompletedate);
                         $('#callstatus').text(response.callstatus);
                         $('#totalamount').text(response.totalamount);

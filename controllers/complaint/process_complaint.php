@@ -15,7 +15,7 @@ try {
 
         $callnumber = date('YmdHis') . mt_rand(10, 99);
         $createdate = date('Y-m-d H:i:s');
-        $createdBy = 1;
+        $createdBy = $_SESSION['user_id'];
         $callstatus = "New";
 
         // Sanitize and validate input data

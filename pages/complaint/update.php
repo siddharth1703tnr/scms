@@ -38,12 +38,12 @@ $action = null;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Update Complaint</h1>
+                            <h1><b>Update Complaint <i class="fas fa-pen-alt"></i></b></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Complaint</li>
+                                <li class="breadcrumb-item active"><a href="<?php echo BASE_URL; ?>pages/complaint/show.php">Complaint</a></li>
                                 <li class="breadcrumb-item active">Update</li>
                             </ol>
                         </div>
@@ -52,21 +52,21 @@ $action = null;
             </section>
 
             <div class="container-fluid">
-                <div class="card card-primary card-outline">
+                <div class="card card-warning card-outline">
                     <div class="card-body">
                         <form action="../../controllers/complaint/update_process.php" method="POST" id="complaintForm">
                             <input type="hidden" name="complaint_id" value="<?php echo $currentComplaint['id']; ?>">
                             <div>
                                 <div class="section-0">
                                     <div class="row row-gap-2">
-                                        <h2><?php echo htmlspecialchars($currentComplaint['callnumber']); ?></h2>
-                                        <p><span class="badge badge-pill badge-<?php echo ($currentComplaint['callstatus'] == 'New') ? 'success' : (($currentComplaint['callstatus'] == 'Assigned')
+                                        <h2><?php echo htmlspecialchars($currentComplaint['callnumber']); ?> </h2>  &nbsp;  <h5><span class="badge badge-<?php echo ($currentComplaint['callstatus'] == 'New') ? 'danger' : (($currentComplaint['callstatus'] == 'Assigned')
                                                                                     ? 'warning' : (($currentComplaint['callstatus'] == 'Close')
-                                                                                        ? 'info' : (($currentComplaint['callstatus'] == 'Cancelled')
-                                                                                            ? 'secondary' : '')))
+                                                                                        ? 'success' : (($currentComplaint['callstatus'] == 'Cancelled')
+                                                                                            ? 'dark' : '')))
                                                                                 ?>">
                                                 <?php echo htmlspecialchars($currentComplaint['callstatus']); ?>
-                                            </span></p>
+                                            </span></h5>
+                                        
                                         <div class="progress progress-xxs m-1 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
@@ -74,9 +74,9 @@ $action = null;
                                     </div>
                                 </div>
 
-                                <div class="section-1">
+                                <div class="section-1 mt-2 mb-2">
+                                <div><h3>Customer Basic Deatiles</h3></div>
                                     <div class="row row-gap-2">
-
                                         <div class="col-md-6">
                                             <label for="Cus_Name" class="form-label">Name</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_Name" id="Cus_Name" value="<?php echo htmlspecialchars($currentComplaint['customername']); ?>" required>
@@ -113,13 +113,14 @@ $action = null;
                                             <label for="Cus_cusprob" class="form-label">Customer Problem</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_cusprob" id="Cus_cusprob" value="<?php echo htmlspecialchars($currentComplaint['customerproblem']); ?>">
                                         </div>
-                                        <div class="progress progress-xxs m-1 col-md-12">
+                                        <div class="progress progress-xxs m-1 mt-2 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="section-2">
+                                <div class="section-2  mt-2 mb-2">
+                                <div><h3>Assign Call To Technician </h3></div>
                                     <div class="row row-gap-2">
                                         <div class="col-md-6">
                                             <label for="Cus_technicianassign" class="form-label">Technician Assigned</label>
@@ -134,13 +135,13 @@ $action = null;
                                             <div class="invalid-feedback" id="Cus_technicianassign_error"></div>
                                         </div>
                                         <input type="hidden" name="action" value="assigned">
-                                        <div class="progress progress-xxs m-1 col-md-12">
+                                        <div class="progress progress-xxs m-1 mt-2 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="section-3">
+                                <div class="section-3 mt-2 mb-2 ">
                                     <div class="row row-gap-2">
                                         <div class="col-md-2 pt-4">
                                             <label for="action">Action: </label>
@@ -175,7 +176,7 @@ $action = null;
                                             <label for="Cus_callresolution" class="form-label">Customer Resolution</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_callresolution" id="Cus_callresolution" value="<?php echo htmlspecialchars($currentComplaint['callresolution']); ?>">
                                         </div>
-                                        <div class="progress progress-xxs m-1 col-md-12">
+                                        <div class="progress progress-xxs m-1 mt-2 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
                                         </div>
