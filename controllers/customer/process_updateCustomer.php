@@ -29,7 +29,7 @@ try {
         
 
         // Validate required fields
-        if (empty($CustomerName) || empty($CustomerAddress) || empty($CustomerCity) || empty($MobileNumber) || empty($WhatsAppNumber) || empty($ProductCompanyName) || empty($ProductNameOrModel)) {
+        if (empty($CustomerName) || empty($CustomerAddress) || empty($CustomerCity) || empty($MobileNumber)) {
             throw new Exception("All fields are required.");
         }
 
@@ -52,7 +52,7 @@ try {
             'ModifiedDate' => $ModifiedDate,
             'ModifiedBy' => $ModifiedBy,
             'isActive' => $isActive
-
+                
         ];
 
         // Attempt to register the complaint

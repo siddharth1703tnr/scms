@@ -28,7 +28,7 @@ require_once '../../config/config.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Customer Management</h1>
+                            <h1><b><i class="fas fa-user-alt"></i> Customer Management</b></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -44,14 +44,13 @@ require_once '../../config/config.php';
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
                         <div class="mr-auto">
-                            <h3 class="card-title">Customer Show</h3>
+                            <h1 class="card-title"><b>Customer Show</b></h1>
                         </div>
                         <div class="ml-auto">
                             <!-- Button to open the modal -->
-                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#customerModal" id="showRegisterModal">
+                            <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#customerModal" id="showRegisterModal">
                                 <i class="fas fa-user-plus"></i> Register
                             </button>
-
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -59,13 +58,14 @@ require_once '../../config/config.php';
                         <table id="customerTable" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>CustomerName</th>
-                                    <th>CustomerAddress</th>
-                                    <th>CustomerCity</th>
-                                    <th>MobileNumber</th>
-                                    <th>WhatsAppNumber</th>
-                                    <th>LastMessageSendDate</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Address</th>
+                                    <th>Customer City</th>
+                                    <th>Mobile Number</th>
+                                    <th>WhatsApp Number</th>
+                                    <th>LastMessage Send Date</th>
                                     <th>IsActive</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,7 +78,7 @@ require_once '../../config/config.php';
 
                 <!-- Customer Modal -->
                 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                         <form id="customerForm" novalidate>
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -225,7 +225,13 @@ require_once '../../config/config.php';
                         "data": null, // Action buttons (Edit)
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>`;
+                            return `  <button
+    class="btn btn-outline-warning btn-edit"
+    data-id="${row.id}"
+    title="Edit"
+  >
+    <i class="fas fa-pencil-alt"></i>
+  </button>`;
                         }
                     }
                 ],
@@ -257,12 +263,19 @@ require_once '../../config/config.php';
                 $('#customerModal').modal('show');
             });
 
-            // Form submission handler
+           // Form submission handler
             $('#customerForm').submit(function(event) {
                 event.preventDefault();
+
+                // Check if the form is valid
+                if (this.checkValidity() === false) {
+                    event.stopPropagation();
+                    $(this).addClass('was-validated');
+                    return;
+                }
+
                 var formMode = $('#formMode').val();
                 var formData = $(this).serialize();
-                console.log(formData);
 
                 if (formMode === 'register') {
                     // Handle register logic
@@ -300,7 +313,6 @@ require_once '../../config/config.php';
                     });
                 }
             });
-
 
             // Handle edit button click
             $('#customerTable').on('click', '.btn-edit', function() {
@@ -343,6 +355,19 @@ require_once '../../config/config.php';
                     }
                 });
             });
+
+            // Handle Reset Button Click (Optional)
+            $("#resetButton").on("click", function() {
+                resetForm($('#customerForm'));
+            });
+
+            // Function to handle form reset and clear validation
+            function resetForm(form) {
+                form[0].reset();
+                form.removeClass('was-validated');
+                form.find('.is-invalid').removeClass('is-invalid');
+                //form.find('.invalid-feedback').text('');
+            }
 
         });
     </script>
