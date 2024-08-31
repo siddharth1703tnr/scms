@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($technician->updateTechnician($id, $data)) {
                 echo json_encode([
                     'status' => 'success',
-                    'class' => 'bg-success',
+                    'class' => 'bg-warning',
                     'title' => 'Update',
                     'subtitle' => 'Success',
                     'body' => 'Technician updated successfully'

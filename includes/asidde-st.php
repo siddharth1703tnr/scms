@@ -36,7 +36,7 @@
             <li class="nav-item">
               <a href="<?php echo BASE_URL; ?>pages/complaint/show.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>SHOW</p>
+                <p>Manage</p>
               </a>
             </li>
           </ul>
@@ -53,7 +53,7 @@
             <li class="nav-item">
               <a href="<?php echo BASE_URL; ?>pages/customer/show.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>SHOW</p>
+                <p>Manage</p>
               </a>
             </li>
           </ul>
@@ -68,9 +68,9 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="<?php echo BASE_URL; ?>pages/technician/show_techinician.php" class="nav-link">
+              <a href="<?php echo BASE_URL; ?>pages/technician/show_technician.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>show</p>
+                <p>Manage</p>
               </a>
             </li>
           </ul>
@@ -87,12 +87,12 @@
             <li class="nav-item">
               <a href="<?php echo BASE_URL; ?>pages/dealer/show.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>SHOW</p>
+                <p>Manage</p>
               </a>
             </li>
           </ul>
         </li>
-        <li class="nav-header"><a href="<?php echo BASE_URL; ?>public/logout.php" class="btn btn-block btn-outline-warning text-warning" id="logoutButton">LOGOUT</a></li>
+        <!-- <li class="nav-header"><a href="../ublic/logout.php" class="btn btn-block btn-outline-warning text-warning" id="logoutButton">LOGOUT</a></li> -->
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
@@ -101,6 +101,7 @@
 
   <div class="sidebar-custom">
     <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
-    <a href="#" class="btn btn-secondary hide-on-collapse pos-right">Help</a>
+    <!-- <a href="#" class="btn btn-secondary hide-on-collapse pos-right">Help</a> -->
+    <a href="<?php echo BASE_URL; ?>public/logout.php" class="btn btn-outline-warning btn-sm hide-on-collapse pos-right" id="logoutButton">LOGOUT</a>
   </div>
 </aside>

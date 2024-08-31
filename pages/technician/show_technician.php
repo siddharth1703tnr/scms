@@ -1,19 +1,6 @@
 <?php
     require_once '../../config/config.php';
-    require_once '../../classes/Database.php';
-    require_once '../../classes/BaseModel.php';
-    require_once '../../classes/Technician.php';
-
-    try {
-        $database = new Database();
-        $db = $database->getConnection();
-    } catch (Exception $e) {
-        // Handle connection errors
-        die("Database connection failed: " . $e->getMessage());
-    }
-
-    // You can now use your models here
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -22,10 +9,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Technician Management</title>
         <?php require_once('../../includes/link.php')  ?>
-        <!-- DataTables -->
-        <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-        <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-        <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
         
     </head>
 
@@ -40,7 +23,7 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Technician Management</h1>
+                                <h1><strong>Technician Management <i class="fas fa-user-ninja"></i></strong></h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -56,11 +39,11 @@
                     <div class="card card-warning card-outline">
                         <div class="card-header d-flex justify-content-between">
                             <div class="mr-auto">
-                                <h3 class="card-title">Technician Show</h3>
+                                <h3 class="card-title"><b>Technician Show</b></h3>
                             </div>
                             <div class="ml-auto">
                                 <!-- Button to open the modal -->
-                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerTechnicianModal">
+                                <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerTechnicianModal">
                                 <i class="fas fa-user-plus"></i> Register
                                 </button>
                             </div>
@@ -90,11 +73,11 @@
 
                     <!-- Register Modal -->
                     <div class="modal fade" id="registerTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="registerTechnicianModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                             <form id="registerTechnicianForm" novalidate>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title" id="registerTechnicianModalLabel">Register New Technician</h2>
+                                        <h2 class="modal-title" id="registerTechnicianModalLabel"><b>Register Technician</b></h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -230,61 +213,9 @@
         </div>
 
         <?php require_once('../../includes/script.php')  ?>
-        <!-- DataTables  & Plugins -->
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/jszip/jszip.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/pdfmake.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/vfs_fonts.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
         <script>
             $(document).ready(function() {
-                // // Initialize the technician DataTable
-                // var table = $('#technicianTable').DataTable({
-                //     "paging": true,
-                //     "lengthChange": true,
-                //     "searching": true,
-                //     "ordering": true,
-                //     "info": true,
-                //     "autoWidth": true,
-                //     "responsive": true,
-                //     "ajax": {
-                //         "url": '../../controllers/Technician/ajax/fetchTechnicians.php',
-                //         "method": "POST",
-                //         "data": { action: 'getAllData' },
-                //         "dataSrc": ''
-                //     },
-                //     "columns": [
-                //         {
-                //             "data": "username",
-                //             "render": function(data, type, row) {
-                //                 var statusDot = '<span class="badge badge-pill badge-' + (row.isactive == 'Y' ? 'success' : 'danger') + ' ml-1 p-1"> </span>';
-                //                 return data + statusDot;
-                //             }
-                //         },
-                //         { "data": "firstname" },
-                //         { "data": "lastname" },
-                //         { "data": "primarymobileno" },
-                //         { "data": "secondmobileno" },
-                //         { "data": "address" },
-                //         { "data": "city" },
-                //         {
-                //             "data": null,
-                //             "render": function(data, type, row) {
-                //                 return `<button title="Edit Technician Info"  class="btn btn-warning btn-sm btn-edit" data-id="${row.id}"><i class="fas fa-edit"></i></button>
-                //                         <button title="Delete Technician" class="btn btn-warning btn-sm btn-delete"><i class="fas fa-times-circle"></i></button>`;
-                //             }
-                //         },
-                //     ]
-                // });
-
 
                 // Initialize the technician DataTable
                 var table = $('#technicianTable').DataTable({
@@ -337,7 +268,13 @@
                             "data": null, // Action buttons (Edit)
                             "orderable": false, // Disable sorting for this column
                             "render": function(data, type, row) {
-                                return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>`;
+                                return `  <button
+    class="btn btn-outline-warning btn-edit"
+    data-id="${row.id}"
+    title="Edit"
+  >
+    <i class="fas fa-pencil-alt"></i>
+  </button>`;
                             }
                         }
                     ],

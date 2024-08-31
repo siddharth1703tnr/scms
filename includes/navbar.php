@@ -8,13 +8,13 @@
           <!--@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" }) //from asp.net nav-->
           <a href="index3.html" class="nav-link">Home</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <li style="display:none" class="nav-item d-none d-sm-inline-block">
           <!--@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" }) //from asp.net nav-->
-          <a href="#" class="nav-link">Contact</a>
+          <a href="#" style="display:none" class="nav-link">Contact</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <li style="display:none" class="nav-item d-none d-sm-inline-block">
           <!--@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }) //from asp.net nav-->
-          <a href="#" class="nav-link">Contact</a>
+          <a href="#" style="display:none" class="nav-link">Contact</a>
         </li>
       </ul>
 

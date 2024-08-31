@@ -13,7 +13,7 @@ $response = ['status' => 'error', 'message' => 'Unknown error']; // Default resp
 try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $callnumber = date('YmdHis') . mt_rand(10, 99);
+        $callnumber = date('YmdHi') . mt_rand(10, 99);
         $createdate = date('Y-m-d H:i:s');
         $createdBy = $_SESSION['user_id'];
         $callstatus = "New";
@@ -24,11 +24,12 @@ try {
         $customeraddress = htmlspecialchars(strip_tags($_POST['customerAddress']));
         $customercity = htmlspecialchars(strip_tags($_POST['customerCity']));
         $calltype = htmlspecialchars(strip_tags($_POST['complaintType']));
+        $serviceWorkType = htmlspecialchars(strip_tags($_POST['serviceWorkType']));
         $calldate = htmlspecialchars(strip_tags($_POST['complaintDate']));
         $customerproblem = htmlspecialchars(strip_tags($_POST['complaintDescription']));
 
         // Validate required fields
-        if (empty($customername) || empty($customermobileno) || empty($customeraddress) || empty($customercity) || empty($calltype) || empty($calldate) || empty($customerproblem)) {
+        if (empty($customername) || empty($customermobileno) || empty($customeraddress) || empty($customercity) || empty($calltype) || empty($serviceWorkType) || empty($calldate) || empty($customerproblem)) {
             throw new Exception("All fields are required.");
         }
 
@@ -44,6 +45,7 @@ try {
             'customeraddress' => $customeraddress,
             'customercity' => $customercity,
             'calltype' => $calltype,
+            'serviceworktype' => $serviceWorkType,
             'calldate' => $calldate,
             'callstatus' => $callstatus,
             'createdate' => $createdate,

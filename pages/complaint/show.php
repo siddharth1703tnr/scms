@@ -10,10 +10,7 @@ require_once '../../config/config.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <?php require_once('../../includes/link.php')  ?>
-    <!-- DataTables -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -141,6 +138,12 @@ require_once '../../config/config.php';
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td><strong>Service Work Type:</strong></td>
+                                            <td>
+                                                <p id="serviceWorkType"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><strong>Payment Type:</strong></td>
                                             <td>
                                                 <p id="paymenttype"></p>
@@ -233,7 +236,7 @@ require_once '../../config/config.php';
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <label for="customerName" class="form-label">Customer Name</label>
-                                                        <input type="text" class="form-control shadow-none" name="customerName" id="customerName" required>
+                                                        <input type="text" class="form-control shadow-none" name="customerName" id="customerName" autocomplete="off" required>
                                                         <div class="invalid-feedback">Please enter a customer name.</div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -243,21 +246,37 @@ require_once '../../config/config.php';
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="customerAddress" class="form-label">Customer Address</label>
-                                                        <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" required>
+                                                        <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" autocomplete="off" required>
                                                         <div class="invalid-feedback">Please enter a customer address.</div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-3">
                                                         <label for="customerCity" class="form-label">Customer City</label>
-                                                        <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" required>
+                                                        <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" autocomplete="off" required>
                                                         <div class="invalid-feedback">Please enter a customer city.</div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label for="complaintType" class="form-label">Complaint Type</label>
                                                         <select class="form-control shadow-none" name="complaintType" id="complaintType" required>
-                                                            <option value="Fridge">Fridge</option>
-                                                            <option value="AC">AC</option>
-                                                            <option value="TV">TV</option>
-                                                            <option value="Washing Machine">Washing Machine</option>
+                                                            <option value=""></option>
+                                                            <option value="Microwave">Microwave</option>
+                                                            <option value="Refrigerator">Refrigerator</option>
+                                                            <option value="WashingMachine">Washing Machine</option>
+                                                            <option value="Airconditioning">Air conditioning</option>
+                                                            <option value="Dishwasher">Dishwasher</option>
+                                                            <option value="Oven">Oven</option>
+                                                            <option disabled="disabled" value="ClothesDryer">Clothes dryer</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="serviceWorkType" class="form-label">Service Worktype</label>
+                                                        <select class="form-control shadow-none" name="serviceWorkType" id="serviceWorkType" required>
+                                                            <option value=""></option>
+                                                            <option value="Repair">Repair</option>
+                                                            <option value="Service">Service</option>
+                                                            <option value="Installation">Installation</option>
+                                                            <option value="Demo">Demo</option>
+                                                            <option value="InstallationDemo">Installation and Demo</option>
+                                                            <option value="InWarrentyService">In-Warrenty Service</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
@@ -267,7 +286,7 @@ require_once '../../config/config.php';
                                                     </div>
                                                     <div class="col-md-12">
                                                         <label for="complaintDescription" class="form-label">Complaint Description</label>
-                                                        <textarea class="form-control shadow-none" name="complaintDescription" id="complaintDescription" required></textarea>
+                                                        <textarea class="form-control shadow-none" name="complaintDescription" id="complaintDescription" autocomplete="off" required></textarea>
                                                         <div class="invalid-feedback">Please select a complaint Description.</div>
                                                     </div>
                                                 </div>
@@ -293,19 +312,6 @@ require_once '../../config/config.php';
     </div>
 
     <?php require_once('../../includes/script.php')  ?>
-    <!-- DataTables  & Plugins -->
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/jszip/jszip.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
     <!-- Page specific script -->
     <script>
@@ -388,23 +394,23 @@ require_once '../../config/config.php';
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
                             return `<div class="d-flex flex-row justify-content-around">
-  <button
-    class="btn btn-outline-warning btn-edit"
-    data-id="${row.id}"
-    title="Edit"
-  >
-    <i class="fas fa-pencil-alt"></i>
-  </button>
-  <button
-    class="btn btn-outline-primary btn-view"
-    data-id="${row.id}"
-    title="view"
-  >
-    <i class="far fa-eye"></i>
-  </button>
-</div>
+                                    <button
+                                        class="btn btn-outline-warning btn-edit"
+                                        data-id="${row.id}"
+                                        title="Edit"
+                                    >
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button>
+                                    <button
+                                        class="btn btn-outline-primary btn-view"
+                                        data-id="${row.id}"
+                                        title="view"
+                                    >
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                    </div>
 
-`;
+                                    `;
                         }
                     }
                 ],
@@ -414,7 +420,7 @@ require_once '../../config/config.php';
                 "lengthMenu": [5, 10, 25, 50, 100], // Options for the rows-per-page dropdown
                 "autoWidth": true, // Disable automatic column width calculation
                 "order": [
-                    [0, 'asc']
+                    [0, 'desc']
                 ], // Default sorting: ascending by ID
                 "language": {
                     "paginate": {
@@ -444,6 +450,7 @@ require_once '../../config/config.php';
                         $('#customeraddress').text(response.customeraddress);
                         $('#customercity').text(response.customercity);
                         $('#calltype').text(response.calltype);
+                        $('#serviceWorkType').text(response.serviceworktype);
                         $('#paymenttype').text(response.paymenttype);
                         $('#calldate').text(response.calldate);
                         $('#callassigndate').text(response.callassigndate);
