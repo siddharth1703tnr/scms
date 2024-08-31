@@ -24,7 +24,7 @@ try {
         $ProductNameOrModel = htmlspecialchars(strip_tags($_POST['customerProductModel']));
 
         // Validate required fields
-        if (empty($CustomerName) || empty($CustomerAddress) || empty($CustomerCity) || empty($MobileNumber) || empty($WhatsAppNumber) || empty($ProductCompanyName) || empty($ProductNameOrModel)) {
+        if (empty($CustomerName) || empty($CustomerAddress) || empty($CustomerCity) || empty($MobileNumber)) {
             throw new Exception("All fields are required.");
         }
 

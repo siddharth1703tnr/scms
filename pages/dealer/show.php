@@ -32,7 +32,7 @@ $db = $database->getConnection();
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Dealer Show</h1>
+                            <h1><strong>Dealer Managment <i class="fas fa-users"></i></strong></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -48,11 +48,8 @@ $db = $database->getConnection();
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto">
-                            <h3 class="card-title">Dealer Show</h3>
-                        </div>
                         <div class="ml-auto">
-                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerDealerModal">
+                            <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerDealerModal">
                                 <i class="fas fa-user-plus"></i> Register
                             </button>
                         </div>
@@ -98,7 +95,7 @@ $db = $database->getConnection();
                             <form id="registerDealerForm" novalidate>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title" id="registerDealerModalLabel">Register New Dealer</h2>
+                                        <h2 class="modal-title" id="registerDealerModalLabel"><b>Register New Dealer</b></h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -157,7 +154,7 @@ $db = $database->getConnection();
                             <form id="updateDealerForm" novalidate>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title" id="updateDealerModalLabel">Update Dealer</h2>
+                                        <h2 class="modal-title" id="updateDealerModalLabel"><b>Update Dealer</b></h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -283,7 +280,7 @@ $db = $database->getConnection();
                         "data": null,
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button title="Edit Dealer Credentials"  class="btn btn-success btn-sm credentials-btn" data-id="${row.id}"><i class="fas fa-users"></i></i> Credentials </button>
+                            return `<button title="Edit Dealer Credentials"  class="btn btn-success btn-sm credentials-btn" data-id="${row.id}"><i class="fas fa-user-lock"></i> Credentials </button>
                                      <button title="Edit Dealer Info" class="btn btn-info btn-sm btn-edit ml-1" data-id="${row.id}"><i class="fas fa-pencil-alt"></i> Edit </button>`;
                         }
 

@@ -57,7 +57,7 @@ try {
 
         // Attempt to register the complaint
         if ($customer->updateCustomer($id, $data)) {
-            $response = ['status' => 'success', 'class' => 'bg-success', 'title' => 'Added', 'subtitle' => 'Success', 'body' => 'customer Added successfully'];
+            $response = ['status' => 'success', 'class' => 'bg-warning', 'title' => 'Updated', 'subtitle' => 'Success', 'body' => 'customer Updated successfully'];
         } else {
             throw new Exception("Failed to register cusstomer.");
         }

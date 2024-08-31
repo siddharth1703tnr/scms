@@ -43,7 +43,6 @@ require_once '../../config/config.php';
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
                         <div class="mr-auto mt-auto mb-auto">
-                            <h1 class="card-title"><b>Complaint View</b></h1>
                         </div>
                         <div class="ml-auto"><button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerComplaintModal"><b>Register Complaint</b></button></div>
                     </div>

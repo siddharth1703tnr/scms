@@ -38,9 +38,6 @@
                 <div class="container-fluid">
                     <div class="card card-warning card-outline">
                         <div class="card-header d-flex justify-content-between">
-                            <div class="mr-auto">
-                                <h3 class="card-title"><b>Technician Show</b></h3>
-                            </div>
                             <div class="ml-auto">
                                 <!-- Button to open the modal -->
                                 <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerTechnicianModal">
@@ -145,7 +142,7 @@
                             <form id="updateTechnicianForm" novalidate>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title" id="updateTechnicianModalLabel">Update Technician</h2>
+                                        <h2 class="modal-title" id="updateTechnicianModalLabel"><b>Update Technician</b></h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>

@@ -36,7 +36,7 @@ $dealerId = $_GET['id'];
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Dealer Credentials Info</h1>
+                            <h1><strong>Dealer Credentials Info <i class="fas fa-fingerprint"></i></strong></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -94,12 +94,9 @@ $dealerId = $_GET['id'];
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto">
-                            <h3 class="card-title">Show Dealer Credentials</h3>
-                        </div>
                         <div class="ml-auto">
                             <!-- Button to open the modal -->
-                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerDealerCredentialsModal">
+                            <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerDealerCredentialsModal">
                                 <i class="fas fa-user-plus"></i> Register
                             </button>
                         </div>
@@ -109,13 +106,12 @@ $dealerId = $_GET['id'];
                         <table id="dealerCredentialTable" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>username</th>
-                                    <th>isactive</th>
-                                    <th>distributorid</th>
-                                    <th>firstname</th>
-                                    <th>lastname</th>
-                                    <th>mobileno</th>
-                                    <th>roletype</th>
+                                    <th>Username</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Mobile No</th>
+                                    <th>Role Type</th>
+                                    <th>IsActive</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -239,7 +235,7 @@ $dealerId = $_GET['id'];
 
             <!-- Update DealerCredentials Modal -->
             <div class="modal fade" id="updateDealerCredentialsModal" tabindex="-1" role="dialog" aria-labelledby="updateDealerCredentialsModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                     <form id="updateDealerCredentialsForm" novalidate>
                         <div class="modal-content">
                             <div class="modal-header">
@@ -332,12 +328,6 @@ $dealerId = $_GET['id'];
                         }
                     }, // First name
                     {
-                        data: "isactive",
-                    }, // Last name
-                    {
-                        data: "distributorid",
-                    }, // Last name
-                    {
                         data: "firstname",
                     }, // Primary mobile number
                     {
@@ -351,10 +341,20 @@ $dealerId = $_GET['id'];
                         orderable: false, // Disable sorting for the address column
                     },
                     {
+                        data: "isactive",
+                        orderable: false, // Disable sorting for the address column
+                    }, // Last name
+                    {
                         "data": null, // Action buttons (Edit)
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>`;
+                            return `<button
+    class="btn btn-outline-warning btn-edit"
+    data-id="${row.id}"
+    title="Edit"
+  >
+    <i class="fas fa-pencil-alt"></i>
+  </button>`;
                         }
                     }
                 ],

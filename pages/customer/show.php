@@ -40,8 +40,7 @@ require_once '../../config/config.php';
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto">
-                            <h1 class="card-title"><b>Customer Show</b></h1>
+                        <div class="mr-auto">   
                         </div>
                         <div class="ml-auto">
                             <!-- Button to open the modal -->
@@ -203,13 +202,14 @@ require_once '../../config/config.php';
                         "orderable": false // Disable sorting for the address column
                     },
                     {
-                        "data": "IsActive"
+                        "data": "IsActive",
+                        "orderable": false // Disable sorting for the address column
                     },
                     {
                         "data": null, // Action buttons (Edit)
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `  <button
+                            return `<button
     class="btn btn-outline-warning btn-edit"
     data-id="${row.id}"
     title="Edit"
@@ -268,10 +268,22 @@ require_once '../../config/config.php';
                         type: 'POST',
                         data: formData,
                         success: function(response) {
-                            // Handle success
+                            if (response.status.trim() === 'success') {
+                                $(document).Toasts('create', {
+                                    class: response.class,
+                                    title: response.title,
+                                    subtitle: response.subtitle,
+                                    body: response.body,
+                                    delay: 5000,
+                                    autohide: true
+                                });
                             table.ajax.reload();
-                            alert('Customer registered successfully!');
+                            //alert('Customer registered successfully!');
                             $('#customerModal').modal('hide');
+                                successCallback();
+                            } else {
+                                alert(response.message); // Handle response message
+                            }
                         },
                         error: function() {
                             // Handle error
@@ -285,10 +297,22 @@ require_once '../../config/config.php';
                         type: 'POST',
                         data: formData,
                         success: function(response) {
-                            // Handle success
+                            if (response.status.trim() === 'success') {
+                                $(document).Toasts('create', {
+                                    class: response.class,
+                                    title: response.title,
+                                    subtitle: response.subtitle,
+                                    body: response.body,
+                                    delay: 5000,
+                                    autohide: true
+                                });
                             table.ajax.reload();
-                            alert('Customer updated successfully!');
+                            //alert('Customer registered successfully!');
                             $('#customerModal').modal('hide');
+                                successCallback();
+                            } else {
+                                alert(response.message); // Handle response message
+                            }
                         },
                         error: function() {
                             // Handle error
