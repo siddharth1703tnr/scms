@@ -24,9 +24,10 @@ class Complaint extends BaseModel
                 WHERE `callnumber` LIKE ? 
                 OR `customername` LIKE ? 
                 OR `customermobileno` LIKE ?
+                OR `callstatus` LIKE ?
                 ";
                 $stmt = $this->conn->prepare($query);
-                $stmt->bind_param("sss", $searchValue, $searchValue, $searchValue);
+                $stmt->bind_param("ssss", $searchValue, $searchValue, $searchValue, $searchValue);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $row = $result->fetch_assoc();
@@ -42,11 +43,12 @@ class Complaint extends BaseModel
                 WHERE `callnumber` LIKE ? 
                 OR `customername` LIKE ? 
                 OR `customermobileno` LIKE ?
+                OR `callstatus` LIKE ?
                 ORDER BY $orderColumn $orderDir
                 LIMIT ?, ?
                 ";
                 $stmt = $this->conn->prepare($query);
-                $stmt->bind_param("sssii", $searchValue, $searchValue, $searchValue, $start, $length);
+                $stmt->bind_param("ssssii", $searchValue, $searchValue, $searchValue, $searchValue, $start, $length);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $complaints = [];

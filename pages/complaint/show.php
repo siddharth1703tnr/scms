@@ -60,11 +60,9 @@ require_once '../../config/config.php';
                                     <th>Call Type</th>
                                     <th>Call Status</th>
                                     <th>Actions</th>
-
                                 </tr>
                             </thead>
                             <tbody>
-
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -76,13 +74,13 @@ require_once '../../config/config.php';
                                     <th>Call Type</th>
                                     <th>Call Status</th>
                                     <th>Actions</th>
-
                                 </tr>
                             </tfoot>
                         </table>
                         <!-- /.DataTables -->
                     </div>
                     <!-- /.card-body -->
+
 
                     <!-- complaint View Model -->
                     <div class="modal fade" id="complaintModel" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
@@ -345,56 +343,52 @@ require_once '../../config/config.php';
     <!-- Page specific script -->
     <script>
         $(document).ready(function() {
+
+            // Initialize DataTable
             var table = $('#complaintTable').DataTable({
-                "processing": true, // Show a processing indicator
-                "serverSide": true, // Server-side processing for pagination, sorting, and searching
+                "processing": true,
+                "serverSide": true,
                 "ajax": {
-                    "url": "../../controllers/complaint/ajax/fetchComplaint.php", // URL of the PHP file handling the AJAX request
-                    "type": "POST", // Type of HTTP request
+                    "url": "../../controllers/complaint/ajax/fetchComplaint.php",
+                    "type": "POST",
                     "data": {
-                        "action": "getAllComplaintData" // Action to be performed (fetch data)
+                        "action": "getAllComplaintData"
                     },
                     "dataSrc": function(json) {
                         if (json.error) {
-                            alert(json.error); // Alert the user if there's an error
-                            return []; // Return an empty array if there's an error
+                            alert(json.error);
+                            return [];
                         } else {
-                            return json.data; // Otherwise, return the data
+                            return json.data;
                         }
                     }
                 },
                 "columns": [{
-                        "data": "callnumber",
-                        "render": function(data, type, row) {
-                            var statusDot = '   <span class="badge badge-pill badge-' + ((row.callstatus == 'New') ? 'danger' : ((row.callstatus == 'Assigned') ? 'warning' : ((row.callstatus == 'Close') ? 'success' : ((row.callstatus == 'Cancelled') ? 'dark' : '')))) + ' ml-1 p-1"> </span>';
-                            return data + statusDot; // Show username with a status dot
-                        }
-                    }, // First name
+                        "data": "callnumber"
+                    },
                     {
                         "data": "customername"
-                    }, // Last name
+                    },
                     {
                         "data": "customermobileno"
-                    }, // Primary mobile number
+                    },
                     {
                         "data": "customeraddress",
-                        "orderable": false // Disable sorting for the address column
-                    }, // Secondary mobile number
+                        "orderable": false
+                    },
                     {
                         "data": "customerproblem",
-                        "orderable": false // Disable sorting for the address column
-                    }, // Secondary mobile number
+                        "orderable": false
+                    },
                     {
-                        "data": "calltype", // Address
-                        "orderable": false // Disable sorting for the address column
+                        "data": "calltype",
+                        "orderable": false
                     },
                     {
                         "data": "callstatus",
-                        "orderable": false, // Disable sorting for the address column
+                        "orderable": true,
                         "render": function(data, type, row) {
                             var badgeClass;
-
-                            // Determine the badge class based on the callstatus value
                             switch (data) {
                                 case 'New':
                                     badgeClass = 'danger';
@@ -412,52 +406,40 @@ require_once '../../config/config.php';
                                     badgeClass = '';
                                     break;
                             }
-
-                            // Create the badge HTML
-                            var statusBadge = '<span class="badge badge-' + badgeClass + '">' + data + '</span>';
-                            return statusBadge;
+                            return `<span class="badge badge-${badgeClass}">${data}</span>`;
                         }
                     },
                     {
-                        "data": null, // Action buttons (Edit)
-                        "orderable": false, // Disable sorting for this column
+                        "data": null,
+                        "orderable": false,
                         "render": function(data, type, row) {
                             return `<div class="d-flex flex-row justify-content-around">
-                                    <button
-                                        class="btn btn-outline-warning btn-edit"
-                                        data-id="${row.id}"
-                                        title="Edit"
-                                    >
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button
-                                        class="btn btn-outline-primary btn-view"
-                                        data-id="${row.id}"
-                                        title="view"
-                                    >
-                                        <i class="far fa-eye"></i>
-                                    </button>
-                                    </div>
-
-                                    `;
+                                            <button class="btn btn-outline-warning btn-edit" data-id="${row.id}" title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-outline-primary btn-view" data-id="${row.id}" title="View"><i class="far fa-eye"></i></button>
+                                        </div>`;
                         }
                     }
                 ],
-                "responsive": true, // Make the table responsive
-                "pageLength": 10, // Default number of rows per page
-                "lengthChange": true, // Allow the user to change the number of rows displayed
-                "lengthMenu": [5, 10, 25, 50, 100], // Options for the rows-per-page dropdown
-                "autoWidth": true, // Disable automatic column width calculation
+                "responsive": true,
+                "pageLength": 10,
+                "lengthChange": true,
+                "lengthMenu": [5, 10, 25, 50, 100],
+                "autoWidth": true,
                 "order": [
                     [0, 'desc']
-                ], // Default sorting: ascending by ID
+                ],
                 "language": {
                     "paginate": {
-                        "previous": "<i class='fas fa-angle-left'></i>", // Customize the "previous" pagination button
-                        "next": "<i class='fas fa-angle-right'></i>" // Customize the "next" pagination button
+                        "previous": "<i class='fas fa-angle-left'></i>",
+                        "next": "<i class='fas fa-angle-right'></i>"
                     }
                 },
-                // "dom": 'lBfrtip',  // Include the length menu and buttons
+                "dom": 'lBfrtip', // Include the length menu and buttons
+                "buttons": [{
+                    extend: 'colvis',
+                    text: 'Show/Hide Columns',
+                    columns: ':not(:last-child)' // All columns except the Actions column
+                }]
             });
 
             // View Complaint
@@ -491,7 +473,7 @@ require_once '../../config/config.php';
                         $('#finalamount').text(response.finalamount);
                         $('#customerproblem').text(response.customerproblem);
                         $('#callresolution').text(response.callresolution);
-                        
+
                         $('#createDate').text(response.createdate);
                         $('#creatorUsername').text(response.creator_username);
                         $('#distributorName').text(response.distributor_name);
