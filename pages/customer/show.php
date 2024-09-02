@@ -78,7 +78,7 @@ require_once '../../config/config.php';
                         <form id="customerForm" novalidate>
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h2 class="modal-title" id="customerModalLabel">Customer Form</h2>
+                                    <h2 class="modal-title font-weight-bold" id="customerModalLabel">Customer Form</h2>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -89,22 +89,22 @@ require_once '../../config/config.php';
                                             <div class="row">
                                                 <!-- Common Fields -->
                                                 <div class="col-md-6">
-                                                    <label for="customerName" class="form-label">Customer Name</label>
+                                                    <label for="customerName" class="form-label">Customer Name <span class="text-danger"> * </span></label>
                                                     <input type="text" class="form-control shadow-none" autocomplete="off" name="customerName" id="customerName" required>
                                                     <div class="invalid-feedback">Please enter the customer name.</div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="customerAddress" class="form-label">Address</label>
+                                                    <label for="customerAddress" class="form-label">Address <span class="text-danger"> * </span></label>
                                                     <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" required>
                                                     <div class="invalid-feedback">Please enter the address.</div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="customerCity" class="form-label">City</label>
+                                                    <label for="customerCity" class="form-label">City <span class="text-danger"> * </span></label>
                                                     <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" required>
                                                     <div class="invalid-feedback">Please enter the city.</div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="customerMobile" class="form-label">Mobile Number</label>
+                                                    <label for="customerMobile" class="form-label">Mobile Number <span class="text-danger"> * </span></label>
                                                     <input type="tel" class="form-control shadow-none" name="customerMobile" id="customerMobile" autocomplete="off" pattern="[0-9]{10}" required>
                                                     <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                 </div>

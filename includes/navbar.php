@@ -6,7 +6,7 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <!--@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" }) //from asp.net nav-->
-          <a href="index3.html" class="nav-link">Home</a>
+          <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php" class="nav-link">Home</a>
         </li>
         <li style="display:none" class="nav-item d-none d-sm-inline-block">
           <!--@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" }) //from asp.net nav-->

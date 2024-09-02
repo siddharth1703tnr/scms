@@ -1,7 +1,7 @@
 <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php" class="brand-link">
-    <img src="<?php echo BASE_URL; ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="<?php echo BASE_URL; ?>/assets/dist/img/rsslogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">RSS</span>
   </a>
   <!-- Sidebar -->
@@ -12,7 +12,7 @@
         <img src="<?php echo BASE_URL; ?>assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php " class="d-block"><?php echo htmlspecialchars($_SESSION['user_username']);
+        <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php" class="d-block"><?php echo htmlspecialchars($_SESSION['user_username']);
                                                                                     ?></a>
         <!-- <a href="<?php //echo BASE_URL; 
                       ?>public\index.php" class="d-block">user</a> -->

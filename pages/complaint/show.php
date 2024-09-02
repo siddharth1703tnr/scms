@@ -85,7 +85,7 @@ require_once '../../config/config.php';
                     <!-- /.card-body -->
 
                     <!-- complaint View Model -->
-                    <dśiv class="modal fade" id="complaintModel" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="complaintModel" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -245,7 +245,7 @@ require_once '../../config/config.php';
                                 </div>
                             </div>
                         </div>
-                    </dśiv>
+                    </div>
 
                     <!-- complaint Register Model -->
                     <div class="modal fade" id="registerComplaintModal" tabindex="-1" role="dialog" aria-labelledby="registerComplaintModalLabel" aria-hidden="true">
@@ -264,27 +264,27 @@ require_once '../../config/config.php';
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <label for="customerName" class="form-label">Customer Name</label>
+                                                        <label for="customerName" class="form-label">Customer Name <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="customerName" id="customerName" autocomplete="off" required>
                                                         <div class="invalid-feedback">Please enter a customer name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="customerPhoneNumber" class="form-label">Customer Phone Number</label>
+                                                        <label for="customerPhoneNumber" class="form-label">Customer Phone Number <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="customerPhoneNumber" id="customerPhoneNumber" autocomplete="off" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a valid phone number.</div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <label for="customerAddress" class="form-label">Customer Address</label>
+                                                        <label for="customerAddress" class="form-label">Customer Address <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" autocomplete="off" required>
                                                         <div class="invalid-feedback">Please enter a customer address.</div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="customerCity" class="form-label">Customer City</label>
+                                                        <label for="customerCity" class="form-label">Customer City <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" autocomplete="off" required>
                                                         <div class="invalid-feedback">Please enter a customer city.</div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="complaintType" class="form-label">Complaint Type</label>
+                                                        <label for="complaintType" class="form-label">Complaint Type <span class="text-danger"> * </span></label>
                                                         <select class="form-control shadow-none" name="complaintType" id="complaintType" required>
                                                             <option value=""></option>
                                                             <option value="Microwave">Microwave</option>
@@ -297,7 +297,7 @@ require_once '../../config/config.php';
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="serviceWorkType" class="form-label">Service Worktype</label>
+                                                        <label for="serviceWorkType" class="form-label">Service Worktype <span class="text-danger"> * </span></label>
                                                         <select class="form-control shadow-none" name="serviceWorkType" id="serviceWorkType" required>
                                                             <option value=""></option>
                                                             <option value="Repair">Repair</option>
@@ -309,12 +309,12 @@ require_once '../../config/config.php';
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="complaintDate" class="form-label">Complaint Date</label>
+                                                        <label for="complaintDate" class="form-label">Complaint Date <span class="text-danger"> * </span></label>
                                                         <input type="date" class="form-control shadow-none" name="complaintDate" id="complaintDate" required>
                                                         <div class="invalid-feedback">Please select a complaint date.</div>
                                                     </div>
                                                     <div class="col-md-12">
-                                                        <label for="complaintDescription" class="form-label">Complaint Description</label>
+                                                        <label for="complaintDescription" class="form-label">Complaint Description <span class="text-danger"> * </span></label>
                                                         <textarea class="form-control shadow-none" name="complaintDescription" id="complaintDescription" autocomplete="off" required></textarea>
                                                         <div class="invalid-feedback">Please select a complaint Description.</div>
                                                     </div>

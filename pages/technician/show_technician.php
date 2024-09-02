@@ -84,42 +84,42 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianUsername" class="form-label">Username</label>
+                                                        <label for="registerTechnicianUsername" class="form-label">Username <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" autocomplete="off" name="username" id="registerTechnicianUsername" required>
                                                         <div class="invalid-feedback">Please enter a username.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianPassword" class="form-label">Password</label>
+                                                        <label for="registerTechnicianPassword" class="form-label">Password <span class="text-danger"> * </span></label>
                                                         <input type="password" class="form-control shadow-none" name="password" id="registerTechnicianPassword" required>
                                                         <div class="invalid-feedback">Please enter a Password.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianPrimaryMobile" class="form-label">Primary Mobile No</label>
+                                                        <label for="registerTechnicianPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="primaryMobile" id="registerTechnicianPrimaryMobile" autocomplete="off" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianSecondaryMobile" class="form-label">Secondary Mobile No</label>
+                                                        <label for="registerTechnicianSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="secondaryMobile" id="registerTechnicianSecondaryMobile" autocomplete="off" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianFirstName" class="form-label">First Name</label>
+                                                        <label for="registerTechnicianFirstName" class="form-label">First Name <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="firstName" id="registerTechnicianFirstName" required>
                                                         <div class="invalid-feedback">Please enter a first name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianLastName" class="form-label">Last Name</label>
+                                                        <label for="registerTechnicianLastName" class="form-label">Last Name <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="lastName" id="registerTechnicianLastName" required>
                                                         <div class="invalid-feedback">Please enter a last name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianAddress" class="form-label">Address</label>
+                                                        <label for="registerTechnicianAddress" class="form-label">Address <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="address" id="registerTechnicianAddress" required>
                                                         <div class="invalid-feedback">Please enter an address.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianCity" class="form-label">City</label>
+                                                        <label for="registerTechnicianCity" class="form-label">City <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="city" id="registerTechnicianCity" required>
                                                         <div class="invalid-feedback">Please enter a city.</div>
                                                     </div>
@@ -154,32 +154,32 @@
                                                 <div class="row">
                                                     <input type="hidden" id="technicianId" name="technicianId">
                                                     <div class="col-md-6">
-                                                        <label for="technicianPrimaryMobile" class="form-label">Primary Mobile No</label>
+                                                        <label for="technicianPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="primaryMobile" id="technicianPrimaryMobile" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianSecondaryMobile" class="form-label">Secondary Mobile No</label>
+                                                        <label for="technicianSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="secondaryMobile" id="technicianSecondaryMobile" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianFirstName" class="form-label">First Name</label>
+                                                        <label for="technicianFirstName" class="form-label">First Name <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="firstName" id="technicianFirstName" required>
                                                         <div class="invalid-feedback">Please enter a first name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianLastName" class="form-label">Last Name</label>
+                                                        <label for="technicianLastName" class="form-label">Last Name <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="lastName" id="technicianLastName" required>
                                                         <div class="invalid-feedback">Please enter a last name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianAddress" class="form-label">Address</label>
+                                                        <label for="technicianAddress" class="form-label">Address <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="address" id="technicianAddress" required>
                                                         <div class="invalid-feedback">Please enter an address.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianCity" class="form-label">City</label>
+                                                        <label for="technicianCity" class="form-label">City <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="city" id="technicianCity" required>
                                                         <div class="invalid-feedback">Please enter a city.</div>
                                                     </div>
