@@ -345,13 +345,13 @@ $dealerId = $_GET['id'];
                         "data": null, // Action buttons (Edit)
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button
+                            return `<div class="d-flex flex-row justify-content-around"><button
                                         class="btn btn-outline-warning btn-edit"
                                         data-id="${row.id}"
                                         title="Edit"
                                     >
                                         <i class="fas fa-pencil-alt"></i>
-                                    </button>`;
+                                    </button></div>`;
                         }
                     }
                 ],

@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($dealer->updateDealerById($id, $data)) {
                 echo json_encode([
                     'status' => 'success',
-                    'class' => 'bg-success',
+                    'class' => 'bg-warning',
                     'title' => 'Update',
                     'subtitle' => 'Success',
                     'body' => 'Dealer updated successfully'

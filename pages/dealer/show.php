@@ -60,12 +60,12 @@ $db = $database->getConnection();
                             <thead>
                                 <tr>
                                     <th>Dealer Name</th>
-                                    <th>Dealer Status</th>
                                     <th>Dealer Pri. Number</th>
                                     <th>Dealer Sec. Number</th>
                                     <th>Dealer Mail</th>
-                                    <th>Dealer Address</th>
-                                    <th>Dealer City</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>Status</th>
                                     <th>Action</th>
 
                                 </tr>
@@ -76,12 +76,12 @@ $db = $database->getConnection();
                             <tfoot>
                                 <tr>
                                     <th>Dealer Name</th>
-                                    <th>Dealer Status</th>
                                     <th>Dealer Pri. Number</th>
                                     <th>Dealer Sec. Number</th>
                                     <th>Dealer Mail</th>
-                                    <th>Dealer Address</th>
-                                    <th>Dealer City</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
@@ -105,32 +105,32 @@ $db = $database->getConnection();
                                             <div class="card-body">
                                                 <div class="row row-gap-2">
                                                     <div class="col-md-6">
-                                                        <label for="Dealer_Name" class="form-label">Dealer Name</label>
+                                                        <label for="Dealer_Name" class="form-label">Dealer Name <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="Dealer_Name" id="Dealer_Name" required>
                                                         <div class="invalid-feedback">Please enter a Dealer Name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="Dealer_PMobile_No" class="form-label">Primary Mobile No:-</label>
+                                                        <label for="Dealer_PMobile_No" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="Dealer_PMobile_No" id="Dealer_PMobile_No" autocomplete="off" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a Primary Mobile No.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="Dealer_SMobile_No" class="form-label">Second Mobile No:-</label>
+                                                        <label for="Dealer_SMobile_No" class="form-label">Second Mobile No <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="Dealer_SMobile_No" id="Dealer_SMobile_No" autocomplete="off" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a Second Mobile No.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="Dealer_email" class="form-label">Dealer Email</label>
+                                                        <label for="Dealer_email" class="form-label">Dealer Email <span class="text-danger"> * </span></label>
                                                         <input type="email" class="form-control shadow-none" name="Dealer_email" id="Dealer_email" required>
                                                         <div class="invalid-feedback">Please enter a Dealer Email.</div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <label for="Dealer_Address" class="form-label">Dealer Address</label>
+                                                        <label for="Dealer_Address" class="form-label">Dealer Address <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="Dealer_Address" id="Dealer_Address" placeholder="1234 Main St" required>
                                                         <div class="invalid-feedback">Please enter a Dealer Address.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="Dealer_City" class="form-label">Dealer City</label>
+                                                        <label for="Dealer_City" class="form-label">Dealer City <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="Dealer_City" id="Dealer_City" required>
                                                         <div class="invalid-feedback">Please enter a Dealer City.</div>
                                                     </div>
@@ -165,32 +165,32 @@ $db = $database->getConnection();
                                                 <div class="row">
                                                     <input type="hidden" id="dealerId" name="dealerId">
                                                     <div class="col-md-6">
-                                                        <label for="dealerName" class="form-label">Dealer Name</label>
+                                                        <label for="dealerName" class="form-label">Dealer Name <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="dealerName" id="dealerName" required>
                                                         <div class="invalid-feedback">Please enter a Dealer name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="dealerPrimaryMobile" class="form-label">Primary Mobile No</label>
+                                                        <label for="dealerPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="dealerPrimaryMobile" id="dealerPrimaryMobile" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="dealerSecondaryMobile" class="form-label">Secondary Mobile No</label>
+                                                        <label for="dealerSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
                                                         <input type="tel" class="form-control shadow-none" name="dealerSecondaryMobile" id="dealerSecondaryMobile" pattern="[0-9]{10}" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="dealerEmail" class="form-label">Dealer Email</label>
+                                                        <label for="dealerEmail" class="form-label">Dealer Email <span class="text-danger"> * </span></label>
                                                         <input type="email" class="form-control shadow-none" name="dealerEmail" id="dealerEmail" required>
                                                         <div class="invalid-feedback">Please enter a valid Dealer Email.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="dealerAddress" class="form-label">Address</label>
+                                                        <label for="dealerAddress" class="form-label">Address <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="dealerAddress" id="dealerAddress" required>
                                                         <div class="invalid-feedback">Please enter an address.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="dealerCity" class="form-label">City</label>
+                                                        <label for="dealerCity" class="form-label">City <span class="text-danger"> * </span></label>
                                                         <input type="text" class="form-control shadow-none" name="dealerCity" id="dealerCity" required>
                                                         <div class="invalid-feedback">Please enter a city.</div>
                                                     </div>
@@ -254,11 +254,6 @@ $db = $database->getConnection();
                         }
                     }, // First name
                     {
-                        "data": "isactive",
-                        "orderable": false, // Disable sorting for this column
-
-                    }, // First name
-                    {
                         "data": "primarymobileno"
                     }, // First name
                     {
@@ -277,11 +272,16 @@ $db = $database->getConnection();
                         "orderable": false, // Disable sorting for this column
                     }, // First name
                     {
+                        "data": "isactive",
+                        "orderable": false, // Disable sorting for this column
+
+                    }, // First name
+                    {
                         "data": null,
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button title="Edit Dealer Credentials"  class="btn btn-success btn-sm credentials-btn" data-id="${row.id}"><i class="fas fa-user-lock"></i> Credentials </button>
-                                     <button title="Edit Dealer Info" class="btn btn-info btn-sm btn-edit ml-1" data-id="${row.id}"><i class="fas fa-pencil-alt"></i> Edit </button>`;
+                            return `<div class="d-flex flex-row justify-content-around"><button title="Edit Dealer Credentials"  class="btn btn-success btn-sm credentials-btn" data-id="${row.id}"><i class="fas fa-user-lock"></i> Credentials </button>
+                                     <button title="Edit Dealer Info" class="btn btn-info btn-sm btn-edit ml-1" data-id="${row.id}"><i class="fas fa-pencil-alt"></i> Edit </button></div>`;
                         }
 
                     }, // First name
