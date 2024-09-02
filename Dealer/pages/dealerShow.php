@@ -1,13 +1,5 @@
 <?php
-require_once '../config/config.php';
-require_once '../classes/Database.php';
-require_once '../classes/BaseModel.php';
-require_once '../classes/Complaint.php';
-
-$database = new Database();
-$db = $database->getConnection();
-
-
+require_once '../dealerConfig/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,32 +9,23 @@ $db = $database->getConnection();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <?php require_once('../includes/link.php')  ?>
-    <!-- DataTables -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition layout-top-nav">
     <div class="wrapper">
         <?php require_once('../includes/preloder.php') ?>
         <?php require_once('../includes/navbar.php') ?>
-        <?php require_once('../includes/asidde-st.php') ?>
-
         <div class="content-wrapper">
-
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Dealer Dashboard Show</h1>
+                            <h1><b>Dealer Dashboard</b></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Complaint</li>
-                                <li class="breadcrumb-item active">Show</li>
                             </ol>
                         </div>
                     </div>
@@ -52,10 +35,8 @@ $db = $database->getConnection();
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto">
-                            <h3 class="card-title">Complainnt Show</h3>
-                        </div>
-                        <div class="ml-auto"><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerComplaintModal">Register Complaint</button></div>
+                        <div class="ml-auto"><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerComplaintModal">Register Complaint</button>
+                    </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -139,6 +120,12 @@ $db = $database->getConnection();
                                             <td><strong>Call Type:</strong></td>
                                             <td>
                                                 <p id="calltype"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Service Work Type:</strong></td>
+                                            <td>
+                                                <p id="serviceWorkType"></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -230,8 +217,6 @@ $db = $database->getConnection();
                                     <div class="modal-body">
                                         <div class="card card-success card-outline mt-2">
                                             <div class="card-body">
-                                            <input type="hidden" name="dealerId" id="dealerId" >
-                                            <input type="hidden" name="dealerUserId" id="dealerUserId" >
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <label for="customerName" class="form-label">Customer Name</label>
@@ -248,7 +233,7 @@ $db = $database->getConnection();
                                                         <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" required>
                                                         <div class="invalid-feedback">Please enter a customer address.</div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-3">
                                                         <label for="customerCity" class="form-label">Customer City</label>
                                                         <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" required>
                                                         <div class="invalid-feedback">Please enter a customer city.</div>
@@ -256,10 +241,26 @@ $db = $database->getConnection();
                                                     <div class="col-md-3">
                                                         <label for="complaintType" class="form-label">Complaint Type</label>
                                                         <select class="form-control shadow-none" name="complaintType" id="complaintType" required>
-                                                            <option value="Fridge">Fridge</option>
-                                                            <option value="AC">AC</option>
-                                                            <option value="TV">TV</option>
-                                                            <option value="Washing Machine">Washing Machine</option>
+                                                            <option value=""></option>
+                                                            <option value="Microwave">Microwave</option>
+                                                            <option value="Refrigerator">Refrigerator</option>
+                                                            <option value="WashingMachine">Washing Machine</option>
+                                                            <option value="Airconditioning">Air conditioning</option>
+                                                            <option value="Dishwasher">Dishwasher</option>
+                                                            <option value="Oven">Oven</option>
+                                                            <option disabled="disabled" value="ClothesDryer">Clothes dryer</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="serviceWorkType" class="form-label">Service Worktype</label>
+                                                        <select class="form-control shadow-none" name="serviceWorkType" id="serviceWorkType" required>
+                                                            <option value=""></option>
+                                                            <option value="Repair">Repair</option>
+                                                            <option value="Service">Service</option>
+                                                            <option value="Installation">Installation</option>
+                                                            <option value="Demo">Demo</option>
+                                                            <option value="InstallationDemo">Installation and Demo</option>
+                                                            <option value="InWarrentyService">In-Warrenty Service</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
@@ -289,38 +290,31 @@ $db = $database->getConnection();
                 </div>
             </div><!-- /.container-fluid -->
         </div>
-
-        <?php require_once('../includes/footer.php') ?>
         <?php require_once('../includes/asidde-end.php') ?>
+        <?php require_once('../includes/footer.php') ?>
     </div>
 
     <?php require_once('../includes/script.php')  ?>
-    <!-- DataTables  & Plugins -->
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/jszip/jszip.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
     <!-- Page specific script -->
     <script>
+        var distributor_id = <?php echo $_SESSION['distributor_id'];; ?>;
+        var distributoruser_id = <?php echo $_SESSION['distributoruser_id'];; ?>;
         $(document).ready(function() {
+            
+            
+            // console.log(distributor_id);
+            // console.log(distributoruser_id);
+
             var table = $('#complaintTable').DataTable({
                 "processing": true, // Show a processing indicator
                 "serverSide": true, // Server-side processing for pagination, sorting, and searching
                 "ajax": {
-                    "url": "../controllers/dealerSide/fetchComplaintforDUserr.php", // URL of the PHP file handling the AJAX request
+                    "url": "../controllers/dealerSide/fetchComplaintforDUser.php", // URL of the PHP file handling the AJAX request
                     "type": "POST", // Type of HTTP request
                     "data": {
-                        "action": "getAllComplaintDataByDealerUserId" ,// Action to be performed (fetch data)
-                        dealerUserId: 1
+                        "action": "getAllComplaintDataByDealerUserId", // Action to be performed (fetch data)
+                        "dealerUserId": distributoruser_id
                     },
                     "dataSrc": function(json) {
                         if (json.error) {
@@ -407,12 +401,12 @@ $db = $database->getConnection();
             $('#complaintTable').on('click', '.btn-view', function() {
                 var complaintId = $(this).data('id');
                 $.ajax({
-                    url: '../controllers/dealerSide/fetchComplaintforDUserr.php',
+                    url: '../controllers/dealerSide/fetchComplaintforDUser.php',
                     method: 'POST',
                     data: {
                         action: 'getComplaintByIdAndUserId',
                         id: complaintId,
-                        dealerUserId: 1
+                        dealerUserId: distributor_id
 
                     },
                     dataType: 'json',
@@ -424,10 +418,11 @@ $db = $database->getConnection();
                         $('#customeraddress').text(response.customeraddress);
                         $('#customercity').text(response.customercity);
                         $('#calltype').text(response.calltype);
+                        $('#serviceWorkType').text(response.serviceworktype);
                         $('#paymenttype').text(response.paymenttype);
                         $('#calldate').text(response.calldate);
                         $('#callassigndate').text(response.callassigndate);
-                        $('#technicianassigned').text(response.technicianassigned);
+                        $('#technicianassigned').text(response.technician_name);
                         $('#callcompletedate').text(response.callcompletedate);
                         $('#callstatus').text(response.callstatus);
                         $('#totalamount').text(response.totalamount);
@@ -444,7 +439,6 @@ $db = $database->getConnection();
                     }
                 });
             });
-
 
             // Function to handle AJAX form submission with validation
             function submitForm(form, url, successCallback) {

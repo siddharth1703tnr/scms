@@ -85,7 +85,7 @@ require_once '../../config/config.php';
                     <!-- /.card-body -->
 
                     <!-- complaint View Model -->
-                    <div class="modal fade" id="complaintModel" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                    <dśiv class="modal fade" id="complaintModel" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -208,6 +208,36 @@ require_once '../../config/config.php';
                                                 <p id="callresolution"></p>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td><strong>Create By:</strong></td>
+                                            <td>
+                                                <p id="creatorUsername"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Modifie By:</strong></td>
+                                            <td>
+                                                <p id="modifierUsername"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Modifie Date:</strong></td>
+                                            <td>
+                                                <p id="modifiedDate"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Distributor Name:</strong></td>
+                                            <td>
+                                                <p id="distributorName"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Distributor username:</strong></td>
+                                            <td>
+                                                <p id="distributorUserUsername"></p>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                                 <div class="modal-footer">
@@ -215,7 +245,7 @@ require_once '../../config/config.php';
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </dśiv>
 
                     <!-- complaint Register Model -->
                     <div class="modal fade" id="registerComplaintModal" tabindex="-1" role="dialog" aria-labelledby="registerComplaintModalLabel" aria-hidden="true">
@@ -461,6 +491,13 @@ require_once '../../config/config.php';
                         $('#finalamount').text(response.finalamount);
                         $('#customerproblem').text(response.customerproblem);
                         $('#callresolution').text(response.callresolution);
+                        
+                        $('#createDate').text(response.createdate);
+                        $('#creatorUsername').text(response.creator_username);
+                        $('#distributorName').text(response.distributor_name);
+                        $('#distributorUserUsername').text(response.distributoruser_username);
+                        $('#modifierUsername').text(response.modifier_username);
+                        $('#modifiedDate').text(response.modifieddate);
 
                         // Show the modal
                         $('#complaintModel').modal('show');

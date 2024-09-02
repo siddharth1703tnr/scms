@@ -1,6 +1,6 @@
 <?php
 // Include necessary configuration and classes
-include '../../config/config.php';
+include '../../dealerConfig/config.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/DealerSide.php';
 
@@ -11,7 +11,7 @@ $dealerSide = new DealerSide($db);
 
 // Retrieve POST parameters
 $action = isset($_POST['action']) ? $_POST['action'] : '';
-$dealerUserId = isset($_POST['dealerUserId']) ? $_POST['dealerUserId'] : '';
+$dealerUserId = isset($_SESSION['distributoruser_id']) ? $_SESSION['distributoruser_id'] : '';
 
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0; // Pagination: start index
 $length = isset($_POST['length']) ? intval($_POST['length']) : 10; // Pagination: number of records per page

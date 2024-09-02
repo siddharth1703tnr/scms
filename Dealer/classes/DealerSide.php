@@ -61,7 +61,14 @@ class DealerSide extends BaseModel
 
     public function getComplaintById($id, $distributorUserId)
     {
-        $query = "SELECT * FROM $this->table WHERE id = ? AND `createby_distributoruser_id` = ?";
+        //$query = "SELECT * FROM $this->table WHERE id = ? AND `createby_distributoruser_id` = ?";
+        $query = "SELECT sc.*, 
+       CONCAT(su.firstname, ' ', su.lastname) AS technician_name
+FROM servicecall sc
+LEFT JOIN servicecenteruser su ON sc.technicianassigned = su.id
+WHERE sc.id = ? AND sc.createby_distributoruser_id = ?;";
+        
+
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("ii", $id, $distributorUserId);
         $stmt->execute();

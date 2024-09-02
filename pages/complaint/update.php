@@ -108,12 +108,12 @@ $action = null;
                                                         <label for="serviceWorkType" class="form-label">Service Worktype</label>
                                                         <select class="form-control shadow-none" name="serviceWorkType" id="serviceWorkType" required>
                                                             <option value=""></option>
-                                                            <option value="Repair" <?php echo ($currentComplaint['calltype'] == 'Repair') ? 'selected' : ''; ?>>Repair</option>
-                                                            <option value="Service" <?php echo ($currentComplaint['calltype'] == 'Service') ? 'selected' : ''; ?>>Service</option>
-                                                            <option value="Installation" <?php echo ($currentComplaint['calltype'] == 'Installation') ? 'selected' : ''; ?>>Installation</option>
-                                                            <option value="Demo" <?php echo ($currentComplaint['calltype'] == 'Demo') ? 'selected' : ''; ?>>Demo</option>
-                                                            <option value="InstallationDemo" <?php echo ($currentComplaint['calltype'] == 'InstallationDemo') ? 'selected' : ''; ?>>Installation and Demo</option>
-                                                            <option value="InWarrentyService" <?php echo ($currentComplaint['calltype'] == 'InWarrentyService') ? 'selected' : ''; ?>>In-Warrenty Service</option>
+                                                            <option value="Repair" <?php echo ($currentComplaint['serviceworktype'] == 'Repair') ? 'selected' : ''; ?>>Repair</option>
+                                                            <option value="Service" <?php echo ($currentComplaint['serviceworktype'] == 'Service') ? 'selected' : ''; ?>>Service</option>
+                                                            <option value="Installation" <?php echo ($currentComplaint['serviceworktype'] == 'Installation') ? 'selected' : ''; ?>>Installation</option>
+                                                            <option value="Demo" <?php echo ($currentComplaint['serviceworktype'] == 'Demo') ? 'selected' : ''; ?>>Demo</option>
+                                                            <option value="InstallationDemo" <?php echo ($currentComplaint['serviceworktype'] == 'InstallationDemo') ? 'selected' : ''; ?>>Installation and Demo</option>
+                                                            <option value="InWarrentyService" <?php echo ($currentComplaint['serviceworktype'] == 'InWarrentyService') ? 'selected' : ''; ?>>In-Warrenty Service</option>
                                                         </select>
                                                     </div>
                                         <div class="col-md-3">

@@ -1,5 +1,6 @@
 <?php
-require_once '../../config/config.php';
+include '../../dealerConfig/config.php';
+require_once '../../classes/BaseModel.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/DealerSide.php';
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
@@ -13,11 +14,11 @@ $response = ['status' => 'error', 'message' => 'Unknown error']; // Default resp
 try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $callnumber = date('YmdHis') . mt_rand(10, 99);
+        $callnumber = date('YmdHi') . mt_rand(10, 99);
         $createdate = date('Y-m-d H:i:s');
         $callstatus = "New";
-        $createby_distributor_id = $_POST['createby_distributor_id'];
-        $createby_distributoruser_id = $_POST['createby_distributoruser_id'];
+        $createby_distributor_id = $_SESSION['distributor_id'];;
+        $createby_distributoruser_id = $_SESSION['distributoruser_id'];;
         
 
         // Sanitize and validate input data
@@ -26,6 +27,7 @@ try {
         $customeraddress = htmlspecialchars(strip_tags($_POST['customerAddress']));
         $customercity = htmlspecialchars(strip_tags($_POST['customerCity']));
         $calltype = htmlspecialchars(strip_tags($_POST['complaintType']));
+        $serviceWorkType = htmlspecialchars(strip_tags($_POST['serviceWorkType']));
         $calldate = htmlspecialchars(strip_tags($_POST['complaintDate']));
         $customerproblem = htmlspecialchars(strip_tags($_POST['complaintDescription']));
 
@@ -44,6 +46,7 @@ try {
             'customeraddress' => $customeraddress,
             'customercity' => $customercity,
             'calltype' => $calltype,
+            'serviceworktype' => $serviceWorkType,
             'calldate' => $calldate,
             'callstatus' => $callstatus,
             'createdate' => $createdate,
