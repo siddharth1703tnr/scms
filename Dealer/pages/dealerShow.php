@@ -1,6 +1,5 @@
 <?php
-require_once '../../config/config.php';
-
+require_once '../dealerConfig/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,30 +8,24 @@ require_once '../../config/config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <?php require_once('../../includes/link.php')  ?>
-
+    <?php require_once('../includes/link.php')  ?>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition layout-top-nav">
     <div class="wrapper">
-        <?php require_once('../../includes/preloder.php') ?>
-        <?php require_once('../../includes/navbar.php') ?>
-        <?php require_once('../../includes/asidde-st.php') ?>
-
+        <?php require_once('../includes/preloder.php') ?>
+        <?php require_once('../includes/navbar.php') ?>
         <div class="content-wrapper">
-
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1><strong>Complaint Managment <i class="fas fa-tools"></i></i></strong></h1>
+                            <h1><b>Dealer Dashboard</b></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Complaint</li>
-                                <li class="breadcrumb-item active">Show</li>
                             </ol>
                         </div>
                     </div>
@@ -42,9 +35,8 @@ require_once '../../config/config.php';
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto mt-auto mb-auto">
-                        </div>
-                        <div class="ml-auto"><button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerComplaintModal"><b>Register Complaint</b></button></div>
+                        <div class="ml-auto"><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerComplaintModal">Register Complaint</button>
+                    </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -56,22 +48,19 @@ require_once '../../config/config.php';
                                     <th>Customer Name</th>
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
-                                    <th>Customer Problem</th>
-                                    <th>Call Type</th>
                                     <th>Call Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Call Number</th>
+                                <th>Call Number</th>
                                     <th>Customer Name</th>
                                     <th>Customer MobileNo</th>
                                     <th>Customer Address</th>
-                                    <th>Customer Problem</th>
-                                    <th>Call Type</th>
                                     <th>Call Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -81,13 +70,12 @@ require_once '../../config/config.php';
                     </div>
                     <!-- /.card-body -->
 
-
                     <!-- complaint View Model -->
                     <div class="modal fade" id="complaintModel" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="viewModalLabel"><b>Complaint Details <sup><i class="fas fa-expand-alt"></i></sup></b></h5>
+                                    <h5 class="modal-title" id="viewModalLabel">Complaint Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -173,7 +161,7 @@ require_once '../../config/config.php';
                                         <tr>
                                             <td><strong>Call Status:</strong></td>
                                             <td>
-                                                <p class="text-danger" id="callstatus"></p>
+                                                <p id="callstatus"></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -206,36 +194,6 @@ require_once '../../config/config.php';
                                                 <p id="callresolution"></p>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td><strong>Create By:</strong></td>
-                                            <td>
-                                                <p id="creatorUsername"></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Modifie By:</strong></td>
-                                            <td>
-                                                <p id="modifierUsername"></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Modifie Date:</strong></td>
-                                            <td>
-                                                <p id="modifiedDate"></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Distributor Name:</strong></td>
-                                            <td>
-                                                <p id="distributorName"></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Distributor username:</strong></td>
-                                            <td>
-                                                <p id="distributorUserUsername"></p>
-                                            </td>
-                                        </tr>
                                     </table>
                                 </div>
                                 <div class="modal-footer">
@@ -251,19 +209,18 @@ require_once '../../config/config.php';
                             <form id="registerComplaintForm" novalidate>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title" id="registerComplaintModalLabel"><b>Register New Complaint <sup><i class="far fa-sticky-note"></i></sup></b></h2>
+                                        <h2 class="modal-title" id="registerComplaintModalLabel">Register New Complaint</h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-
                                         <div class="card card-success card-outline mt-2">
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <label for="customerName" class="form-label">Customer Name <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="customerName" id="customerName" autocomplete="off" required>
+                                                        <input type="text" class="form-control shadow-none" name="customerName" id="customerName" required>
                                                         <div class="invalid-feedback">Please enter a customer name.</div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -273,12 +230,12 @@ require_once '../../config/config.php';
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="customerAddress" class="form-label">Customer Address <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" autocomplete="off" required>
+                                                        <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" required>
                                                         <div class="invalid-feedback">Please enter a customer address.</div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label for="customerCity" class="form-label">Customer City <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" autocomplete="off" required>
+                                                        <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" required>
                                                         <div class="invalid-feedback">Please enter a customer city.</div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -313,7 +270,7 @@ require_once '../../config/config.php';
                                                     </div>
                                                     <div class="col-md-12">
                                                         <label for="complaintDescription" class="form-label">Complaint Description <span class="text-danger"> * </span></label>
-                                                        <textarea class="form-control shadow-none" name="complaintDescription" id="complaintDescription" autocomplete="off" required></textarea>
+                                                        <textarea class="form-control shadow-none" name="complaintDescription" id="complaintDescription" required></textarea>
                                                         <div class="invalid-feedback">Please select a complaint Description.</div>
                                                     </div>
                                                 </div>
@@ -322,7 +279,7 @@ require_once '../../config/config.php';
                                     </div>
                                     <div class="modal-footer">
                                         <button type="reset" class="btn btn-secondary shadow-none mr-2" id="resetButton">Reset</button>
-                                        <button type="submit" class="btn btn-primary shadow-none">Register</button>
+                                        <button type="submit" class="btn btn-primary shadow-none">Register Complaint</button>
                                     </div>
                                 </div>
                             </form>
@@ -333,62 +290,65 @@ require_once '../../config/config.php';
                 </div>
             </div><!-- /.container-fluid -->
         </div>
-
-        <?php require_once('../../includes/footer.php') ?>
-        <?php require_once('../../includes/asidde-end.php') ?>
+        <?php require_once('../includes/asidde-end.php') ?>
+        <?php require_once('../includes/footer.php') ?>
     </div>
 
-    <?php require_once('../../includes/script.php')  ?>
+    <?php require_once('../includes/script.php')  ?>
 
     <!-- Page specific script -->
     <script>
+        var distributor_id = <?php echo $_SESSION['distributor_id'];; ?>;
+        var distributoruser_id = <?php echo $_SESSION['distributoruser_id'];; ?>;
         $(document).ready(function() {
+            
+            
+            // console.log(distributor_id);
+            // console.log(distributoruser_id);
 
-            // Initialize DataTable
             var table = $('#complaintTable').DataTable({
-                "processing": true,
-                "serverSide": true,
+                "processing": true, // Show a processing indicator
+                "serverSide": true, // Server-side processing for pagination, sorting, and searching
                 "ajax": {
-                    "url": "../../controllers/complaint/ajax/fetchComplaint.php",
-                    "type": "POST",
+                    "url": "../controllers/dealerSide/fetchComplaintforDUser.php", // URL of the PHP file handling the AJAX request
+                    "type": "POST", // Type of HTTP request
                     "data": {
-                        "action": "getAllComplaintData"
+                        "action": "getAllComplaintDataByDealerUserId", // Action to be performed (fetch data)
+                        "dealerUserId": distributoruser_id
                     },
                     "dataSrc": function(json) {
                         if (json.error) {
-                            alert(json.error);
-                            return [];
+                            alert(json.error); // Alert the user if there's an error
+                            return []; // Return an empty array if there's an error
                         } else {
-                            return json.data;
+                            return json.data; // Otherwise, return the data
                         }
                     }
                 },
                 "columns": [{
-                        "data": "callnumber"
-                    },
+                        "data": "callnumber",
+                        "render": function(data, type, row) {
+                            var statusDot = '<span class="badge badge-pill badge-' + ((row.callstatus == 'New') ? 'danger' : ((row.callstatus == 'Assigned') ? 'warning' : ((row.callstatus == 'Close') ? 'success' : ((row.callstatus == 'Cancelled') ? 'dark' : '')))) + ' ml-1 p-1"> </span>';
+                            return data + statusDot; // Show username with a status dot
+                        }
+                    }, // First name
                     {
                         "data": "customername"
-                    },
+                    }, // Last name
                     {
                         "data": "customermobileno"
-                    },
+                    }, // Primary mobile number
                     {
                         "data": "customeraddress",
-                        "orderable": false
-                    },
-                    {
-                        "data": "customerproblem",
-                        "orderable": false
-                    },
-                    {
-                        "data": "calltype",
-                        "orderable": false
-                    },
+                        "orderable": false // Disable sorting for the address column
+                    }, // Secondary mobile number
                     {
                         "data": "callstatus",
-                        "orderable": true,
+                        "orderable": false, // Disable sorting for the address column
                         "render": function(data, type, row) {
                             var badgeClass;
+
+                            // Determine the badge class based on the callstatus value
                             switch (data) {
                                 case 'New':
                                     badgeClass = 'danger';
@@ -406,51 +366,48 @@ require_once '../../config/config.php';
                                     badgeClass = '';
                                     break;
                             }
-                            return `<span class="badge badge-${badgeClass}">${data}</span>`;
+
+                            // Create the badge HTML
+                            var statusBadge = '<span class="badge badge-pill badge-' + badgeClass + '">' + data + '</span>';
+                            return statusBadge;
                         }
                     },
                     {
-                        "data": null,
-                        "orderable": false,
+                        "data": null, // Action buttons (Edit)
+                        "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<div class="d-flex flex-row justify-content-around">
-                                            <button class="btn btn-outline-warning btn-edit" data-id="${row.id}" title="Edit"><i class="fas fa-pencil-alt"></i></button>
-                                            <button class="btn btn-outline-primary btn-view" data-id="${row.id}" title="View"><i class="far fa-eye"></i></button>
-                                        </div>`;
+                            return `<button class="btn btn-primary btn-sm btn-view" data-id="${row.id}" title="view" ><i class="fas fa-external-link-alt"></i></button>`;
                         }
                     }
                 ],
-                "responsive": true,
-                "pageLength": 10,
-                "lengthChange": true,
-                "lengthMenu": [5, 10, 25, 50, 100],
-                "autoWidth": true,
+                "responsive": true, // Make the table responsive
+                "pageLength": 10, // Default number of rows per page
+                "lengthChange": true, // Allow the user to change the number of rows displayed
+                "lengthMenu": [5, 10, 25, 50, 100], // Options for the rows-per-page dropdown
+                "autoWidth": true, // Disable automatic column width calculation
                 "order": [
-                    [0, 'desc']
-                ],
+                    [0, 'asc']
+                ], // Default sorting: ascending by ID
                 "language": {
                     "paginate": {
-                        "previous": "<i class='fas fa-angle-left'></i>",
-                        "next": "<i class='fas fa-angle-right'></i>"
+                        "previous": "<i class='fas fa-angle-left'></i>", // Customize the "previous" pagination button
+                        "next": "<i class='fas fa-angle-right'></i>" // Customize the "next" pagination button
                     }
                 },
-                "dom": 'lBfrtip', // Include the length menu and buttons
-                "buttons": [{
-                    extend: 'colvis',
-                    text: 'Show/Hide Columns',
-                    columns: ':not(:last-child)' // All columns except the Actions column
-                }]
+                // "dom": 'lBfrtip',  // Include the length menu and buttons
             });
 
             // View Complaint
             $('#complaintTable').on('click', '.btn-view', function() {
                 var complaintId = $(this).data('id');
                 $.ajax({
-                    url: '../../controllers/complaint/ajax/fetchComplaint.php',
+                    url: '../controllers/dealerSide/fetchComplaintforDUser.php',
                     method: 'POST',
                     data: {
-                        action: 'getComplaintById',
-                        id: complaintId
+                        action: 'getComplaintByIdAndUserId',
+                        id: complaintId,
+                        dealerUserId: distributor_id
+
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -474,13 +431,6 @@ require_once '../../config/config.php';
                         $('#customerproblem').text(response.customerproblem);
                         $('#callresolution').text(response.callresolution);
 
-                        $('#createDate').text(response.createdate);
-                        $('#creatorUsername').text(response.creator_username);
-                        $('#distributorName').text(response.distributor_name);
-                        $('#distributorUserUsername').text(response.distributoruser_username);
-                        $('#modifierUsername').text(response.modifier_username);
-                        $('#modifiedDate').text(response.modifieddate);
-
                         // Show the modal
                         $('#complaintModel').modal('show');
                     },
@@ -489,14 +439,6 @@ require_once '../../config/config.php';
                     }
                 });
             });
-
-            // Edit Complaint
-            $('#complaintTable').on('click', '.btn-edit', function() {
-                var complaintId = $(this).data('id');
-                // Redirect to the update page with the complaint ID as a query parameter
-                window.location.href = '../../pages/complaint/update.php?id=' + complaintId;
-            });
-
 
             // Function to handle AJAX form submission with validation
             function submitForm(form, url, successCallback) {
@@ -536,7 +478,7 @@ require_once '../../config/config.php';
                 event.preventDefault();
                 var form = $(this);
 
-                submitForm(form, '../../controllers/complaint/process_complaint.php', function() {
+                submitForm(form, '../controllers/dealerSide/processDealerComplaint.php', function() {
                     table.ajax.reload();
                     resetForm(form);
                     $('#registerComplaintModal').modal('hide');

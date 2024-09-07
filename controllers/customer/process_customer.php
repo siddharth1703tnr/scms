@@ -24,12 +24,12 @@ try {
         $ProductNameOrModel = htmlspecialchars(strip_tags($_POST['customerProductModel']));
 
         // Validate required fields
-        if (empty($CustomerName) || empty($CustomerAddress) || empty($CustomerCity) || empty($MobileNumber) || empty($WhatsAppNumber) || empty($ProductCompanyName) || empty($ProductNameOrModel)) {
+        if (empty($CustomerName) || empty($CustomerAddress) || empty($CustomerCity) || empty($MobileNumber)) {
             throw new Exception("All fields are required.");
         }
 
         $CreateDate = date('Y-m-d H:i:s');
-        $CreateBy = '1';
+        $CreateBy = $_SESSION['user_id'];
         $isActive = 'Y';
 
         // Data array

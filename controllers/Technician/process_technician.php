@@ -2,7 +2,7 @@
 require_once '../../config/config.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/Technician.php';
-
+date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
 header('Content-Type: application/json'); // Ensure the response is JSON formatted
 
 $database = new Database();

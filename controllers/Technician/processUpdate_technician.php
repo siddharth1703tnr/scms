@@ -2,7 +2,7 @@
 require_once '../../config/config.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/Technician.php';
-
+date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
 $database = new Database();
 $db = $database->getConnection();
 $technician = new Technician($db);
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($technician->updateTechnician($id, $data)) {
                 echo json_encode([
                     'status' => 'success',
-                    'class' => 'bg-success',
+                    'class' => 'bg-warning',
                     'title' => 'Update',
                     'subtitle' => 'Success',
                     'body' => 'Technician updated successfully'

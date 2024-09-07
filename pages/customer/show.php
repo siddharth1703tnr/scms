@@ -10,10 +10,7 @@ require_once '../../config/config.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Management</title>
     <?php require_once('../../includes/link.php')  ?>
-    <!-- DataTables -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
 
 </head>
 
@@ -28,7 +25,7 @@ require_once '../../config/config.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Customer Management</h1>
+                            <h1><b><i class="fas fa-user-alt"></i> Customer Management</b></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -43,15 +40,13 @@ require_once '../../config/config.php';
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto">
-                            <h3 class="card-title">Customer Show</h3>
+                        <div class="mr-auto">   
                         </div>
                         <div class="ml-auto">
                             <!-- Button to open the modal -->
-                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#customerModal" id="showRegisterModal">
+                            <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#customerModal" id="showRegisterModal">
                                 <i class="fas fa-user-plus"></i> Register
                             </button>
-
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -59,13 +54,14 @@ require_once '../../config/config.php';
                         <table id="customerTable" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>CustomerName</th>
-                                    <th>CustomerAddress</th>
-                                    <th>CustomerCity</th>
-                                    <th>MobileNumber</th>
-                                    <th>WhatsAppNumber</th>
-                                    <th>LastMessageSendDate</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Address</th>
+                                    <th>Customer City</th>
+                                    <th>Mobile Number</th>
+                                    <th>WhatsApp Number</th>
+                                    <th>LastMessage Send Date</th>
                                     <th>IsActive</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,11 +74,11 @@ require_once '../../config/config.php';
 
                 <!-- Customer Modal -->
                 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                         <form id="customerForm" novalidate>
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h2 class="modal-title" id="customerModalLabel">Customer Form</h2>
+                                    <h2 class="modal-title font-weight-bold" id="customerModalLabel">Customer Form</h2>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -93,22 +89,22 @@ require_once '../../config/config.php';
                                             <div class="row">
                                                 <!-- Common Fields -->
                                                 <div class="col-md-6">
-                                                    <label for="customerName" class="form-label">Customer Name</label>
+                                                    <label for="customerName" class="form-label">Customer Name <span class="text-danger"> * </span></label>
                                                     <input type="text" class="form-control shadow-none" autocomplete="off" name="customerName" id="customerName" required>
                                                     <div class="invalid-feedback">Please enter the customer name.</div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="customerAddress" class="form-label">Address</label>
+                                                    <label for="customerAddress" class="form-label">Address <span class="text-danger"> * </span></label>
                                                     <input type="text" class="form-control shadow-none" name="customerAddress" id="customerAddress" required>
                                                     <div class="invalid-feedback">Please enter the address.</div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="customerCity" class="form-label">City</label>
+                                                    <label for="customerCity" class="form-label">City <span class="text-danger"> * </span></label>
                                                     <input type="text" class="form-control shadow-none" name="customerCity" id="customerCity" required>
                                                     <div class="invalid-feedback">Please enter the city.</div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="customerMobile" class="form-label">Mobile Number</label>
+                                                    <label for="customerMobile" class="form-label">Mobile Number <span class="text-danger"> * </span></label>
                                                     <input type="tel" class="form-control shadow-none" name="customerMobile" id="customerMobile" autocomplete="off" pattern="[0-9]{10}" required>
                                                     <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                 </div>
@@ -158,19 +154,6 @@ require_once '../../config/config.php';
     </div>
 
     <?php require_once('../../includes/script.php')  ?>
-    <!-- DataTables  & Plugins -->
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/jszip/jszip.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -219,13 +202,20 @@ require_once '../../config/config.php';
                         "orderable": false // Disable sorting for the address column
                     },
                     {
-                        "data": "IsActive"
+                        "data": "IsActive",
+                        "orderable": false // Disable sorting for the address column
                     },
                     {
                         "data": null, // Action buttons (Edit)
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>`;
+                            return `<button
+    class="btn btn-outline-warning btn-edit"
+    data-id="${row.id}"
+    title="Edit"
+  >
+    <i class="fas fa-pencil-alt"></i>
+  </button>`;
                         }
                     }
                 ],
@@ -257,12 +247,19 @@ require_once '../../config/config.php';
                 $('#customerModal').modal('show');
             });
 
-            // Form submission handler
+           // Form submission handler
             $('#customerForm').submit(function(event) {
                 event.preventDefault();
+
+                // Check if the form is valid
+                if (this.checkValidity() === false) {
+                    event.stopPropagation();
+                    $(this).addClass('was-validated');
+                    return;
+                }
+
                 var formMode = $('#formMode').val();
                 var formData = $(this).serialize();
-                console.log(formData);
 
                 if (formMode === 'register') {
                     // Handle register logic
@@ -271,10 +268,22 @@ require_once '../../config/config.php';
                         type: 'POST',
                         data: formData,
                         success: function(response) {
-                            // Handle success
+                            if (response.status.trim() === 'success') {
+                                $(document).Toasts('create', {
+                                    class: response.class,
+                                    title: response.title,
+                                    subtitle: response.subtitle,
+                                    body: response.body,
+                                    delay: 5000,
+                                    autohide: true
+                                });
                             table.ajax.reload();
-                            alert('Customer registered successfully!');
+                            //alert('Customer registered successfully!');
                             $('#customerModal').modal('hide');
+                                successCallback();
+                            } else {
+                                alert(response.message); // Handle response message
+                            }
                         },
                         error: function() {
                             // Handle error
@@ -288,10 +297,22 @@ require_once '../../config/config.php';
                         type: 'POST',
                         data: formData,
                         success: function(response) {
-                            // Handle success
+                            if (response.status.trim() === 'success') {
+                                $(document).Toasts('create', {
+                                    class: response.class,
+                                    title: response.title,
+                                    subtitle: response.subtitle,
+                                    body: response.body,
+                                    delay: 5000,
+                                    autohide: true
+                                });
                             table.ajax.reload();
-                            alert('Customer updated successfully!');
+                            //alert('Customer registered successfully!');
                             $('#customerModal').modal('hide');
+                                successCallback();
+                            } else {
+                                alert(response.message); // Handle response message
+                            }
                         },
                         error: function() {
                             // Handle error
@@ -300,7 +321,6 @@ require_once '../../config/config.php';
                     });
                 }
             });
-
 
             // Handle edit button click
             $('#customerTable').on('click', '.btn-edit', function() {
@@ -343,6 +363,19 @@ require_once '../../config/config.php';
                     }
                 });
             });
+
+            // Handle Reset Button Click (Optional)
+            $("#resetButton").on("click", function() {
+                resetForm($('#customerForm'));
+            });
+
+            // Function to handle form reset and clear validation
+            function resetForm(form) {
+                form[0].reset();
+                form.removeClass('was-validated');
+                form.find('.is-invalid').removeClass('is-invalid');
+                //form.find('.invalid-feedback').text('');
+            }
 
         });
     </script>

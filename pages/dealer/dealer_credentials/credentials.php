@@ -5,10 +5,6 @@ require_once '../../../classes/BaseModel.php';
 require_once '../../../classes/Dealer.php';
 require_once '../../../classes/Dealer_Credentials.php';
 
-$database = new Database();
-$db = $database->getConnection();
-$dealer = new Dealer($db);
-$dealerCredentials = new Dealer_Credentials($db);
 
 $dealerId = $_GET['id'];
 //$currentDealer = $dealer->getDealerById($dealerId); // Assuming this function exists
@@ -23,10 +19,6 @@ $dealerId = $_GET['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Dealer</title>
     <?php require_once('../../../includes/link.php')  ?>
-    <!-- DataTables -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -40,7 +32,7 @@ $dealerId = $_GET['id'];
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Dealer Credentials Info</h1>
+                            <h1><strong>Dealer Credentials Info <i class="fas fa-fingerprint"></i></strong></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -98,12 +90,9 @@ $dealerId = $_GET['id'];
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto">
-                            <h3 class="card-title">Show Dealer Credentials</h3>
-                        </div>
                         <div class="ml-auto">
                             <!-- Button to open the modal -->
-                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerDealerCredentialsModal">
+                            <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerDealerCredentialsModal">
                                 <i class="fas fa-user-plus"></i> Register
                             </button>
                         </div>
@@ -113,13 +102,12 @@ $dealerId = $_GET['id'];
                         <table id="dealerCredentialTable" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>username</th>
-                                    <th>isactive</th>
-                                    <th>distributorid</th>
-                                    <th>firstname</th>
-                                    <th>lastname</th>
-                                    <th>mobileno</th>
-                                    <th>roletype</th>
+                                    <th>Username</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Mobile No</th>
+                                    <th>Role Type</th>
+                                    <th>IsActive</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -139,7 +127,7 @@ $dealerId = $_GET['id'];
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h2 class="modal-title" id="registerDealerCredentialsModalLabel">
-                                    Register New Dealer Credentials
+                                    <b>Register Dealer Credentials</b>
                                 </h2>
                                 <button
                                     type="button"
@@ -155,7 +143,7 @@ $dealerId = $_GET['id'];
                                         <input type="hidden" name="currentDealerId" id="currentDealerId" value="<?php echo $dealerId; ?>" />
                                         <div class="row row-gap-2">
                                             <div class="col-md-6">
-                                                <label for="dealerUser_username" class="form-label">Username</label>
+                                                <label for="dealerUser_username" class="form-label">Username <span class="text-danger"> * </span></label>
                                                 <input
                                                     type="text"
                                                     class="form-control shadow-none"
@@ -165,7 +153,7 @@ $dealerId = $_GET['id'];
                                                 <div class="invalid-feedback">Please enter a username.</div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="dealerUser_password" class="form-label">User Password</label>
+                                                <label for="dealerUser_password" class="form-label">Password <span class="text-danger"> * </span></label>
                                                 <input
                                                     type="password"
                                                     class="form-control shadow-none"
@@ -175,7 +163,7 @@ $dealerId = $_GET['id'];
                                                 <div class="invalid-feedback">Please enter a password.</div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="dealerUser_firstname" class="form-label">Firstname</label>
+                                                <label for="dealerUser_firstname" class="form-label">Firstname <span class="text-danger"> * </span></label>
                                                 <input
                                                     type="text"
                                                     class="form-control shadow-none"
@@ -185,7 +173,7 @@ $dealerId = $_GET['id'];
                                                 <div class="invalid-feedback">Please enter a firstname.</div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="dealerUser_lastname" class="form-label">Lastname</label>
+                                                <label for="dealerUser_lastname" class="form-label">Lastname <span class="text-danger"> * </span></label>
                                                 <input
                                                     type="text"
                                                     class="form-control shadow-none"
@@ -195,19 +183,20 @@ $dealerId = $_GET['id'];
                                                 <div class="invalid-feedback">Please enter a lastname.</div>
                                             </div>
                                             <div class="col-6">
-                                                <label for="dealerUser_mobile" class="form-label">Mobile No</label>
+                                                <label for="dealerUser_mobile" class="form-label">Mobile No <span class="text-danger"> * </span></label>
                                                 <input
                                                     type="text"
                                                     class="form-control shadow-none"
                                                     name="dealerUser_mobile"
                                                     id="dealerUser_mobile"
+                                                    pattern="[0-9]{10}" 
                                                     required />
                                                 <div class="invalid-feedback">
                                                     Please enter a mobile number.
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="dealerUser_role" class="form-label">Role Type</label>
+                                                <label for="dealerUser_role" class="form-label">Role Type <span class="text-danger"> * </span></label>
                                                 <select
                                                     class="form-control shadow-none"
                                                     name="dealerUser_role"
@@ -243,11 +232,11 @@ $dealerId = $_GET['id'];
 
             <!-- Update DealerCredentials Modal -->
             <div class="modal fade" id="updateDealerCredentialsModal" tabindex="-1" role="dialog" aria-labelledby="updateDealerCredentialsModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                     <form id="updateDealerCredentialsForm" novalidate>
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h2 class="modal-title" id="updateDealerCredentialsModalLabel">Update Dealer Credentials</h2>
+                                <h2 class="modal-title" id="updateDealerCredentialsModalLabel"><b>Update Dealer Credentials</b></h2>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -300,19 +289,6 @@ $dealerId = $_GET['id'];
     </div>
     <!-- ./wrapper -->
     <?php require_once('../../../includes/script.php') ?>
-    <!-- DataTables  & Plugins -->
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/jszip/jszip.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <!-- Page specific script -->
     <script>
         $(document).ready(function() {
@@ -349,12 +325,6 @@ $dealerId = $_GET['id'];
                         }
                     }, // First name
                     {
-                        data: "isactive",
-                    }, // Last name
-                    {
-                        data: "distributorid",
-                    }, // Last name
-                    {
                         data: "firstname",
                     }, // Primary mobile number
                     {
@@ -368,10 +338,20 @@ $dealerId = $_GET['id'];
                         orderable: false, // Disable sorting for the address column
                     },
                     {
+                        data: "isactive",
+                        orderable: false, // Disable sorting for the address column
+                    }, // Last name
+                    {
                         "data": null, // Action buttons (Edit)
                         "orderable": false, // Disable sorting for this column
                         "render": function(data, type, row) {
-                            return `<button class="btn btn-primary btn-sm btn-edit" data-id="${row.id}" title="Edit" ><i class="far fa-edit"></i></button>`;
+                            return `<div class="d-flex flex-row justify-content-around"><button
+                                        class="btn btn-outline-warning btn-edit"
+                                        data-id="${row.id}"
+                                        title="Edit"
+                                    >
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button></div>`;
                         }
                     }
                 ],
@@ -549,7 +529,7 @@ $dealerId = $_GET['id'];
                         $('#dealerUserFirstName').val(response.firstname);
                         $('#dealerUserLastName').val(response.lastname);
                         $('#dealerUserMobile').val(response.mobileno);
-                        $('#dealerUserStatus').val(response.id);
+                        $('#dealerUserStatus').val(response.isactive);
 
                         // Update status switch and label
                         if (response.isactive === 'Y') {

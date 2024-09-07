@@ -29,12 +29,12 @@ try {
         
 
         // Validate required fields
-        if (empty($CustomerName) || empty($CustomerAddress) || empty($CustomerCity) || empty($MobileNumber) || empty($WhatsAppNumber) || empty($ProductCompanyName) || empty($ProductNameOrModel)) {
+        if (empty($CustomerName) || empty($CustomerAddress) || empty($CustomerCity) || empty($MobileNumber)) {
             throw new Exception("All fields are required.");
         }
 
         $ModifiedDate = date('Y-m-d H:i:s');
-        $ModifiedBy = '1';
+        $ModifiedBy = $_SESSION['user_id'];
         $isActive = 'Y';
 
         // Data array
@@ -52,12 +52,12 @@ try {
             'ModifiedDate' => $ModifiedDate,
             'ModifiedBy' => $ModifiedBy,
             'isActive' => $isActive
-
+                
         ];
 
         // Attempt to register the complaint
         if ($customer->updateCustomer($id, $data)) {
-            $response = ['status' => 'success', 'class' => 'bg-success', 'title' => 'Added', 'subtitle' => 'Success', 'body' => 'customer Added successfully'];
+            $response = ['status' => 'success', 'class' => 'bg-warning', 'title' => 'Updated', 'subtitle' => 'Success', 'body' => 'customer Updated successfully'];
         } else {
             throw new Exception("Failed to register cusstomer.");
         }

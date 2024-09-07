@@ -1,13 +1,14 @@
 <?php
-require_once '../../config/config.php';
+include '../../dealerConfig/config.php';
+require_once '../../classes/BaseModel.php';
 require_once '../../classes/Database.php';
-require_once '../../classes/Complaint.php';
+require_once '../../classes/DealerSide.php';
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
 header('Content-Type: application/json'); // Ensure the response is JSON formatted
 
 $database = new Database();
 $db = $database->getConnection();
-$complaint = new Complaint($db);
+$dealerSide = new DealerSide($db);
 $response = ['status' => 'error', 'message' => 'Unknown error']; // Default response
 
 try {
@@ -15,8 +16,10 @@ try {
 
         $callnumber = date('YmdHi') . mt_rand(10, 99);
         $createdate = date('Y-m-d H:i:s');
-        $createdBy = $_SESSION['user_id'];
         $callstatus = "New";
+        $createby_distributor_id = $_SESSION['distributor_id'];;
+        $createby_distributoruser_id = $_SESSION['distributoruser_id'];;
+        
 
         // Sanitize and validate input data
         $customername = htmlspecialchars(strip_tags($_POST['customerName']));
@@ -29,13 +32,11 @@ try {
         $customerproblem = htmlspecialchars(strip_tags($_POST['complaintDescription']));
 
         // Validate required fields
-        if (empty($customername) || empty($customermobileno) || empty($customeraddress) || empty($customercity) || empty($calltype) || empty($serviceWorkType) || empty($calldate) || empty($customerproblem)) {
+        if (empty($customername) || empty($customermobileno) || empty($customeraddress) || empty($customercity) || empty($calltype) || empty($calldate) || empty($customerproblem) || empty($createby_distributor_id) || empty($createby_distributoruser_id)) {
             throw new Exception("All fields are required.");
         }
 
         $createdate = date('Y-m-d H:i:s');
-        $isActive = 'Y';
-        $roleType = 'Technician';
 
         // Data array
         $data = [
@@ -49,12 +50,13 @@ try {
             'calldate' => $calldate,
             'callstatus' => $callstatus,
             'createdate' => $createdate,
-            'createby' => $createdBy,
+            'createby_distributor_id' => $createby_distributor_id,
+            'createby_distributoruser_id' => $createby_distributoruser_id,
             'customerproblem' => $customerproblem
         ];
 
         // Attempt to register the complaint
-        if ($complaint->registerComplaint($data)) {
+        if ($dealerSide->registerComplaint($data)) {
             $response = ['status' => 'success', 'class' => 'bg-success', 'title' => 'Added', 'subtitle' => 'Success', 'body' => 'Complaint Added successfully'];
         } else {
             throw new Exception("Failed to register Complaint.");

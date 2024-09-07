@@ -1,8 +1,9 @@
 <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php" class="brand-link">
-    <img src="<?php echo BASE_URL; ?>/assets/dist/img/rsslogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">RSS</span>
+    <img src="<?php echo BASE_URL; ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light"><?php echo htmlspecialchars($_SESSION['distributor_name']);
+                                                                                    ?></span>
   </a>
   <!-- Sidebar -->
   <div class="sidebar">
@@ -12,7 +13,7 @@
         <img src="<?php echo BASE_URL; ?>assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php" class="d-block"><?php echo htmlspecialchars($_SESSION['user_username']);
+        <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php " class="d-block"><?php echo htmlspecialchars($_SESSION['distributoruser_username']);
                                                                                     ?></a>
         <!-- <a href="<?php //echo BASE_URL; 
                       ?>public\index.php" class="d-block">user</a> -->
@@ -102,6 +103,6 @@
   <div class="sidebar-custom">
     <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
     <!-- <a href="#" class="btn btn-secondary hide-on-collapse pos-right">Help</a> -->
-    <a href="<?php echo BASE_URL; ?>public/logout.php" class="btn btn-outline-warning btn-sm hide-on-collapse pos-right" id="logoutButton">LOGOUT</a>
+    <a href="<?php echo BASE_URL; ?>controllers/LoginCheack/destroy_session.php" class="btn btn-outline-warning btn-sm hide-on-collapse pos-right" id="logoutButton">LOGOUT</a>
   </div>
 </aside>

@@ -38,12 +38,12 @@ $action = null;
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Update Complaint</h1>
+                            <h1><b>Update Complaint <i class="fas fa-pen-alt"></i></b></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Complaint</li>
+                                <li class="breadcrumb-item active"><a href="<?php echo BASE_URL; ?>pages/complaint/show.php">Complaint</a></li>
                                 <li class="breadcrumb-item active">Update</li>
                             </ol>
                         </div>
@@ -52,21 +52,21 @@ $action = null;
             </section>
 
             <div class="container-fluid">
-                <div class="card card-primary card-outline">
+                <div class="card card-warning card-outline">
                     <div class="card-body">
                         <form action="../../controllers/complaint/update_process.php" method="POST" id="complaintForm">
                             <input type="hidden" name="complaint_id" value="<?php echo $currentComplaint['id']; ?>">
                             <div>
                                 <div class="section-0">
                                     <div class="row row-gap-2">
-                                        <h2><?php echo htmlspecialchars($currentComplaint['callnumber']); ?></h2>
-                                        <p><span class="badge badge-pill badge-<?php echo ($currentComplaint['callstatus'] == 'New') ? 'success' : (($currentComplaint['callstatus'] == 'Assigned')
+                                        <h2><?php echo htmlspecialchars($currentComplaint['callnumber']); ?> </h2>  &nbsp;  <h5><span class="badge badge-<?php echo ($currentComplaint['callstatus'] == 'New') ? 'danger' : (($currentComplaint['callstatus'] == 'Assigned')
                                                                                     ? 'warning' : (($currentComplaint['callstatus'] == 'Close')
-                                                                                        ? 'info' : (($currentComplaint['callstatus'] == 'Cancelled')
-                                                                                            ? 'secondary' : '')))
+                                                                                        ? 'success' : (($currentComplaint['callstatus'] == 'Cancelled')
+                                                                                            ? 'dark' : '')))
                                                                                 ?>">
                                                 <?php echo htmlspecialchars($currentComplaint['callstatus']); ?>
-                                            </span></p>
+                                            </span></h5>
+                                        
                                         <div class="progress progress-xxs m-1 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
@@ -74,9 +74,9 @@ $action = null;
                                     </div>
                                 </div>
 
-                                <div class="section-1">
+                                <div class="section-1 mt-2 mb-2">
+                                <div><h3>Customer Basic Deatiles</h3></div>
                                     <div class="row row-gap-2">
-
                                         <div class="col-md-6">
                                             <label for="Cus_Name" class="form-label">Name</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_Name" id="Cus_Name" value="<?php echo htmlspecialchars($currentComplaint['customername']); ?>" required>
@@ -89,20 +89,34 @@ $action = null;
                                             <label for="Cus_Address" class="form-label">Address</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_Address" id="Cus_Address" placeholder="1234 Main St" value="<?php echo htmlspecialchars($currentComplaint['customeraddress']); ?>" required>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label for="Cus_City" class="form-label">City</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_City" id="Cus_City" value="<?php echo htmlspecialchars($currentComplaint['customercity']); ?>" required>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label for="Cus_calltype" class="form-label">Call-Type</label>
                                             <select class="form-control shadow-none" name="Cus_calltype" id="Cus_calltype" required>
-                                                <option value="Fridge" <?php echo ($currentComplaint['calltype'] == 'Fridge') ? 'selected' : ''; ?>>Fridge</option>
-                                                <option value="AC" <?php echo ($currentComplaint['calltype'] == 'AC') ? 'selected' : ''; ?>>AC</option>
-                                                <option value="TV" <?php echo ($currentComplaint['calltype'] == 'TV') ? 'selected' : ''; ?>>TV</option>
-                                                <option value="Washing Machine" <?php echo ($currentComplaint['calltype'] == 'Washing Machine') ? 'selected' : ''; ?>>Washing Machine</option>
+                                                <option value="Microwave" <?php echo ($currentComplaint['calltype'] == 'Microwave') ? 'selected' : ''; ?>>Microwave</option>
+                                                <option value="Refrigerator" <?php echo ($currentComplaint['calltype'] == 'Refrigerator') ? 'selected' : ''; ?>>Refrigerator</option>
+                                                <option value="WashingMachine" <?php echo ($currentComplaint['calltype'] == 'WashingMachine') ? 'selected' : ''; ?>>WashingMachine</option>
+                                                <option value="Airconditioning" <?php echo ($currentComplaint['calltype'] == 'Airconditioning') ? 'selected' : ''; ?>>Airconditioning</option>
+                                                <option value="Dishwasher" <?php echo ($currentComplaint['calltype'] == 'Dishwasher') ? 'selected' : ''; ?>>Dishwasher</option>
+                                                <option value="Oven" <?php echo ($currentComplaint['calltype'] == 'Oven') ? 'selected' : ''; ?>>Oven</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
+                                                        <label for="serviceWorkType" class="form-label">Service Worktype</label>
+                                                        <select class="form-control shadow-none" name="serviceWorkType" id="serviceWorkType" required>
+                                                            <option value=""></option>
+                                                            <option value="Repair" <?php echo ($currentComplaint['serviceworktype'] == 'Repair') ? 'selected' : ''; ?>>Repair</option>
+                                                            <option value="Service" <?php echo ($currentComplaint['serviceworktype'] == 'Service') ? 'selected' : ''; ?>>Service</option>
+                                                            <option value="Installation" <?php echo ($currentComplaint['serviceworktype'] == 'Installation') ? 'selected' : ''; ?>>Installation</option>
+                                                            <option value="Demo" <?php echo ($currentComplaint['serviceworktype'] == 'Demo') ? 'selected' : ''; ?>>Demo</option>
+                                                            <option value="InstallationDemo" <?php echo ($currentComplaint['serviceworktype'] == 'InstallationDemo') ? 'selected' : ''; ?>>Installation and Demo</option>
+                                                            <option value="InWarrentyService" <?php echo ($currentComplaint['serviceworktype'] == 'InWarrentyService') ? 'selected' : ''; ?>>In-Warrenty Service</option>
+                                                        </select>
+                                                    </div>
+                                        <div class="col-md-3">
                                             <label for="Cus_calldate" class="form-label">Call Date</label>
                                             <input type="date" class="form-control shadow-none" name="Cus_calldate" id="Cus_calldate" value="<?php echo htmlspecialchars(date('Y-m-d', strtotime($currentComplaint['calldate']))); ?>" required>
                                         </div>
@@ -113,13 +127,14 @@ $action = null;
                                             <label for="Cus_cusprob" class="form-label">Customer Problem</label>
                                             <input type="text" class="form-control shadow-none" name="Cus_cusprob" id="Cus_cusprob" value="<?php echo htmlspecialchars($currentComplaint['customerproblem']); ?>">
                                         </div>
-                                        <div class="progress progress-xxs m-1 col-md-12">
+                                        <div class="progress progress-xxs m-1 mt-2 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="section-2">
+                                <div class="section-2  mt-2 mb-2">
+                                <div><h3>Assign Call To Technician </h3></div>
                                     <div class="row row-gap-2">
                                         <div class="col-md-6">
                                             <label for="Cus_technicianassign" class="form-label">Technician Assigned</label>
@@ -134,13 +149,13 @@ $action = null;
                                             <div class="invalid-feedback" id="Cus_technicianassign_error"></div>
                                         </div>
                                         <input type="hidden" name="action" value="assigned">
-                                        <div class="progress progress-xxs m-1 col-md-12">
+                                        <div class="progress progress-xxs m-1 mt-2 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="section-3">
+                                <div class="section-3 mt-2 mb-2 ">
                                     <div class="row row-gap-2">
                                         <div class="col-md-2 pt-4">
                                             <label for="action">Action: </label>
@@ -156,26 +171,26 @@ $action = null;
 
                                         <div class="col-md-3">
                                             <label for="Cus_payment" class="form-label">Payment-Type</label>
-                                            <input type="text" class="form-control shadow-none" name="Cus_payment" id="Cus_payment" value="<?php echo htmlspecialchars($currentComplaint['paymenttype']); ?>">
+                                            <input type="text" class="form-control shadow-none" name="Cus_payment" id="Cus_payment" autocomplete="off" value="<?php echo htmlspecialchars($currentComplaint['paymenttype']); ?>">
                                         </div>
                                         <div class="col-md-2">
                                             <label for="Cus_totalamount" class="form-label">Total Amount</label>
-                                            <input type="number" class="form-control shadow-none" name="Cus_totalamount" id="Cus_totalamount" value="<?php echo htmlspecialchars($currentComplaint['totalamount']); ?>">
+                                            <input type="number" class="form-control shadow-none" name="Cus_totalamount" id="Cus_totalamount" autocomplete="off" value="<?php echo htmlspecialchars($currentComplaint['totalamount']); ?>">
                                         </div>
                                         <div class="col-md-2">
                                             <label for="Cus_disamount" class="form-label">Discount Amount</label>
-                                            <input type="number" class="form-control shadow-none" name="Cus_disamount" id="Cus_disamount" value="<?php echo htmlspecialchars($currentComplaint['discountamount']); ?>">
+                                            <input type="number" class="form-control shadow-none" name="Cus_disamount" id="Cus_disamount" autocomplete="off" value="<?php echo htmlspecialchars($currentComplaint['discountamount']); ?>">
                                         </div>
                                         <div class="col-md-3">
                                             <label for="Cus_finalamount" class="form-label">Final Amount</label>
-                                            <input type="number" class="form-control shadow-none" name="Cus_finalamount" id="Cus_finalamount" value="<?php echo htmlspecialchars($currentComplaint['finalamount']); ?>">
+                                            <input type="number" class="form-control shadow-none" name="Cus_finalamount" id="Cus_finalamount" autocomplete="off" value="<?php echo htmlspecialchars($currentComplaint['finalamount']); ?>">
                                         </div>
 
                                         <div class="col-md-12">
                                             <label for="Cus_callresolution" class="form-label">Customer Resolution</label>
-                                            <input type="text" class="form-control shadow-none" name="Cus_callresolution" id="Cus_callresolution" value="<?php echo htmlspecialchars($currentComplaint['callresolution']); ?>">
+                                            <input type="text" class="form-control shadow-none" name="Cus_callresolution" id="Cus_callresolution" autocomplete="off" value="<?php echo htmlspecialchars($currentComplaint['callresolution']); ?>">
                                         </div>
-                                        <div class="progress progress-xxs m-1 col-md-12">
+                                        <div class="progress progress-xxs m-1 mt-2 col-md-12">
                                             <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                             </div>
                                         </div>
