@@ -43,8 +43,20 @@ require_once '../../config/config.php';
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
                         <div class="mr-auto mt-auto mb-auto">
+                            <div class="form-inline">
+                                <label for="callStatusFilter" class="mr-2">Filter by Call Status: </label>
+                                <select id="callStatusFilter" class="form-control">
+                                    <option value="">All</option>
+                                    <option value="New">New</option>
+                                    <option value="Assigned">Assigned</option>
+                                    <option value="Close">Close</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="ml-auto"><button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerComplaintModal"><b>Register Complaint</b></button></div>
+                        <div class="ml-auto">
+                            <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerComplaintModal"><b>Register Complaint</b></button>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
