@@ -44,8 +44,8 @@ require_once '../../config/config.php';
                     <div class="card-header d-flex justify-content-between">
                         <div class="mr-auto mt-auto mb-auto">
                             <div class="form-inline">
-                                <label for="callStatusFilter" class="mr-2">Filter by Call Status: </label>
-                                <select id="callStatusFilter" class="form-control">
+                            <label for="statusFilter">Filter by Call Status:</label>
+                                <select id="statusFilter" class="form-control">
                                     <option value="">All</option>
                                     <option value="New">New</option>
                                     <option value="Assigned">Assigned</option>
@@ -363,8 +363,9 @@ require_once '../../config/config.php';
                 "ajax": {
                     "url": "../../controllers/complaint/ajax/fetchComplaint.php",
                     "type": "POST",
-                    "data": {
-                        "action": "getAllComplaintData"
+                    "data": function(d) {
+                        d.action = "getAllComplaintData";
+                        d.callStatus = $('#statusFilter').val(); // Get selected call status
                     },
                     "dataSrc": function(json) {
                         if (json.error) {
@@ -452,6 +453,11 @@ require_once '../../config/config.php';
                     text: 'Show/Hide Columns',
                     columns: ':not(:last-child)' // All columns except the Actions column
                 }]
+            });
+
+            // Reload table data when call status filter changes
+            $('#statusFilter').on('change', function() {
+                table.ajax.reload(); // Reload the DataTable with the new filter
             });
 
             // View Complaint

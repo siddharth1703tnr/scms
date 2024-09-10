@@ -35,28 +35,46 @@ class Complaint extends BaseModel
             }
         
             // Get paginated records based on start, length, search value, and sorting
-            public function getPaginatedComplaints($start, $length, $searchValue, $orderColumn = 'id', $orderDir = 'asc')
+            public function getPaginatedComplaints($start, $length, $searchValue, $orderColumn = 'id', $orderDir = 'asc', $callStatus = '')
             {
                 $searchValue = "%$searchValue%";
+
+                // Modify the query to include callStatus filter if it's provided
                 $query = "SELECT id, callnumber, customername, customermobileno, customeraddress, calltype, callstatus, customerproblem
-                FROM $this->table
-                WHERE `callnumber` LIKE ? 
-                OR `customername` LIKE ? 
-                OR `customermobileno` LIKE ?
-                OR `callstatus` LIKE ?
-                ORDER BY $orderColumn $orderDir
-                LIMIT ?, ?
-                ";
+                        FROM $this->table
+                        WHERE (`callnumber` LIKE ? 
+                        OR `customername` LIKE ? 
+                        OR `customermobileno` LIKE ?
+                        OR `callstatus` LIKE ?)";
+
+                // Add filtering by callStatus if it's selected
+                if (!empty($callStatus)) {
+                    $query .= " AND callstatus = ?";
+                }
+
+                $query .= " ORDER BY $orderColumn $orderDir
+                            LIMIT ?, ?";
+
                 $stmt = $this->conn->prepare($query);
-                $stmt->bind_param("ssssii", $searchValue, $searchValue, $searchValue, $searchValue, $start, $length);
+
+                // Bind parameters based on whether callStatus is provided
+                if (!empty($callStatus)) {
+                    $stmt->bind_param("sssssii", $searchValue, $searchValue, $searchValue, $searchValue, $callStatus, $start, $length);
+                } else {
+                    $stmt->bind_param("ssssii", $searchValue, $searchValue, $searchValue, $searchValue, $start, $length);
+                }
+
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $complaints = [];
+
                 while ($row = $result->fetch_assoc()) {
                     $complaints[] = $row;
                 }
+
                 return $complaints;
             }
+
     // You can add any specific methods related to complaints here if needed
 
     // public function getAllComplaints()

@@ -11,6 +11,9 @@ $complaint = new Complaint($db);
 
 // Retrieve POST parameters
 $action = isset($_POST['action']) ? $_POST['action'] : '';
+// Retrieve POST parameters, including the callStatus filter
+$callStatus = isset($_POST['callStatus']) ? $_POST['callStatus'] : '';
+
 
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0; // Pagination: start index
 $length = isset($_POST['length']) ? intval($_POST['length']) : 10; // Pagination: number of records per page
@@ -44,7 +47,8 @@ try {
         $filteredRecords = $complaint->getFilteredRecords($searchValue);
 
         // Get paginated and sorted data with filtering applied
-        $complaintData = $complaint->getPaginatedComplaints($start, $length, $searchValue, $orderColumn, $orderDir);
+        // Pass the callStatus filter to the Complaint class
+        $complaintData = $complaint->getPaginatedComplaints($start, $length, $searchValue, $orderColumn, $orderDir, $callStatus);
 
         // Prepare the response array as required by DataTables
         $response = [
