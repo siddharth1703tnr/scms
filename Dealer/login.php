@@ -135,7 +135,7 @@ if (isset($_POST['Login'])) {
             $_SESSION['distributoruser_username'] = $user['distributoruser_username'];
 
             // Redirect to dashboard
-            header('Location: ' . BASE_URL . 'pages/dealerShow.php');
+            header('Location: ' . BASE_URL . 'pages/dashboard.php');
 
         } else {
             echo "<script> alert('User Password not found') </script>";

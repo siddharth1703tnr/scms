@@ -14,7 +14,7 @@ session_start();
 // Check if the session variables are set
 if (!isset($_SESSION['distributor_id']) || !isset($_SESSION['distributor_name']) || !isset($_SESSION['distributoruser_id']) || !isset($_SESSION['distributoruser_username'])) {
     // Redirect to login page if session variables are not set
-    header('Location: ../login.php');
+    header('Location:' . BASE_URL . 'login.php');
     exit;
 }
 

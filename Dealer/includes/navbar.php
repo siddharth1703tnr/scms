@@ -1,34 +1,31 @@
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-    <div class="container">
-      <a href="../../index3.html" class="navbar-brand">
-      <img src="<?php echo BASE_URL; ?>/assets/dist/img/rsslogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light"><?php echo $_SESSION['distributor_name']; ?></span>
-      </a>
-
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="index3.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">Contact</a>
-          </li>
-          <li class="nav-item">
-          <a class="btn btn-warning" href="<?php echo BASE_URL; ?>controllers/LoginCheack/destroy_session.php">Logout</a>
-          </li>
-        </ul>
-      </div>
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <!--@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" }) //from asp.net nav-->
+          <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php" class="nav-link">Home</a>
+        </li>
+        <li style="display:none" class="nav-item d-none d-sm-inline-block">
+          <!--@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" }) //from asp.net nav-->
+          <a href="#" style="display:none" class="nav-link">Contact</a>
+        </li>
+        <li style="display:none" class="nav-item d-none d-sm-inline-block">
+          <!--@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }) //from asp.net nav-->
+          <a href="#" style="display:none" class="nav-link">Contact</a>
+        </li>
+      </ul>
 
       <!-- Right navbar links -->
-      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-      <span class="brand-text font-weight-light"><?php echo $_SESSION['distributoruser_username']; ?></span>
+      <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
+          </a>
+        </li>
+
       </ul>
-    </div>
-  </nav>
-  <!-- /.navbar -->
+    </nav>

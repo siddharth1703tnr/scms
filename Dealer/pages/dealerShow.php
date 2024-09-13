@@ -11,10 +11,11 @@ require_once '../dealerConfig/config.php';
     <?php require_once('../includes/link.php')  ?>
 </head>
 
-<body class="hold-transition layout-top-nav">
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <?php require_once('../includes/preloder.php') ?>
         <?php require_once('../includes/navbar.php') ?>
+        <?php require_once('../includes/asidde-st.php') ?>
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -290,8 +291,8 @@ require_once '../dealerConfig/config.php';
                 </div>
             </div><!-- /.container-fluid -->
         </div>
-        <?php require_once('../includes/asidde-end.php') ?>
         <?php require_once('../includes/footer.php') ?>
+        <?php require_once('../includes/asidde-end.php') ?>
     </div>
 
     <?php require_once('../includes/script.php')  ?>
