@@ -9,7 +9,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<?php echo BASE_URL; ?>assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <img src="<?php echo BASE_URL; ?>assets/dist/img/admin-user.png" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="<?php echo BASE_URL; ?>pages\dashboard\admin.php" class="d-block"><?php echo htmlspecialchars($_SESSION['user_username']);?></a>

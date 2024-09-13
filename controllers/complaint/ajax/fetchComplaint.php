@@ -44,7 +44,7 @@ try {
         $totalRecords = $complaint->getTotalRecords();
 
         // Get number of records matching the search filter
-        $filteredRecords = $complaint->getFilteredRecords($searchValue);
+        $filteredRecords = $complaint->getFilteredRecords($searchValue, $callStatus);
 
         // Get paginated and sorted data with filtering applied
         // Pass the callStatus filter to the Complaint class

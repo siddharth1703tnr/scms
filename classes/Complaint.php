@@ -16,18 +16,20 @@ class Complaint extends BaseModel
             }
         
             // Get the number of filtered records (for search functionality)
-            public function getFilteredRecords($searchValue)
+            public function getFilteredRecords($searchValue, $callStatus = '')
             {
                 $searchValue = "%$searchValue%";
+                $callStatus = !empty($callStatus) ? "%$callStatus%" : '%';
+
                 $query = "SELECT COUNT(*) AS total 
-                FROM $this->table 
-                WHERE `callnumber` LIKE ? 
-                OR `customername` LIKE ? 
-                OR `customermobileno` LIKE ?
-                OR `callstatus` LIKE ?
-                ";
+                        FROM $this->table 
+                        WHERE (`callnumber` LIKE ? 
+                        OR `customername` LIKE ? 
+                        OR `customermobileno` LIKE ?)
+                        AND `callstatus` LIKE ?";
+
                 $stmt = $this->conn->prepare($query);
-                $stmt->bind_param("ssss", $searchValue, $searchValue, $searchValue, $searchValue);
+                $stmt->bind_param("ssss", $searchValue, $searchValue, $searchValue, $callStatus);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $row = $result->fetch_assoc();

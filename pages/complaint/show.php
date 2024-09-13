@@ -42,18 +42,6 @@ require_once '../../config/config.php';
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto mt-auto mb-auto">
-                            <div class="form-inline">
-                            <label for="statusFilter">Filter by Call Status:</label>
-                                <select id="statusFilter" class="form-control">
-                                    <option value="">All</option>
-                                    <option value="New">New</option>
-                                    <option value="Assigned">Assigned</option>
-                                    <option value="Close">Close</option>
-                                    <option value="Cancelled">Cancelled</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="ml-auto">
                             <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerComplaintModal"><b>Register Complaint</b></button>
                         </div>
@@ -70,7 +58,17 @@ require_once '../../config/config.php';
                                     <th>Customer Address</th>
                                     <th>Customer Problem</th>
                                     <th>Call Type</th>
-                                    <th>Call Status</th>
+                                    <th>
+                                        Call Status
+
+                                        <select id="statusFilter" class="form-control">
+                                            <option value="">All</option>
+                                            <option value="New">New</option>
+                                            <option value="Assigned">Assigned</option>
+                                            <option value="Close">Closed</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                        </select>
+                                    </th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -399,7 +397,7 @@ require_once '../../config/config.php';
                     },
                     {
                         "data": "callstatus",
-                        "orderable": true,
+                        "orderable": false,
                         "render": function(data, type, row) {
                             var badgeClass;
                             switch (data) {
@@ -456,8 +454,14 @@ require_once '../../config/config.php';
             });
 
             // Reload table data when call status filter changes
-            $('#statusFilter').on('change', function() {
-                table.ajax.reload(); // Reload the DataTable with the new filter
+            // $('#statusFilter').on('change', function() {
+            //     table.ajax.reload(); // Reload the DataTable with the new filter
+            // });
+
+            // Apply filter when the dropdown value changes
+            $('#statusFilter').on('change', function () {
+                var selectedStatus = $(this).val();
+                table.column(6).search(selectedStatus).draw(); // Column 6 is "callstatus"
             });
 
             // View Complaint
