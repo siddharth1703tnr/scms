@@ -23,7 +23,7 @@ $action = null;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Complaint</title>
+    <title>Update Complaint (<?php echo htmlspecialchars($currentComplaint['callnumber']); ?>)</title>
     <?php require_once('../../includes/link.php')  ?>
 </head>
 

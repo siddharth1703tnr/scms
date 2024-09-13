@@ -8,7 +8,7 @@ require_once '../../config/config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Management</title>
+    <title>Admin | Customer</title>
     <?php require_once('../../includes/link.php')  ?>
 
 

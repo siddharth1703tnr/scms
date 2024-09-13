@@ -28,7 +28,7 @@ $todaysComplaints = $dashboard->getTodaysComplaints();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Admin | Dashboard</title>
     <?php require_once('../../includes/link.php')  ?>
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">

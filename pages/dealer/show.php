@@ -15,7 +15,7 @@ $db = $database->getConnection();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Admin | Dealer</title>
     <?php require_once('../../includes/link.php')  ?>
 </head>
 
