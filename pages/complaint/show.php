@@ -254,7 +254,6 @@ require_once '../../config/config.php';
                             </div>
                         </div>
                     </div>
-
                     <!-- complaint Register Model -->
                     <div class="modal fade" id="registerComplaintModal" tabindex="-1" role="dialog" aria-labelledby="registerComplaintModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
@@ -432,9 +431,9 @@ require_once '../../config/config.php';
                     }
                 ],
                 "responsive": true,
-                "pageLength": 10,
+                "pageLength": 3,
                 "lengthChange": true,
-                "lengthMenu": [5, 10, 25, 50, 100],
+                "lengthMenu": [3, 5, 10, 25, 50, 100],
                 "autoWidth": true,
                 "order": [
                     [0, 'desc']

@@ -28,7 +28,7 @@ $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="<?php echo BASE_URL; ?>assets/index2.html" class="h1"><b>Admin Login</b>RSS</a>
+                <a href="#" class="h1"><b>Admin Login</b></a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
@@ -43,8 +43,26 @@ $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
                         </div>
                         <div class="invalid-feedback">Please enter a valid Username.</div>
                     </div>
+                    <!-- <div class="input-group mb-3">
+                        <input type="password" class="form-control" id="adminPassword" name="password" placeholder="Password" value="<?php //echo $password; ?>" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">Please enter your password.</div>
+                    </div> -->
+                    <!-- Password input field with show/hide icon -->
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" id="adminPassword" name="password" placeholder="Password" value="<?php echo $password; ?>" required>
+
+                        <!-- Eye icon for showing/hiding password -->
+                        <div class="input-group-append">
+                            <div class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                <span id="togglePasswordicon" class="fas fa-eye"></span>
+                            </div>
+                        </div>
+
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -52,6 +70,8 @@ $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
                         </div>
                         <div class="invalid-feedback">Please enter your password.</div>
                     </div>
+
+
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
@@ -79,8 +99,24 @@ $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
     <!-- AdminLTE App -->
     <script src="<?php echo BASE_URL; ?>assets/dist/js/adminlte.min.js"></script>
     <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            // Select the password input field
+            var passwordField = document.getElementById('adminPassword');
+            var icon = document.getElementById('togglePasswordicon');;
 
+            // Toggle the type attribute between 'password' and 'text'
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
     </script>
+
 </body>
 
 </html>
