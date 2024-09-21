@@ -10,7 +10,9 @@ $db = $database->getConnection();
 $complaint = new Complaint($db);
 //$technician = new Technician($db);
 
-$complaintId = $_GET['id'];
+// $complaintId = $_GET['id'];
+$complaintId = $_GET['callnumber'];
+
 $currentComplaint = $complaint->getComplaintById($complaintId); // Assuming this function exists
 $complaint_status = $currentComplaint['callstatus'];
 $technicians = $complaint->getTechnicians(); // Assuming this function exists

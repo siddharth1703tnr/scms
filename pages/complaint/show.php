@@ -424,8 +424,8 @@ require_once '../../config/config.php';
                         "orderable": false,
                         "render": function(data, type, row) {
                             return `<div class="d-flex flex-row justify-content-around">
-                                            <button class="btn btn-outline-warning btn-edit" data-id="${row.id}" title="Edit"><i class="fas fa-pencil-alt"></i></button>
-                                            <button class="btn btn-outline-primary btn-view" data-id="${row.id}" title="View"><i class="far fa-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-edit" data-callnumber="${row.callnumber}" title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-outline-primary btn-view" data-callnumber="${row.callnumber}" title="View"><i class="far fa-eye"></i></button>
                                         </div>`;
                         }
                     }
@@ -465,13 +465,13 @@ require_once '../../config/config.php';
 
             // View Complaint
             $('#complaintTable').on('click', '.btn-view', function() {
-                var complaintId = $(this).data('id');
+                var callnumber = $(this).data('callnumber');
                 $.ajax({
                     url: '../../controllers/complaint/ajax/fetchComplaint.php',
                     method: 'POST',
                     data: {
                         action: 'getComplaintById',
-                        id: complaintId
+                        id: callnumber
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -511,12 +511,13 @@ require_once '../../config/config.php';
                 });
             });
 
-            // Edit Complaint
+           // Edit Complaint
             $('#complaintTable').on('click', '.btn-edit', function() {
-                var complaintId = $(this).data('id');
-                // Redirect to the update page with the complaint ID as a query parameter
-                window.location.href = '../../pages/complaint/update.php?id=' + complaintId;
+                var callnumber = $(this).data('callnumber');
+                // Redirect to the update page with the callnumber as a query parameter
+                window.location.href = '../../pages/complaint/update.php?callnumber=' + callnumber;
             });
+
 
 
             // Function to handle AJAX form submission with validation

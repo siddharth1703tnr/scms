@@ -96,7 +96,39 @@ class Complaint extends BaseModel
     public function getComplaintById($id)
     {
         // SQL query to get the complaint and technician details
-    $query = "SELECT 
+        $query = "SELECT 
+                sc.*, 
+                CONCAT(scu_technician.firstname, ' ', scu_technician.lastname) AS technician_name,  -- Fetching technician full name
+                scu_creator.username AS creator_username,     -- Fetching creator's username
+                scu_modifier.username AS modifier_username,   -- Fetching modifier's username
+                d.name AS distributor_name,                   -- Fetching distributor name
+                du.username AS distributoruser_username       -- Fetching distributor user username
+            FROM 
+                servicecall sc
+            LEFT JOIN 
+                servicecenteruser scu_technician ON sc.technicianassigned = scu_technician.id
+            LEFT JOIN 
+                servicecenteruser scu_creator ON sc.createby = scu_creator.id
+            LEFT JOIN 
+                servicecenteruser scu_modifier ON sc.modifiedby = scu_modifier.id
+            LEFT JOIN 
+                distributor d ON sc.createby_distributor_id = d.id
+            LEFT JOIN 
+                distributoruser du ON sc.createby_distributoruser_id = du.id
+            WHERE 
+                sc.callnumber = ?";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    public function getComplaintByComplaintId($ComplaintId)
+    {
+        // SQL query to get the complaint and technician details
+        $query = "SELECT 
                 sc.*, 
                 CONCAT(scu_technician.firstname, ' ', scu_technician.lastname) AS technician_name,  -- Fetching technician full name
                 scu_creator.username AS creator_username,     -- Fetching creator's username
@@ -119,7 +151,7 @@ class Complaint extends BaseModel
                 sc.id = ?";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $ComplaintId);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();
