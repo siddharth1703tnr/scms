@@ -91,6 +91,24 @@
             </li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <!-- <i class="nav-icon fas fa-circle text-info"></i> -->
+            <i class="nav-icon far fa-address-card text-warning"></i>&nbsp;
+            <p>
+              Admin
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?php echo BASE_URL; ?>pages/servicecenteruser/show.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Manage</p>
+              </a>
+            </li>
+          </ul>
+        </li>
         <!-- <li class="nav-header"><a href="../ublic/logout.php" class="btn btn-block btn-outline-warning text-warning" id="logoutButton">LOGOUT</a></li> -->
       </ul>
     </nav>
