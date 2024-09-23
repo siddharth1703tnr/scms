@@ -19,6 +19,32 @@ $dealerId = $_GET['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Dealer</title>
     <?php require_once('../../../includes/link.php')  ?>
+    <style>
+        .pass_show {
+        position: relative;
+        }
+
+        .pass_show .input-append {
+        position: absolute;
+        top: 40%;
+        right: 10%;
+        transform: translateY(-50%);
+        padding: 0;
+        }
+
+        .pass_show .invalid-feedback {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        transform: translateY(5px);
+        transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .pass_show .invalid-feedback.show {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -263,6 +289,17 @@ $dealerId = $_GET['id'];
                                                 <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                             </div>
                                             <div class="col-md-6">
+                                                <label for="dealerUserPass" class="form-label">Password</label>
+                                                <!-- <input type="tel" class="form-control shadow-none" name="dealerUserPass" id="dealerUserPass" required> -->
+                                                <div class="form-group pass_show" style="position: relative;"> 
+                                                    <input type="password" class="form-control shadow-none" name="dealerUserPass" id="dealerUserPass" required> 
+                                                    <div class="input-append">
+                                                        <span class="ptxt" style="position: absolute; top: 50%; right: 10px; z-index: 1; color: #f36c01; margin-top: -10px; cursor: pointer; transition: .3s ease all;"><i class="fas fa-eye"></i></span>
+                                                    </div>
+                                                    <div class="invalid-feedback">Please enter a valid Password.</div>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-6">
                                                 <label for="dealerUserStatus" class="form-label">Dealer User Status</label>
                                                 <div class="custom-control custom-switch">
                                                     <input type="checkbox" class="custom-control-input" id="dealerUserStatus" name="isActive" value="Y">
@@ -289,6 +326,24 @@ $dealerId = $_GET['id'];
     </div>
     <!-- ./wrapper -->
     <?php require_once('../../../includes/script.php') ?>
+    <script>
+        $(document).on('click', '.pass_show .ptxt', function() {
+        $(this).find('i').toggleClass('fa-eye fa-eye-slash');
+        $(this).closest('.form-group').find('input').attr('type', function(index, attr) {
+            return attr == 'password' ? 'text' : 'password';
+        });
+        });
+
+        // Optional: Validate password length
+        $('#dealerUserPass').on('input', function() {
+        var password = $(this).val();
+        if (password.length < 8) {
+            $(this).siblings('.invalid-feedback').addClass('show');
+        } else {
+            $(this).siblings('.invalid-feedback').removeClass('show');
+        }
+        });
+    </script>
     <!-- Page specific script -->
     <script>
         $(document).ready(function() {
@@ -529,6 +584,8 @@ $dealerId = $_GET['id'];
                         $('#dealerUserFirstName').val(response.firstname);
                         $('#dealerUserLastName').val(response.lastname);
                         $('#dealerUserMobile').val(response.mobileno);
+                        $('#dealerUserPass').attr('type', 'password');
+                        $('#dealerUserPass').val(response.userpassword);
                         $('#dealerUserStatus').val(response.isactive);
 
                         // Update status switch and label

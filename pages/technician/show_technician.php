@@ -9,6 +9,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin | Technician</title>
         <?php require_once('../../includes/link.php')  ?>
+        <style>
+        .pass_show {
+        position: relative;
+        }
+
+        .pass_show .input-append {
+        position: absolute;
+        top: 40%;
+        right: 10%;
+        transform: translateY(-50%);
+        padding: 0;
+        }
+
+        .pass_show .invalid-feedback {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        transform: translateY(5px);
+        transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .pass_show .invalid-feedback.show {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    </style>
         
     </head>
 
@@ -190,6 +216,17 @@
                                                             <label class="custom-control-label" for="technicianStatus" id="statusLabel">Inactive</label>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <label for="technician_password" class="form-label">Password</label>
+                                                        <!-- <input type="tel" class="form-control shadow-none" name="technician_password" id="technician_password" required> -->
+                                                        <div class="form-group pass_show" style="position: relative;"> 
+                                                            <input type="password" class="form-control shadow-none" name="technician_password" id="technician_password" required> 
+                                                            <div class="input-append">
+                                                                <span class="ptxt" style="position: absolute; top: 50%; right: 10px; z-index: 1; color: #f36c01; margin-top: -10px; cursor: pointer; transition: .3s ease all;"><i class="fas fa-eye"></i></span>
+                                                            </div>
+                                                            <div class="invalid-feedback">Please enter a valid Password.</div>
+                                                        </div> 
+                                                    </div>
                                                 </div>
                                             </div><!-- /.card-body -->
                                         </div>
@@ -210,7 +247,24 @@
         </div>
 
         <?php require_once('../../includes/script.php')  ?>
+        <script>
+            $(document).on('click', '.pass_show .ptxt', function() {
+            $(this).find('i').toggleClass('fa-eye fa-eye-slash');
+            $(this).closest('.form-group').find('input').attr('type', function(index, attr) {
+                return attr == 'password' ? 'text' : 'password';
+            });
+            });
 
+            // Optional: Validate password length
+            $('#technician_password').on('input', function() {
+            var password = $(this).val();
+            if (password.length < 8) {
+                $(this).siblings('.invalid-feedback').addClass('show');
+            } else {
+                $(this).siblings('.invalid-feedback').removeClass('show');
+            }
+            });
+        </script>
         <script>
             $(document).ready(function() {
 
@@ -266,12 +320,12 @@
                             "orderable": false, // Disable sorting for this column
                             "render": function(data, type, row) {
                                 return `  <button
-    class="btn btn-outline-warning btn-edit"
-    data-id="${row.id}"
-    title="Edit"
-  >
-    <i class="fas fa-pencil-alt"></i>
-  </button>`;
+                                            class="btn btn-outline-warning btn-edit"
+                                            data-id="${row.id}"
+                                            title="Edit"
+                                        >
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </button>`;
                             }
                         }
                     ],
@@ -381,7 +435,6 @@
                         success: function(response) {
                             // Populate the form fields with fetched data
                             $('#technicianId').val(response.id);
-                            // $('#Technician_password').val(response.password);
                             $('#technicianUserName').text(response.username);
                             $('#technicianPrimaryMobile').val(response.primarymobileno);
                             $('#technicianSecondaryMobile').val(response.secondmobileno);
@@ -389,6 +442,8 @@
                             $('#technicianLastName').val(response.lastname);
                             $('#technicianAddress').val(response.address);
                             $('#technicianCity').val(response.city);
+                            $('#technician_password').attr('type', 'password');
+                            $('#technician_password').val(response.password);
 
                             // Update status switch and label
                             if (response.isactive === 'Y') {

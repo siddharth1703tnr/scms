@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $firstname = htmlspecialchars(strip_tags($_POST['dealerUserFirstName']));
             $lastname = htmlspecialchars(strip_tags($_POST['dealerUserLastName']));
             $mobileno = htmlspecialchars(strip_tags($_POST['dealerUserMobile']));
+            $pass = htmlspecialchars(strip_tags($_POST['dealerUserPass']));
             $modifydate = date('Y-m-d H:i:s');
 
             $data = [
@@ -27,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'firstname' => $firstname,
                 'lastname' => $lastname,
                 'mobileno' => $mobileno,
+                'userpassword' => $pass,
                 'modifydate' => $modifydate,
             ];
 

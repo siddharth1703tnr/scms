@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $lastname = htmlspecialchars(strip_tags($_POST['lastName']));
             $address = htmlspecialchars(strip_tags($_POST['address']));
             $city = htmlspecialchars(strip_tags($_POST['city']));
+            $pass = htmlspecialchars(strip_tags($_POST['technician_password']));
             $isActive = isset($_POST['isActive']) && $_POST['isActive'] === 'Y' ? 'Y' : 'N';
             $modifydate = date('Y-m-d H:i:s');
 
@@ -28,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'lastname' => $lastname,
                 'address' => $address,
                 'city' => $city,
+                'password' => $pass,
                 'isactive' => $isActive,
                 'modifydate' => $modifydate
             ];
