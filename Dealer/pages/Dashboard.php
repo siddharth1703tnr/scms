@@ -13,10 +13,14 @@ $dashboard = new Dashboard($db);
 // Get counts
 $newComplaintCount = $dashboard->getNewComplaintCount();
 $assignedComplaintCount = $dashboard->getAssignedComplaintCount();
+$closeComplaintCount = $dashboard->getCloseComplaintCount();
 $activeComplaintCount = $dashboard->getActiveComplaintCount();
+$todaysComplaintCount = $dashboard->getTodaysComplaintCount();
 
-// Get today's complaints
+
+// Get complaints List
 $todaysComplaints = $dashboard->getTodaysComplaints();
+$activeComplaints = $dashboard->getActiveComplaints();
 
 
 ?>
@@ -69,14 +73,14 @@ $todaysComplaints = $dashboard->getTodaysComplaints();
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>150</h3>
+                                    <h3><?php echo $closeComplaintCount ?></h3>
 
                                     <p>Closed Complaint</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo BASE_URL; ?>pages/dealerShow.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -91,7 +95,7 @@ $todaysComplaints = $dashboard->getTodaysComplaints();
                                 <div class="icon">
                                     <i class="fas fa-plus"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo BASE_URL; ?>pages/dealerShow.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -106,7 +110,7 @@ $todaysComplaints = $dashboard->getTodaysComplaints();
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo BASE_URL; ?>pages/dealerShow.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -121,7 +125,7 @@ $todaysComplaints = $dashboard->getTodaysComplaints();
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo BASE_URL; ?>pages/dealerShow.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -130,17 +134,17 @@ $todaysComplaints = $dashboard->getTodaysComplaints();
                     <!-- Main row -->
                     <div class="row">
                         <!-- Left col -->
-                        <section action class="col-lg-7 connectedSortable">
+                        <section class="col-lg-7 connectedSortable">
                             <!-- Custom tabs (Charts with tabs)-->
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">
                                         <i class="fas fa-chart-pie mr-1"></i>
-                                        Today's Complaints
+                                        Today's Complaints <span class="badge badge-primary"> <?php echo $todaysComplaintCount ?> </span>
                                     </h3>
                                 </div><!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="tab-content p-0">
+                                    <div class="tab-content p-0 table-responsive">
                                         <table class="table table-sm">
                                             <thead>
                                                 <tr>
@@ -196,6 +200,67 @@ $todaysComplaints = $dashboard->getTodaysComplaints();
 
                         </section>
                         <!-- /.Left col -->
+
+                        <!-- Right col -->
+                        <section class="col-lg-5 connectedSortable">
+                            <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>
+                                            Active Complaints <span class="badge badge-primary"> <?php echo $activeComplaintCount ?> </span>
+                                        </h3>
+                                    </div><!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="tab-content p-0 table-responsive">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 10px">#</th>
+                                                        <th>Complaint No.</th>
+                                                        <th>Customer Name</th>
+                                                        <th>Customer Mo. No.</th>
+                                                        <th style="width: 40px">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <?php if (count($activeComplaints) > 0): ?>
+                                                    <?php foreach ($activeComplaints as $index => $activeComplaint): ?>
+                                                        <?php
+                                                        // Determine the badge class based on the complaint status
+                                                        $statusClass = '';
+                                                        switch ($activeComplaint['callstatus']) {
+                                                            case 'New':
+                                                                $statusClass = 'badge bg-success';
+                                                                break;
+                                                            case 'Assigned':
+                                                                $statusClass = 'badge bg-warning';
+                                                                break;
+                                                            case 'Close':
+                                                                $statusClass = 'badge bg-danger';
+                                                                break;
+                                                            case 'Cancelled':
+                                                                $statusClass = 'badge bg-light text-dark';
+                                                                break;
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td><?= $index + 1; ?>.</td>
+                                                            <td><?= htmlspecialchars($activeComplaint['callnumber']); ?></td>
+                                                            <td><?= htmlspecialchars($activeComplaint['customername']); ?></td>
+                                                            <td><?= htmlspecialchars($activeComplaint['customermobileno']); ?></td>
+                                                            <td><span class="<?= $statusClass; ?>"><?= strtoupper($activeComplaint['callstatus']); ?></span></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <tr>
+                                                        <td colspan="5">No complaints found for today.</td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            </table>
+                                        </div>
+                                    </div><!-- /.card-body -->
+                                </div>
+                        </section>
+                        <!-- /.Right col -->
                     </div>
                     <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->

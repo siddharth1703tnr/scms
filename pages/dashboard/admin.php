@@ -264,6 +264,8 @@ $activeComplaints = $dashboard->getActiveComplaints();
 
                         </section>
                         <!-- /.Left col -->
+
+                        <!-- Right col -->
                         <section class="col-lg-5 connectedSortable">
                             <div class="card">
                                     <div class="card-header">
@@ -322,9 +324,7 @@ $activeComplaints = $dashboard->getActiveComplaints();
                                     </div><!-- /.card-body -->
                                 </div>
                         </section>
-                         <!-- Right col -->
-
-                          <!-- /.Right col -->
+                        <!-- /.Right col -->
                     </div>
                     <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
