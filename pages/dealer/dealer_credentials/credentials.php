@@ -207,11 +207,13 @@ $dealerId = $_GET['id'];
                                             <div class="col-6">
                                                 <label for="dealerUser_mobile" class="form-label">Mobile No <span class="text-danger"> * </span></label>
                                                 <input
-                                                    type="text"
+                                                    type="tel"
                                                     class="form-control shadow-none"
                                                     name="dealerUser_mobile"
                                                     id="dealerUser_mobile"
-                                                    pattern="[0-9]{10}" 
+                                                    pattern="[0-9]{10}"
+                                                    maxlength="10" 
+                                                    inputmode="numeric" 
                                                     required />
                                                 <div class="invalid-feedback">
                                                     Please enter a mobile number.
@@ -281,7 +283,7 @@ $dealerId = $_GET['id'];
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="dealerUserMobile" class="form-label">Mobile No</label>
-                                                <input type="tel" class="form-control shadow-none" name="dealerUserMobile" id="dealerUserMobile" pattern="[0-9]{10}" required>
+                                                <input type="tel" class="form-control shadow-none" name="dealerUserMobile" id="dealerUserMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                 <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                             </div>
                                             <div class="col-md-6">
@@ -323,6 +325,14 @@ $dealerId = $_GET['id'];
     <!-- ./wrapper -->
     <?php require_once('../../../includes/script.php') ?>
     <script>
+
+        document.getElementById('dealerUserMobile').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+        });
+        document.getElementById('dealerUser_mobile').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+        });
+
         $(document).on('click', '.pass_show .ptxt', function() {
         $(this).find('i').toggleClass('fa-eye fa-eye-slash');
         $(this).closest('.form-group').find('input').attr('type', function(index, attr) {

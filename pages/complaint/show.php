@@ -277,7 +277,7 @@ require_once '../../config/config.php';
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="customerPhoneNumber" class="form-label">Customer Phone Number <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="customerPhoneNumber" id="customerPhoneNumber" autocomplete="off" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none" name="customerPhoneNumber" id="customerPhoneNumber" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid phone number.</div>
                                                     </div>
                                                     <div class="col-12">
@@ -351,6 +351,11 @@ require_once '../../config/config.php';
 
     <!-- Page specific script -->
     <script>
+
+        document.getElementById('customerPhoneNumber').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+        });
+
         $(document).ready(function() {
 
             // Initialize DataTable

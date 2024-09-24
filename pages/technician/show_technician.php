@@ -121,12 +121,12 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="registerTechnicianPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="primaryMobile" id="registerTechnicianPrimaryMobile" autocomplete="off" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="primaryMobile" id="registerTechnicianPrimaryMobile" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="registerTechnicianSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="secondaryMobile" id="registerTechnicianSecondaryMobile" autocomplete="off" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="secondaryMobile" id="registerTechnicianSecondaryMobile" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -181,12 +181,12 @@
                                                     <input type="hidden" id="technicianId" name="technicianId">
                                                     <div class="col-md-6">
                                                         <label for="technicianPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="primaryMobile" id="technicianPrimaryMobile" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="primaryMobile" id="technicianPrimaryMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="technicianSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="secondaryMobile" id="technicianSecondaryMobile" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="secondaryMobile" id="technicianSecondaryMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -248,6 +248,17 @@
 
         <?php require_once('../../includes/script.php')  ?>
         <script>
+
+                        // Get all elements with the class 'mobile-input'
+            var mobileInputs = document.querySelectorAll('.mobile-input');
+
+            // Loop through each input field and apply the event listener
+            mobileInputs.forEach(function(inputField) {
+                inputField.addEventListener('input', function (e) {
+                    this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+                });
+            });
+
             $(document).on('click', '.pass_show .ptxt', function() {
             $(this).find('i').toggleClass('fa-eye fa-eye-slash');
             $(this).closest('.form-group').find('input').attr('type', function(index, attr) {
