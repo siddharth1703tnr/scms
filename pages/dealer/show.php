@@ -15,7 +15,7 @@ $db = $database->getConnection();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Admin | Dealer</title>
     <?php require_once('../../includes/link.php')  ?>
 </head>
 
@@ -111,12 +111,12 @@ $db = $database->getConnection();
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Dealer_PMobile_No" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="Dealer_PMobile_No" id="Dealer_PMobile_No" autocomplete="off" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="Dealer_PMobile_No" id="Dealer_PMobile_No" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a Primary Mobile No.</div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Dealer_SMobile_No" class="form-label">Second Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="Dealer_SMobile_No" id="Dealer_SMobile_No" autocomplete="off" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="Dealer_SMobile_No" id="Dealer_SMobile_No" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a Second Mobile No.</div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -171,12 +171,12 @@ $db = $database->getConnection();
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="dealerPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="dealerPrimaryMobile" id="dealerPrimaryMobile" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="dealerPrimaryMobile" id="dealerPrimaryMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="dealerSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="dealerSecondaryMobile" id="dealerSecondaryMobile" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="dealerSecondaryMobile" id="dealerSecondaryMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -225,6 +225,16 @@ $db = $database->getConnection();
     <?php require_once('../../includes/script.php')  ?>
     <!-- Page specific script -->
     <script>
+        // Get all elements with the class 'mobile-input'
+        var mobileInputs = document.querySelectorAll('.mobile-input');
+
+        // Loop through each input field and apply the event listener
+        mobileInputs.forEach(function(inputField) {
+            inputField.addEventListener('input', function (e) {
+                this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+            });
+        });
+
         $(document).ready(function() {
 
             // Initialize the Dealer DataTable

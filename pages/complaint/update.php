@@ -3,14 +3,15 @@ require_once '../../config/config.php';
 require_once '../../classes/Database.php';
 require_once '../../classes/BaseModel.php';
 require_once '../../classes/Complaint.php';
-require_once '../../classes/Technician.php'; // Assuming this class exists for fetching technician details
 
 $database = new Database();
 $db = $database->getConnection();
 $complaint = new Complaint($db);
 //$technician = new Technician($db);
 
-$complaintId = $_GET['id'];
+// $complaintId = $_GET['id'];
+$complaintId = $_GET['callnumber'];
+
 $currentComplaint = $complaint->getComplaintById($complaintId); // Assuming this function exists
 $complaint_status = $currentComplaint['callstatus'];
 $technicians = $complaint->getTechnicians(); // Assuming this function exists
@@ -23,7 +24,7 @@ $action = null;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Complaint</title>
+    <title>Update Complaint (<?php echo htmlspecialchars($currentComplaint['callnumber']); ?>)</title>
     <?php require_once('../../includes/link.php')  ?>
 </head>
 
@@ -83,7 +84,7 @@ $action = null;
                                         </div>
                                         <div class="col-md-6">
                                             <label for="Cus_Mobile_No" class="form-label">Phone</label>
-                                            <input type="tel" class="form-control shadow-none" name="Cus_Mobile_No" id="Cus_Mobile_No" value="<?php echo htmlspecialchars($currentComplaint['customermobileno']); ?>" required>
+                                            <input type="tel" class="form-control shadow-none" name="Cus_Mobile_No" id="Cus_Mobile_No" value="<?php echo htmlspecialchars($currentComplaint['customermobileno']); ?>" maxlength="10" inputmode="numeric" required>
                                         </div>
                                         <div class="col-12">
                                             <label for="Cus_Address" class="form-label">Address</label>
@@ -218,6 +219,11 @@ $action = null;
     <?php require_once('../../includes/script.php') ?>
 
     <script>
+
+        document.getElementById('Cus_Mobile_No').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+        });
+
         // Pass PHP variable to JavaScript
         var complaintStatus = '<?php echo $complaint_status; ?>';
 

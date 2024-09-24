@@ -8,7 +8,7 @@ require_once '../../config/config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Management</title>
+    <title>Admin | Customer</title>
     <?php require_once('../../includes/link.php')  ?>
 
 
@@ -105,12 +105,12 @@ require_once '../../config/config.php';
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="customerMobile" class="form-label">Mobile Number <span class="text-danger"> * </span></label>
-                                                    <input type="tel" class="form-control shadow-none" name="customerMobile" id="customerMobile" autocomplete="off" pattern="[0-9]{10}" required>
+                                                    <input type="tel" class="form-control shadow-none" name="customerMobile" id="customerMobile" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                     <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="customerWhatsApp" class="form-label">WhatsApp Number</label>
-                                                    <input type="tel" class="form-control shadow-none" name="customerWhatsApp" id="customerWhatsApp" autocomplete="off" pattern="[0-9]{10}">
+                                                    <input type="tel" class="form-control shadow-none" name="customerWhatsApp" id="customerWhatsApp" autocomplete="off" pattern="[0-9]{10} maxlength="10" inputmode="numeric"">
                                                     <div class="invalid-feedback">Please enter a valid 10-digit WhatsApp number.</div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -156,6 +156,14 @@ require_once '../../config/config.php';
     <?php require_once('../../includes/script.php')  ?>
 
     <script>
+
+        document.getElementById('customerMobile').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+        });
+        document.getElementById('customerWhatsApp').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+        });
+
         $(document).ready(function() {
             // Initialize the technician DataTable
             var table = $('#customerTable').DataTable({

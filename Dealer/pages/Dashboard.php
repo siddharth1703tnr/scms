@@ -1,8 +1,8 @@
 <?php
-require_once '../../config/config.php';
-require_once '../../classes/Database.php';
-require_once '../../classes/BaseModel.php';
-require_once '../../classes/Dashboard.php';
+require_once '../dealerConfig/config.php';
+require_once '../classes/Database.php';
+require_once '../classes/BaseModel.php';
+require_once '../classes/Dashboard.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -16,10 +16,7 @@ $assignedComplaintCount = $dashboard->getAssignedComplaintCount();
 $closeComplaintCount = $dashboard->getCloseComplaintCount();
 $activeComplaintCount = $dashboard->getActiveComplaintCount();
 $todaysComplaintCount = $dashboard->getTodaysComplaintCount();
-$activeTechnicianCount = $dashboard->getActiveTechnicianCount();
-$activeDistributorCount = $dashboard->getActiveDistributorCount();
-$activeDistributorCredentialsCount = $dashboard->getActiveDistributorCredentialsCount();
-$activeCustomerCount = $dashboard->getActiveCustomerCount();
+
 
 // Get complaints List
 $todaysComplaints = $dashboard->getTodaysComplaints();
@@ -33,18 +30,19 @@ $activeComplaints = $dashboard->getActiveComplaints();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Dashboard</title>
-    <?php require_once('../../includes/link.php')  ?>
+    <title>Dealer | Dashboard</title>
+    <?php require_once('../includes/link.php')  ?>
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        <?php require_once('../../includes/preloder.php') ?>
-        <?php require_once('../../includes/navbar.php') ?>
-        <?php require_once('../../includes/asidde-st.php') ?>
+        <?php require_once('../includes/preloder.php') ?>
+        <?php require_once('../includes/navbar.php') ?>
+        <?php require_once('../includes/asidde-st.php') ?>
 
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -57,7 +55,7 @@ $activeComplaints = $dashboard->getActiveComplaints();
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">admin</li>
+                                <li class="breadcrumb-item active">Dealer</li>
                                 <li class="breadcrumb-item active">dashbord</li>
                             </ol>
                         </div><!-- /.col -->
@@ -82,7 +80,7 @@ $activeComplaints = $dashboard->getActiveComplaints();
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
                                 </div>
-                                <a href="<?php echo BASE_URL; ?>pages/complaint/show.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo BASE_URL; ?>pages/dealerShow.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -97,7 +95,7 @@ $activeComplaints = $dashboard->getActiveComplaints();
                                 <div class="icon">
                                     <i class="fas fa-plus"></i>
                                 </div>
-                                <a href="<?php echo BASE_URL; ?>pages/complaint/show.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo BASE_URL; ?>pages/dealerShow.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -112,7 +110,7 @@ $activeComplaints = $dashboard->getActiveComplaints();
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="<?php echo BASE_URL; ?>pages/complaint/show.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo BASE_URL; ?>pages/dealerShow.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -127,72 +125,10 @@ $activeComplaints = $dashboard->getActiveComplaints();
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
                                 </div>
-                                <a href="<?php echo BASE_URL; ?>pages/complaint/show.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo BASE_URL; ?>pages/dealerShow.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
-                    </div>
-                    <!-- /.row -->
-                    <!-- Info boxes -->
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Actice Technicians</span>
-                                    <span class="info-box-number">
-                                        <?php echo $activeTechnicianCount ?>
-                                    </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Actice Dealers</span>
-                                    <span class="info-box-number"><?php echo $activeDistributorCount ?></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-
-                        <!-- fix for small devices only -->
-                        <div class="clearfix hidden-md-up"></div>
-
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Actice Dealers Credentials</span>
-                                    <span class="info-box-number"><?php echo $activeDistributorCredentialsCount ?></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Active Customer</span>
-                                    <span class="info-box-number"><?php echo $activeCustomerCount ?></span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </div>
-                        <!-- /.col -->
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->
@@ -332,11 +268,11 @@ $activeComplaints = $dashboard->getActiveComplaints();
             <!-- /.content -->
         </div>
 
-        <?php require_once('../../includes/footer.php') ?>
-        <?php require_once('../../includes/asidde-end.php') ?>
+        <?php require_once('..//includes/footer.php') ?>
+        <?php require_once('../includes/asidde-end.php') ?>
     </div>
 
-    <?php require_once('../../includes/script.php')  ?>
+    <?php require_once('../includes/script.php')  ?>
 </body>
 
 </html>

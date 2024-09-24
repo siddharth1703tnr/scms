@@ -1,12 +1,12 @@
 <?php
-require_once '../../../config/config.php';
-require_once '../../../classes/Database.php';
-require_once '../../../classes/Dealer_Credentials.php';
+require_once '../../dealerConfig/config.php';
+require_once '../../classes/Database.php';
+require_once '../../classes/Credential.php';
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
 
 $database = new Database();
 $db = $database->getConnection();
-$dealer_credentials = new Dealer_Credentials($db);
+$dealer_credentials = new Credentials($db);
 
 $id = $_POST['dealerUserId'];
 

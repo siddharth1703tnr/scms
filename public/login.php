@@ -1,10 +1,94 @@
 <?php
 define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/SCMS/');
-// Check if cookies are set and pre-fill the form
+
+// Start session at the top
+session_start();
+
+// Redirect to dashboard if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    header('Location: ' . BASE_URL . 'pages/dashboard/admin.php');
+    exit();
+}
+
+// Handle "Remember Me" functionality (if applicable)
 $username = isset($_COOKIE['username']) ? $_COOKIE['username'] : '';
 $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
-?>
 
+// Database connection
+$conn = mysqli_connect("localhost", "root", "admin", "servicecenter");
+date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
+
+// Handle connection errors
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if form is submitted
+if (isset($_POST['Login'])) {
+    // Get the username and password from POST request
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $rememberMe = isset($_POST['rememberMe']) ? true : false;
+
+    // Validate and sanitize input
+    $username = trim(htmlspecialchars(strip_tags($username)));
+    $password = trim(htmlspecialchars(strip_tags($password)));
+
+    $username = mysqli_real_escape_string($conn, $username);
+    $password = mysqli_real_escape_string($conn, $password);
+
+    // Prepare the SQL query
+    $query = "SELECT * FROM `servicecenteruser` WHERE BINARY `username` = ? AND `isactive` = 'Y'";
+
+    // Prepare and execute the query
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if a matching record is found
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+
+        // Check if the password matches
+        if ($password == $user['password']) {
+            $lastlogindate = date('Y-m-d H:i:s');
+            // Update last login date   
+            $updateQuery = "UPDATE `servicecenteruser` SET `lastlogindate` = ? WHERE `id` = ?";
+            $updateStmt = $conn->prepare($updateQuery);
+            $updateStmt->bind_param('si', $lastlogindate, $user['id']);
+            $updateStmt->execute();
+            
+            // Handle the "Remember Me" feature
+            if ($rememberMe) {
+                // Set cookies for 30 days (86400 * 30 seconds)
+                setcookie('username', $username, time() + (86400 * 30), "/");
+                setcookie('password', $password, time() + (86400 * 30), "/");
+            } else {
+                // Clear cookies if "Remember Me" is not checked
+                if (isset($_COOKIE['username'])) {
+                    setcookie('username', '', time() - 3600, "/");
+                }
+                if (isset($_COOKIE['password'])) {
+                    setcookie('password', '', time() - 3600, "/");
+                }
+            }
+
+            // Store user information in session
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_username'] = $user['username'];
+
+            // Redirect to dashboard
+            header('Location: ' . BASE_URL . 'pages/dashboard/admin.php');
+            exit(); // Important: Terminate the script after redirection
+        } else {
+            echo "<script> alert('User Password not found') </script>";
+        }
+    } else {
+        echo "<script> alert('User not found or inactive') </script>";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,6 +129,18 @@ $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" id="adminPassword" name="password" placeholder="Password" value="<?php echo $password; ?>" required>
+                        <!-- <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div> -->
+                        <!-- Eye icon for showing/hiding password -->
+                        <div class="input-group-append">
+                            <div class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                <span id="togglePasswordicon" class="fas fa-eye"></span>
+                            </div>
+                        </div>
+
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -79,88 +175,24 @@ $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
     <!-- AdminLTE App -->
     <script src="<?php echo BASE_URL; ?>assets/dist/js/adminlte.min.js"></script>
     <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            // Select the password input field
+            var passwordField = document.getElementById('adminPassword');
+            var icon = document.getElementById('togglePasswordicon');;
 
+            // Toggle the type attribute between 'password' and 'text'
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
     </script>
 </body>
 
 </html>
 
-
-<?php
-
-$conn = mysqli_connect("localhost", "root", "admin", "servicecenter");
-date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
-// Handle connection errors
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-
-if (isset($_POST['Login'])) {
-    // Get the username and password from POST request
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $rememberMe = isset($_POST['rememberMe']) ? true : false;
-
-    // Validate and sanitize input
-    $username = trim(htmlspecialchars(strip_tags($username)));
-    $password = trim(htmlspecialchars(strip_tags($password)));
-
-    $username = mysqli_real_escape_string($conn, $username);
-    $password = mysqli_real_escape_string($conn, $password);
-
-
-
-    // Prepare the SQL query
-    $query = "SELECT * FROM `servicecenteruser` WHERE BINARY `username` = ? AND `isactive` = 'Y'";
-
-    // Prepare and execute the query
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Check if a matching record is found
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-
-        // Check if the password matches
-        if ($password == $user['password']) {
-            $lastlogindate = date('Y-m-d H:i:s');
-            // Update last login date   
-            $updateQuery = "UPDATE `servicecenteruser` SET `lastlogindate` = ? WHERE `id` = ?";
-            $updateStmt = $conn->prepare($updateQuery);
-            $updateStmt->bind_param('si', $lastlogindate, $user['id']);
-            $updateStmt->execute();
-             // Handle the "Remember Me" feature
-            if ($rememberMe) {
-                // Set cookies for 30 days (86400 * 30 seconds)
-                setcookie('username', $username, time() + (86400 * 30), "/");
-                setcookie('password', $password, time() + (86400 * 30), "/");
-            } else {
-                // Clear cookies if "Remember Me" is not checked
-                if (isset($_COOKIE['username'])) {
-                    setcookie('username', '', time() - 3600, "/");
-                }
-                if (isset($_COOKIE['password'])) {
-                    setcookie('password', '', time() - 3600, "/");
-                }
-            }
-            session_start();
-            // Store user information in session
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_username'] = $user['username'];
-
-            // Redirect to dashboard
-            header('Location: ' . BASE_URL . 'pages/dashboard/admin.php');
-
-        } else {
-            echo "<script> alert('User Password not found') </script>";
-        }
-    } else {
-        echo "<script> alert('User not found or inactive') </script>";
-    }
-}
-
-
-?> 

@@ -1,16 +1,16 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../classes/Database.php';
-require_once '../../classes/Technician.php';
+require_once '../../classes/Servicecenteruser.php';
 date_default_timezone_set('Asia/Kolkata'); // Set the timezone to IST
 $database = new Database();
 $db = $database->getConnection();
-$technician = new Technician($db);
+$servicecenteruser = new Servicecenteruser($db);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        if (isset($_POST['technicianId']) && isset($_POST['primaryMobile'])) {
-            $id = intval($_POST['technicianId']);
+        if (isset($_POST['servicecenteruserId']) && isset($_POST['primaryMobile'])) {
+            $id = intval($_POST['servicecenteruserId']);
 
             $primarymobileno = htmlspecialchars(strip_tags($_POST['primaryMobile']));
             $secondmobileno = htmlspecialchars(strip_tags($_POST['secondaryMobile']));
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $lastname = htmlspecialchars(strip_tags($_POST['lastName']));
             $address = htmlspecialchars(strip_tags($_POST['address']));
             $city = htmlspecialchars(strip_tags($_POST['city']));
-            $pass = htmlspecialchars(strip_tags($_POST['technician_password']));
+            $pass = htmlspecialchars(strip_tags($_POST['servicecenteruser_password']));
             $isActive = isset($_POST['isActive']) && $_POST['isActive'] === 'Y' ? 'Y' : 'N';
             $modifydate = date('Y-m-d H:i:s');
 
@@ -34,16 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'modifydate' => $modifydate
             ];
 
-            if ($technician->updateTechnician($id, $data)) {
+            if ($servicecenteruser->updateServicecenteruser($id, $data)) {
                 echo json_encode([
                     'status' => 'success',
                     'class' => 'bg-warning',
                     'title' => 'Update',
                     'subtitle' => 'Success',
-                    'body' => 'Technician updated successfully'
+                    'body' => 'Servicecenteruser updated successfully'
                 ]);
             } else {
-                throw new Exception('Failed to update technician.');
+                throw new Exception('Failed to update servicecenteruser.');
             }
         } else {
             throw new Exception('Missing required parameters.');

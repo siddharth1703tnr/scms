@@ -7,7 +7,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin | Technician</title>
+        <title>Admin | Servicecenteruser</title>
         <?php require_once('../../includes/link.php')  ?>
         <style>
         .pass_show {
@@ -49,12 +49,12 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1><strong>Technician Management <i class="fas fa-user-ninja"></i></strong></h1>
+                                <h1><strong>Servicecenteruser Management <i class="fas fa-user-ninja"></i></strong></h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>pages/dashboard/admin.php">Home</a></li>
-                                    <li class="breadcrumb-item active"><a href="<?php echo BASE_URL; ?>pages/technician/show_technician.php">Technician</a></li>
+                                    <li class="breadcrumb-item active"><a href="<?php echo BASE_URL; ?>pages/servicecenteruser/show.php">Servicecenteruser</a></li>
                                     <li class="breadcrumb-item active">Show</li>
                                 </ol>
                             </div>
@@ -66,14 +66,14 @@
                         <div class="card-header d-flex justify-content-between">
                             <div class="ml-auto">
                                 <!-- Button to open the modal -->
-                                <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerTechnicianModal">
+                                <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerServicecenteruserModal">
                                 <i class="fas fa-user-plus"></i> Register
                                 </button>
                             </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="technicianTable" class="table table-bordered table-striped table-hover">
+                            <table id="servicecenteruserTable" class="table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>Username</th>
@@ -83,6 +83,7 @@
                                         <th>Secondary Mobile No</th>
                                         <th>Address</th>
                                         <th>City</th>
+                                        <th>Last Login</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -95,12 +96,12 @@
                     </div>
 
                     <!-- Register Modal -->
-                    <div class="modal fade" id="registerTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="registerTechnicianModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="registerServicecenteruserModal" tabindex="-1" role="dialog" aria-labelledby="registerServicecenteruserModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-                            <form id="registerTechnicianForm" novalidate>
+                            <form id="registerServicecenteruserForm" novalidate>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title" id="registerTechnicianModalLabel"><b>Register Technician</b></h2>
+                                        <h2 class="modal-title" id="registerServicecenteruserModalLabel"><b>Register Servicecenteruser</b></h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -110,43 +111,43 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianUsername" class="form-label">Username <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" autocomplete="off" name="username" id="registerTechnicianUsername" required>
+                                                        <label for="registerServicecenteruserUsername" class="form-label">Username <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" autocomplete="off" name="username" id="registerServicecenteruserUsername" required>
                                                         <div class="invalid-feedback">Please enter a username.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianPassword" class="form-label">Password <span class="text-danger"> * </span></label>
-                                                        <input type="password" class="form-control shadow-none" name="password" id="registerTechnicianPassword" required>
+                                                        <label for="registerServicecenteruserPassword" class="form-label">Password <span class="text-danger"> * </span></label>
+                                                        <input type="password" class="form-control shadow-none" name="password" id="registerServicecenteruserPassword" required>
                                                         <div class="invalid-feedback">Please enter a Password.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none mobile-input" name="primaryMobile" id="registerTechnicianPrimaryMobile" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
+                                                        <label for="registerServicecenteruserPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="primaryMobile" id="registerServicecenteruserPrimaryMobile" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none mobile-input" name="secondaryMobile" id="registerTechnicianSecondaryMobile" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
+                                                        <label for="registerServicecenteruserSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="secondaryMobile" id="registerServicecenteruserSecondaryMobile" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianFirstName" class="form-label">First Name <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="firstName" id="registerTechnicianFirstName" required>
+                                                        <label for="registerServicecenteruserFirstName" class="form-label">First Name <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" name="firstName" id="registerServicecenteruserFirstName" required>
                                                         <div class="invalid-feedback">Please enter a first name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianLastName" class="form-label">Last Name <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="lastName" id="registerTechnicianLastName" required>
+                                                        <label for="registerServicecenteruserLastName" class="form-label">Last Name <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" name="lastName" id="registerServicecenteruserLastName" required>
                                                         <div class="invalid-feedback">Please enter a last name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianAddress" class="form-label">Address <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="address" id="registerTechnicianAddress" required>
+                                                        <label for="registerServicecenteruserAddress" class="form-label">Address <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" name="address" id="registerServicecenteruserAddress" required>
                                                         <div class="invalid-feedback">Please enter an address.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="registerTechnicianCity" class="form-label">City <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="city" id="registerTechnicianCity" required>
+                                                        <label for="registerServicecenteruserCity" class="form-label">City <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" name="city" id="registerServicecenteruserCity" required>
                                                         <div class="invalid-feedback">Please enter a city.</div>
                                                     </div>
                                                 </div>
@@ -163,64 +164,64 @@
                     </div>
 
                     <!-- Update Modal -->
-                    <div class="modal fade" id="updateTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="updateTechnicianModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="updateServicecenteruserModal" tabindex="-1" role="dialog" aria-labelledby="updateServicecenteruserModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-                            <form id="updateTechnicianForm" novalidate>
+                            <form id="updateServicecenteruserForm" novalidate>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title" id="updateTechnicianModalLabel"><b>Update Technician</b></h2>
+                                        <h2 class="modal-title" id="updateServicecenteruserModalLabel"><b>Update Servicecenteruser</b></h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                    <h3 id="technicianUserName"> </h3>
+                                    <h3 id="servicecenteruserUserName"> </h3>
                                         <div class="card card-primary card-outline mt-2">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <input type="hidden" id="technicianId" name="technicianId">
+                                                    <input type="hidden" id="servicecenteruserId" name="servicecenteruserId">
                                                     <div class="col-md-6">
-                                                        <label for="technicianPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none mobile-input" name="primaryMobile" id="technicianPrimaryMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
+                                                        <label for="servicecenteruserPrimaryMobile" class="form-label">Primary Mobile No <span class="text-danger"> * </span></label>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="primaryMobile" id="servicecenteruserPrimaryMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none mobile-input" name="secondaryMobile" id="technicianSecondaryMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
+                                                        <label for="servicecenteruserSecondaryMobile" class="form-label">Secondary Mobile No <span class="text-danger"> * </span></label>
+                                                        <input type="tel" class="form-control shadow-none mobile-input" name="secondaryMobile" id="servicecenteruserSecondaryMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianFirstName" class="form-label">First Name <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="firstName" id="technicianFirstName" required>
+                                                        <label for="servicecenteruserFirstName" class="form-label">First Name <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" name="firstName" id="servicecenteruserFirstName" required>
                                                         <div class="invalid-feedback">Please enter a first name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianLastName" class="form-label">Last Name <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="lastName" id="technicianLastName" required>
+                                                        <label for="servicecenteruserLastName" class="form-label">Last Name <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" name="lastName" id="servicecenteruserLastName" required>
                                                         <div class="invalid-feedback">Please enter a last name.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianAddress" class="form-label">Address <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="address" id="technicianAddress" required>
+                                                        <label for="servicecenteruserAddress" class="form-label">Address <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" name="address" id="servicecenteruserAddress" required>
                                                         <div class="invalid-feedback">Please enter an address.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianCity" class="form-label">City <span class="text-danger"> * </span></label>
-                                                        <input type="text" class="form-control shadow-none" name="city" id="technicianCity" required>
+                                                        <label for="servicecenteruserCity" class="form-label">City <span class="text-danger"> * </span></label>
+                                                        <input type="text" class="form-control shadow-none" name="city" id="servicecenteruserCity" required>
                                                         <div class="invalid-feedback">Please enter a city.</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technicianStatus" class="form-label">Technician Status</label>
+                                                        <label for="servicecenteruserStatus" class="form-label">Servicecenteruser Status</label>
                                                         <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input" id="technicianStatus" name="isActive" value="Y">
-                                                            <label class="custom-control-label" for="technicianStatus" id="statusLabel">Inactive</label>
+                                                            <input type="checkbox" class="custom-control-input" id="servicecenteruserStatus" name="isActive" value="Y">
+                                                            <label class="custom-control-label" for="servicecenteruserStatus" id="statusLabel">Inactive</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label for="technician_password" class="form-label">Password</label>
-                                                        <!-- <input type="tel" class="form-control shadow-none" name="technician_password" id="technician_password" required> -->
+                                                        <label for="servicecenteruser_password" class="form-label">Password</label>
+                                                        <!-- <input type="tel" class="form-control shadow-none" name="servicecenteruser_password" id="servicecenteruser_password" required> -->
                                                         <div class="form-group pass_show" style="position: relative;"> 
-                                                            <input type="password" class="form-control shadow-none" name="technician_password" id="technician_password" required> 
+                                                            <input type="password" class="form-control shadow-none" name="servicecenteruser_password" id="servicecenteruser_password" required> 
                                                             <div class="input-append">
                                                                 <span class="ptxt" style="position: absolute; top: 50%; right: 10px; z-index: 1; color: #f36c01; margin-top: -10px; cursor: pointer; transition: .3s ease all;"><i class="fas fa-eye"></i></span>
                                                             </div>
@@ -249,7 +250,7 @@
         <?php require_once('../../includes/script.php')  ?>
         <script>
 
-                        // Get all elements with the class 'mobile-input'
+            // Get all elements with the class 'mobile-input'
             var mobileInputs = document.querySelectorAll('.mobile-input');
 
             // Loop through each input field and apply the event listener
@@ -267,7 +268,7 @@
             });
 
             // Optional: Validate password length
-            $('#technician_password').on('input', function() {
+            $('#servicecenteruser_password').on('input', function() {
             var password = $(this).val();
             if (password.length < 8) {
                 $(this).siblings('.invalid-feedback').addClass('show');
@@ -279,12 +280,12 @@
         <script>
             $(document).ready(function() {
 
-                // Initialize the technician DataTable
-                var table = $('#technicianTable').DataTable({
+                // Initialize the servicecenteruser DataTable
+                var table = $('#servicecenteruserTable').DataTable({
                     "processing": true, // Show a processing indicator
                     "serverSide": true, // Server-side processing for pagination, sorting, and searching
                     "ajax": {
-                        "url": "../../controllers/Technician/ajax/fetchTechnicians.php", // URL of the PHP file handling the AJAX request
+                        "url": "../../controllers/servicecenteruser/ajax/fetchServicecenteruser.php", // URL of the PHP file handling the AJAX request
                         "type": "POST", // Type of HTTP request
                         "data": {
                             "action": "getAllData" // Action to be performed (fetch data)
@@ -299,7 +300,7 @@
                         }
                     },
                     "columns": [
-                        // { "data": "id" },  // Technician ID
+                        // { "data": "id" },  // Servicecenteruser ID
                         {
                             "data": "username", // Username
                             "render": function(data, type, row) {
@@ -325,6 +326,9 @@
                         },
                         {
                             "data": "city"
+                        },
+                        {
+                            "data": "lastlogindate"
                         },
                         {
                             "data": null, // Action buttons (Edit)
@@ -357,7 +361,141 @@
                     // "dom": 'lBfrtip',  // Include the length menu and buttons
                 });
 
+                // Registration Form Submission
+                $("#registerServicecenteruserForm").on("submit", function(event) {
+                    event.preventDefault();
+                    var form = $(this);
 
+                    // Check username uniqueness
+                    checkUsername(function(isUnique) {
+                        if (isUnique) {
+                            submitForm(form, '../../controllers/Servicecenteruser/process_servicecenteruser.php', function() {
+                                table.ajax.reload();
+                                resetForm(form);
+                                $('#registerServicecenteruserModal').modal('hide');
+                            });
+                        } else {
+                            event.stopPropagation();
+                        }
+                    });
+                });
+
+                // Update Form Submission
+                $('#updateServicecenteruserForm').on('submit', function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+
+                    submitForm(form, '../../controllers/Servicecenteruser/processUpdate_servicecenteruser.php', function() {
+                        $('#updateServicecenteruserModal').modal('hide');
+                        table.ajax.reload();
+                        resetForm(form);
+                    });
+                });
+
+                // Edit Servicecenteruser
+                $('#servicecenteruserTable').on('click', '.btn-edit', function() {
+                    var servicecenteruserId = $(this).data('id');
+
+                    $.ajax({
+                        url: '../../controllers/servicecenteruser/ajax/fetchServicecenteruser.php',
+                        method: 'POST',
+                        data: {
+                            action: 'getById',
+                            id: servicecenteruserId
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            // Populate the form fields with fetched data
+                            $('#servicecenteruserId').val(response.id);
+                            $('#servicecenteruserUserName').text(response.username);
+                            $('#servicecenteruserPrimaryMobile').val(response.primarymobileno);
+                            $('#servicecenteruserSecondaryMobile').val(response.secondmobileno);
+                            $('#servicecenteruserFirstName').val(response.firstname);
+                            $('#servicecenteruserLastName').val(response.lastname);
+                            $('#servicecenteruserAddress').val(response.address);
+                            $('#servicecenteruserCity').val(response.city);
+                            $('#servicecenteruser_password').attr('type', 'password');
+                            $('#servicecenteruser_password').val(response.password);
+
+                            // Update status switch and label
+                            if (response.isactive === 'Y') {
+                                $('#servicecenteruserStatus').prop('checked', true);
+                                $('#statusLabel').text('Active');
+                            } else {
+                                $('#servicecenteruserStatus').prop('checked', false);
+                                $('#statusLabel').text('Inactive');
+                            }
+
+                            // Show the modal
+                            $('#updateServicecenteruserModal').modal('show');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+
+                // Status Label Update on Switch Toggle
+                $('#servicecenteruserStatus').change(function() {
+                    if ($(this).is(':checked')) {
+                        $('#statusLabel').text('Active');
+                        $(this).val('Y');
+                    } else {
+                        $('#statusLabel').text('Inactive');
+                        $(this).val('N');
+                    }
+                });
+
+                // Handle Modal Hidden Event to Reset Form
+                $('#updateServicecenteruserModal').on('hidden.bs.modal', function() {
+                    resetForm($('#updateServicecenteruserForm'));
+                });
+
+                // Handle Username Input to Check Uniqueness
+                $("#registerServicecenteruserUsername").on("input", function() {
+                    checkUsername(function() {});
+                });
+
+                // Handle Reset Button Click (Optional)
+                $("#resetButton").on("click", function() {
+                    resetForm($('#registerServicecenteruserForm'));
+                });
+
+                // Check Username Uniqueness
+                function checkUsername(callback) {
+                    var registerServicecenteruserUsername = $("#registerServicecenteruserUsername").val();
+
+                    if (registerServicecenteruserUsername.length > 0) {
+                        $.ajax({
+                            url: '../../controllers/Servicecenteruser/process_servicecenteruser.php',
+                            type: 'POST',
+                            data: {
+                                registerServicecenteruserUsername: registerServicecenteruserUsername,
+                                username_check: true
+                            },
+                            success: function(response) {
+                                if (response.exists) {
+                                    $("#registerServicecenteruserUsername").addClass("is-invalid");
+                                    $("#registerServicecenteruserUsername").siblings(".invalid-feedback").text("This username is already taken.");
+                                    callback(false);
+                                } else {
+                                    $("#registerServicecenteruserUsername").removeClass("is-invalid");
+                                    $("#registerServicecenteruserUsername").siblings(".invalid-feedback").text("");
+                                    callback(true);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.log('Full Response:', xhr.responseText);
+                                alert('Error: ' + xhr.responseText);
+                                callback(false);
+                            }
+                        });
+                    } else {
+                        $("#registerServicecenteruserUsername").removeClass("is-invalid");
+                        $("#registerServicecenteruserUsername").siblings(".invalid-feedback").text("");
+                        callback(true);
+                    }
+                }
 
                 // Function to handle form reset and clear validation
                 function resetForm(form) {
@@ -399,142 +537,6 @@
                         });
                     }
                 }
-
-                // Registration Form Submission
-                $("#registerTechnicianForm").on("submit", function(event) {
-                    event.preventDefault();
-                    var form = $(this);
-
-                    // Check username uniqueness
-                    checkUsername(function(isUnique) {
-                        if (isUnique) {
-                            submitForm(form, '../../controllers/Technician/process_technician.php', function() {
-                                table.ajax.reload();
-                                resetForm(form);
-                                $('#registerTechnicianModal').modal('hide');
-                            });
-                        } else {
-                            event.stopPropagation();
-                        }
-                    });
-                });
-
-                // Update Form Submission
-                $('#updateTechnicianForm').on('submit', function(e) {
-                    e.preventDefault();
-                    var form = $(this);
-
-                    submitForm(form, '../../controllers/Technician/processUpdate_technician.php', function() {
-                        $('#updateTechnicianModal').modal('hide');
-                        table.ajax.reload();
-                        resetForm(form);
-                    });
-                });
-
-                // Edit Technician
-                $('#technicianTable').on('click', '.btn-edit', function() {
-                    var technicianId = $(this).data('id');
-
-                    $.ajax({
-                        url: '../../controllers/Technician/ajax/fetchTechnicians.php',
-                        method: 'POST',
-                        data: {
-                            action: 'getById',
-                            id: technicianId
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            // Populate the form fields with fetched data
-                            $('#technicianId').val(response.id);
-                            $('#technicianUserName').text(response.username);
-                            $('#technicianPrimaryMobile').val(response.primarymobileno);
-                            $('#technicianSecondaryMobile').val(response.secondmobileno);
-                            $('#technicianFirstName').val(response.firstname);
-                            $('#technicianLastName').val(response.lastname);
-                            $('#technicianAddress').val(response.address);
-                            $('#technicianCity').val(response.city);
-                            $('#technician_password').attr('type', 'password');
-                            $('#technician_password').val(response.password);
-
-                            // Update status switch and label
-                            if (response.isactive === 'Y') {
-                                $('#technicianStatus').prop('checked', true);
-                                $('#statusLabel').text('Active');
-                            } else {
-                                $('#technicianStatus').prop('checked', false);
-                                $('#statusLabel').text('Inactive');
-                            }
-
-                            // Show the modal
-                            $('#updateTechnicianModal').modal('show');
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText);
-                        }
-                    });
-                });
-
-                // Status Label Update on Switch Toggle
-                $('#technicianStatus').change(function() {
-                    if ($(this).is(':checked')) {
-                        $('#statusLabel').text('Active');
-                        $(this).val('Y');
-                    } else {
-                        $('#statusLabel').text('Inactive');
-                        $(this).val('N');
-                    }
-                });
-
-                // Handle Modal Hidden Event to Reset Form
-                $('#updateTechnicianModal').on('hidden.bs.modal', function() {
-                    resetForm($('#updateTechnicianForm'));
-                });
-
-                // Handle Username Input to Check Uniqueness
-                $("#registerTechnicianUsername").on("input", function() {
-                    checkUsername(function() {});
-                });
-
-                // Check Username Uniqueness
-                function checkUsername(callback) {
-                    var registerTechnicianUsername = $("#registerTechnicianUsername").val();
-
-                    if (registerTechnicianUsername.length > 0) {
-                        $.ajax({
-                            url: '../../controllers/Technician/process_technician.php',
-                            type: 'POST',
-                            data: {
-                                registerTechnicianUsername: registerTechnicianUsername,
-                                username_check: true
-                            },
-                            success: function(response) {
-                                if (response.exists) {
-                                    $("#registerTechnicianUsername").addClass("is-invalid");
-                                    $("#registerTechnicianUsername").siblings(".invalid-feedback").text("This username is already taken.");
-                                    callback(false);
-                                } else {
-                                    $("#registerTechnicianUsername").removeClass("is-invalid");
-                                    $("#registerTechnicianUsername").siblings(".invalid-feedback").text("");
-                                    callback(true);
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.log('Full Response:', xhr.responseText);
-                                alert('Error: ' + xhr.responseText);
-                                callback(false);
-                            }
-                        });
-                    } else {
-                        $("#registerTechnicianUsername").removeClass("is-invalid");
-                        $("#registerTechnicianUsername").siblings(".invalid-feedback").text("");
-                        callback(true);
-                    }
-                }
-
-                // Handle Reset Button Click (Optional)
-                $("#resetButton").on("click", function() {
-                    resetForm($('#registerTechnicianForm'));
-                });
             });
         </script>
 

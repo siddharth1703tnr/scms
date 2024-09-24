@@ -1,8 +1,7 @@
 <?php
-require_once '../../../config/config.php';
+require_once '../dealerConfig/config.php';
 
 
-$dealerId = $_GET['id'];
 //$currentDealer = $dealer->getDealerById($dealerId); // Assuming this function exists
 
 ?>
@@ -14,7 +13,7 @@ $dealerId = $_GET['id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Dealer</title>
-    <?php require_once('../../../includes/link.php')  ?>
+    <?php require_once('../includes/link.php')  ?>
     <style>
         .pass_show {
         position: relative;
@@ -45,9 +44,9 @@ $dealerId = $_GET['id'];
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        <?php require_once('../../../includes/preloder.php') ?>
-        <?php require_once('../../../includes/navbar.php') ?>
-        <?php require_once('../../../includes/asidde-st.php') ?>
+        <?php require_once('../includes/preloder.php') ?>
+        <?php require_once('../includes/navbar.php') ?>
+        <?php require_once('../includes/asidde-st.php') ?>
 
         <div class="content-wrapper">
             <section class="content-header">
@@ -58,8 +57,7 @@ $dealerId = $_GET['id'];
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active"><a href="<?php echo BASE_URL; ?>pages/dealer/show.php">Dealer</a></li>
+                                <li class="breadcrumb-item"><a href="#">Dealer</a></li>
                                 <li class="breadcrumb-item active">Credentials</li>
                             </ol>
                         </div>
@@ -69,13 +67,13 @@ $dealerId = $_GET['id'];
 
             <div class="container-fluid">
                 <!-- Dealer Info -->
-                <div class="card card-primary card-outline">
+                 <div class="card card-primary card-outline">
                     <div class="card-body">
                         <div>
                             <div class="section-1">
                                 <div class="row row-gap-2">
                                     <!-- // id, name, isactive, primarymobileno, secondmobileno, emailaddress, address, city -->
-                                    <div class="col-md-6">
+                                     <div class="col-md-6">
                                         <label for="Dealer_Name" class="form-label">Name</label>
                                         <h1 id="dealerName"></h1>
                                     </div>
@@ -101,7 +99,7 @@ $dealerId = $_GET['id'];
                                     </div>
 
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
@@ -162,7 +160,7 @@ $dealerId = $_GET['id'];
                             <div class="modal-body">
                                 <div class="card card-success card-outline mt-2">
                                     <div class="card-body">
-                                        <input type="hidden" name="currentDealerId" id="currentDealerId" value="<?php echo $dealerId; ?>" />
+                                        <input type="hidden" name="currentDealerId" id="currentDealerId" value="<?php echo $_SESSION['distributor_id']; ?>" />
                                         <div class="row row-gap-2">
                                             <div class="col-md-6">
                                                 <label for="dealerUser_username" class="form-label">Username <span class="text-danger"> * </span></label>
@@ -207,13 +205,11 @@ $dealerId = $_GET['id'];
                                             <div class="col-6">
                                                 <label for="dealerUser_mobile" class="form-label">Mobile No <span class="text-danger"> * </span></label>
                                                 <input
-                                                    type="tel"
+                                                    type="text"
                                                     class="form-control shadow-none"
                                                     name="dealerUser_mobile"
                                                     id="dealerUser_mobile"
-                                                    pattern="[0-9]{10}"
-                                                    maxlength="10" 
-                                                    inputmode="numeric" 
+                                                    pattern="[0-9]{10}" 
                                                     required />
                                                 <div class="invalid-feedback">
                                                     Please enter a mobile number.
@@ -283,7 +279,7 @@ $dealerId = $_GET['id'];
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="dealerUserMobile" class="form-label">Mobile No</label>
-                                                <input type="tel" class="form-control shadow-none" name="dealerUserMobile" id="dealerUserMobile" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
+                                                <input type="tel" class="form-control shadow-none" name="dealerUserMobile" id="dealerUserMobile" pattern="[0-9]{10}" required>
                                                 <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                                             </div>
                                             <div class="col-md-6">
@@ -319,20 +315,12 @@ $dealerId = $_GET['id'];
         </div>
 
         <!-- /.content-wrapper -->
-        <?php require_once('../../../includes/footer.php') ?>
-        <?php require_once('../../../includes/asidde-end.php') ?>
+        <?php require_once('../includes/footer.php') ?>
+        <?php require_once('../includes/asidde-end.php') ?>
     </div>
     <!-- ./wrapper -->
-    <?php require_once('../../../includes/script.php') ?>
+    <?php require_once('../includes/script.php') ?>
     <script>
-
-        document.getElementById('dealerUserMobile').addEventListener('input', function (e) {
-            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
-        });
-        document.getElementById('dealerUser_mobile').addEventListener('input', function (e) {
-            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
-        });
-
         $(document).on('click', '.pass_show .ptxt', function() {
         $(this).find('i').toggleClass('fa-eye fa-eye-slash');
         $(this).closest('.form-group').find('input').attr('type', function(index, attr) {
@@ -354,7 +342,7 @@ $dealerId = $_GET['id'];
     <script>
         $(document).ready(function() {
 
-            var dealerId = "<?php echo $dealerId; ?>"; // Use the PHP variable to get the dealer ID
+            var dealerId = "<?php echo $_SESSION['distributor_id']; ?>"; // Use the PHP variable to get the dealer ID
             // Load the dealer info on page load
             loadDealerInfo();
 
@@ -363,7 +351,7 @@ $dealerId = $_GET['id'];
                 processing: true, // Show a processing indicator
                 serverSide: true, // Server-side processing for pagination, sorting, and searching
                 ajax: {
-                    url: "../../../controllers/dealer/dealer_credentials/ajax/fetchDealerCredentials.php", // URL of the PHP file handling the AJAX request
+                    url: "../controllers/dealer_credentials/ajax/fetchDealerCredentials.php", // URL of the PHP file handling the AJAX request
                     type: "POST", // Type of HTTP request
                     data: function(d) {
                         d.action = "getAlldealerCredentialsDataByDealerId"; // Action to be performed (fetch data)
@@ -436,7 +424,7 @@ $dealerId = $_GET['id'];
             // Function to fetch and display dealer info
             function loadDealerInfo() {
                 $.ajax({
-                    url: "../../../controllers/dealer/ajax/fetchDealer.php",
+                    url: "../controllers/dealer_credentials/ajax/fetchDealerCredentials.php",
                     type: "POST",
                     data: {
                         action: "getDealerById", // Pass the correct action
@@ -507,7 +495,7 @@ $dealerId = $_GET['id'];
                 // Check username uniqueness
                 checkUsername(function(isUnique) {
                     if (isUnique) {
-                        submitForm(form, '../../../controllers/dealer/dealer_credentials/process_dealer_Credentials.php', function() {
+                        submitForm(form, '../controllers/dealer_credentials/process_dealer_Credentials.php', function() {
                             table.ajax.reload();
                             resetForm(form);
                             $('#registerDealerCredentialsModal').modal('hide');
@@ -529,7 +517,7 @@ $dealerId = $_GET['id'];
 
                 if (dealerUser_username.length > 0) {
                     $.ajax({
-                        url: '../../../controllers/dealer/dealer_credentials/process_dealer_Credentials.php',
+                        url: '../controllers/dealer_credentials/process_dealer_Credentials.php',
                         type: 'POST',
                         data: {
                             dealerUser_username: dealerUser_username,
@@ -564,7 +552,7 @@ $dealerId = $_GET['id'];
                 e.preventDefault();
                 var form = $(this);
 
-                submitForm(form, '../../../controllers/dealer/dealer_credentials/process_update_dealer_credentials.php', function() {
+                submitForm(form, '../controllers/dealer_credentials/process_update_dealer_credentials.php', function() {
                     $('#updateDealerCredentialsModal').modal('hide');
                     table.ajax.reload();
                     resetForm(form);
@@ -576,7 +564,7 @@ $dealerId = $_GET['id'];
                 var dealerCredentialId = $(this).data('id');
 
                 $.ajax({
-                    url: '../../../controllers/dealer/dealer_credentials/ajax/fetchDealerCredentials.php',
+                    url: '../controllers/dealer_credentials/ajax/fetchDealerCredentials.php',
                     method: 'POST',
                     data: {
                         action: 'getDealerCredentialsById',

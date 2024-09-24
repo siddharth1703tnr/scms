@@ -8,7 +8,7 @@ require_once '../../config/config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Admin | Complaint</title>
     <?php require_once('../../includes/link.php')  ?>
 
 </head>
@@ -42,9 +42,9 @@ require_once '../../config/config.php';
             <div class="container-fluid">
                 <div class="card card-warning card-outline">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="mr-auto mt-auto mb-auto">
+                        <div class="ml-auto">
+                            <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerComplaintModal"><b>Register Complaint</b></button>
                         </div>
-                        <div class="ml-auto"><button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#registerComplaintModal"><b>Register Complaint</b></button></div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -58,7 +58,17 @@ require_once '../../config/config.php';
                                     <th>Customer Address</th>
                                     <th>Customer Problem</th>
                                     <th>Call Type</th>
-                                    <th>Call Status</th>
+                                    <th>
+                                        Call Status
+
+                                        <select id="statusFilter" class="form-control">
+                                            <option value="">All</option>
+                                            <option value="New">New</option>
+                                            <option value="Assigned">Assigned</option>
+                                            <option value="Close">Closed</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                        </select>
+                                    </th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -244,7 +254,6 @@ require_once '../../config/config.php';
                             </div>
                         </div>
                     </div>
-
                     <!-- complaint Register Model -->
                     <div class="modal fade" id="registerComplaintModal" tabindex="-1" role="dialog" aria-labelledby="registerComplaintModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
@@ -268,7 +277,7 @@ require_once '../../config/config.php';
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="customerPhoneNumber" class="form-label">Customer Phone Number <span class="text-danger"> * </span></label>
-                                                        <input type="tel" class="form-control shadow-none" name="customerPhoneNumber" id="customerPhoneNumber" autocomplete="off" pattern="[0-9]{10}" required>
+                                                        <input type="tel" class="form-control shadow-none" name="customerPhoneNumber" id="customerPhoneNumber" autocomplete="off" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" required>
                                                         <div class="invalid-feedback">Please enter a valid phone number.</div>
                                                     </div>
                                                     <div class="col-12">
@@ -342,6 +351,11 @@ require_once '../../config/config.php';
 
     <!-- Page specific script -->
     <script>
+
+        document.getElementById('customerPhoneNumber').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Removes non-numeric characters
+        });
+
         $(document).ready(function() {
 
             // Initialize DataTable
@@ -351,8 +365,9 @@ require_once '../../config/config.php';
                 "ajax": {
                     "url": "../../controllers/complaint/ajax/fetchComplaint.php",
                     "type": "POST",
-                    "data": {
-                        "action": "getAllComplaintData"
+                    "data": function(d) {
+                        d.action = "getAllComplaintData";
+                        d.callStatus = $('#statusFilter').val(); // Get selected call status
                     },
                     "dataSrc": function(json) {
                         if (json.error) {
@@ -386,7 +401,7 @@ require_once '../../config/config.php';
                     },
                     {
                         "data": "callstatus",
-                        "orderable": true,
+                        "orderable": false,
                         "render": function(data, type, row) {
                             var badgeClass;
                             switch (data) {
@@ -414,16 +429,16 @@ require_once '../../config/config.php';
                         "orderable": false,
                         "render": function(data, type, row) {
                             return `<div class="d-flex flex-row justify-content-around">
-                                            <button class="btn btn-outline-warning btn-edit" data-id="${row.id}" title="Edit"><i class="fas fa-pencil-alt"></i></button>
-                                            <button class="btn btn-outline-primary btn-view" data-id="${row.id}" title="View"><i class="far fa-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-edit" data-callnumber="${row.callnumber}" title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-outline-primary btn-view" data-callnumber="${row.callnumber}" title="View"><i class="far fa-eye"></i></button>
                                         </div>`;
                         }
                     }
                 ],
                 "responsive": true,
-                "pageLength": 10,
+                "pageLength": 3,
                 "lengthChange": true,
-                "lengthMenu": [5, 10, 25, 50, 100],
+                "lengthMenu": [3, 5, 10, 25, 50, 100],
                 "autoWidth": true,
                 "order": [
                     [0, 'desc']
@@ -442,15 +457,26 @@ require_once '../../config/config.php';
                 }]
             });
 
+            // Reload table data when call status filter changes
+            // $('#statusFilter').on('change', function() {
+            //     table.ajax.reload(); // Reload the DataTable with the new filter
+            // });
+
+            // Apply filter when the dropdown value changes
+            $('#statusFilter').on('change', function () {
+                var selectedStatus = $(this).val();
+                table.column(6).search(selectedStatus).draw(); // Column 6 is "callstatus"
+            });
+
             // View Complaint
             $('#complaintTable').on('click', '.btn-view', function() {
-                var complaintId = $(this).data('id');
+                var callnumber = $(this).data('callnumber');
                 $.ajax({
                     url: '../../controllers/complaint/ajax/fetchComplaint.php',
                     method: 'POST',
                     data: {
                         action: 'getComplaintById',
-                        id: complaintId
+                        id: callnumber
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -490,12 +516,13 @@ require_once '../../config/config.php';
                 });
             });
 
-            // Edit Complaint
+           // Edit Complaint
             $('#complaintTable').on('click', '.btn-edit', function() {
-                var complaintId = $(this).data('id');
-                // Redirect to the update page with the complaint ID as a query parameter
-                window.location.href = '../../pages/complaint/update.php?id=' + complaintId;
+                var callnumber = $(this).data('callnumber');
+                // Redirect to the update page with the callnumber as a query parameter
+                window.location.href = '../../pages/complaint/update.php?callnumber=' + callnumber;
             });
+
 
 
             // Function to handle AJAX form submission with validation

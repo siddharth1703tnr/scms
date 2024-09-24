@@ -23,18 +23,17 @@
 <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?php echo BASE_URL; ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
 <script>
     function checkSessionTimeout() {
         $.ajax({
-            url: '<?php echo BASE_URL; ?>config/config.php?check_timeout=1',
+            url: '<?php echo BASE_URL; ?>dealerConfig/config.php?check_timeout=1',
             method: 'GET',
             dataType: 'json',
             success: function(response) {
                 console.log('AJAX Response:', response); // Debugging: Log the response
                 if (response.timeout) {
                     alert('Your session has timed out due to inactivity. Please log in again.');
-                    window.location.href = '<?php echo BASE_URL; ?>public/login.php';
+                    window.location.href = '<?php echo BASE_URL; ?>/login.php';
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
