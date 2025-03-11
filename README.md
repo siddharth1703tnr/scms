@@ -32,7 +32,7 @@ Hardware
   💽 Storage: 100GB free space
   ⚙️ Installation Steps
 Clone this repository:
-  git clone https://github.com/<your-username>/<repository-name>.git  
+  git clone https://github.com/siddharth1703tnr/scms/.git  
   Install XAMPP/WAMP for a local server environment.
   Import the scms.sql file into MySQL.
   Configure your config.php with your database credentials.
